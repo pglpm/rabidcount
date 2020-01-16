@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-16T21:32:23+0100
+%% Last-Updated: 2020-01-16T22:08:35+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -726,7 +726,8 @@ techniques, is analogous to survey sampling: we manage to see, more or less
 clearly, a small sample of projections. From this sample we want to infer
 the larger picture, for a single brain and on average for a
 \enquote{typical} brain. We show here how to make such inferences using the
-probability-calculus \citep{jaynes1994_r2003,hailperin1996}, also known as
+probability-calculus
+\citep{jaynes1994_r2003,hailperin1996,soxetal1988_r2013}, also known as
 Bayesian theory.
 
 We accompany the method with an extensive discussion of its steps and
@@ -761,11 +762,11 @@ these two kinds of question:
 \item[Individual:] If we were able to perfectly count, in the next mouse to
   be examined, the number of input neurons in region $R$ projecting to
   target neurons of class $C$, -- what number would we find?
-\item[Collective:] If we were able to perfectly count, for each mouse (with some
-  specific traits such as age or gender and so on) to be examined in the
-  future or that could have been examined in the past, the number of input
-  neurons in region $R$ projecting to target neurons of class $C$, -- what
-  average number would we find?
+\item[Collective or average:] If we were able to perfectly count, for each
+  mouse (with some specific traits such as age or gender and so on) to be
+  examined in the future or that could have been examined in the past, the
+  number of input neurons in region $R$ projecting to target neurons of
+  class $C$, -- what average number would we find?
 \end{description}
 It's intuitively clear that the answer to the second question comes from
 the combination of answers to the first, for many mice.
@@ -803,31 +804,54 @@ questions above.
 
 Our inference, based the probability-calculus, boils down to these steps:
 \begin{enumerate}[label=\arabic*.]
-\item \label{item:step_statements} Find a set of basic, factual
+\item \label{item:step_statements} Find a set of simple, factual
   statements, in terms of which we can formulate our questions and our
-  data (\enquote{basic} in the sense that they're the building blocks of
-  our analysis).
+  data. These are called \enquote{atomic statements}; atomic in the sense
+  that we won't analyse them into more precise statements.
 
-\item \label{item:step_joint_prob} Assign a joint probability
-  distribution for all the possible combinations of these basic statements. This
-  probability distribution depends on our background information and
-  assumptions, denoted by $\yI$.
+\item \label{item:step_joint_prob} Assign a joint probability distribution
+  for all the possible combinations of these atomic statements. This
+  probability distribution is called a \enquote{pre-data} or
+  \enquote{prior} distribution, because it depends on our background
+  information and assumptions, denoted by $\yI$, but not yet on the
+  experimental data.
 
-\item \label{item:step_formulate_question_data} Express our data and the possible
-  answers to our questions in terms of the basic statements.
+\item \label{item:step_formulate_question_data} Express our data and the
+  possible answers to our questions in terms of the atomic statements.
 
 \item \label{item:step_calculate_probabilities} Use the
-  probability-calculus to determine, from the joint probability
-  distribution for the basic statements of step~\ref{item:step_joint_prob},
-  the probability
+  probability-calculus to determine, from the pre-data distribution of
+  step~\ref{item:step_joint_prob}, the probability for each answer of
+  interest, conditional on the data observer and on our pre-data
+  information:
   \begin{equation}
     \label{eq:basic_conditional_prob}
-    \pf(\text{\small answer} \| \text{\small data}, \yI) =
-    \frac{\pf(\text{\small answer} \| \yI)}
-    {\pf(\text{\small data} \| \yI)}
+    \pf(\text{\small answer} \| \text{\small data}, \yI).
+    % =
+    % \frac{\pf(\text{\small answer} \| \yI)}
+    % {\pf(\text{\small data} \| \yI)}
   \end{equation}
-  for all answers of interest.
+  The probabilities for all possible answers form the so-called
+  \enquote{post-data} or \enquote{posterior} distribution.
 \end{enumerate}
+
+\begin{innote}
+  Why do we need a pre-data distribution? can't we find the final
+  probability from the data alone, without background information and
+  assumptions? -- No, we can't; it's a logical impossibility. Just like in
+  the truth-calculus (formal logic) we can't prove any theorem if we don't
+  specify some initial axioms or postulates, so in the probability-calculus
+  we can't derive any probabilities without some initial
+  \enquote{probabilistic postulates}
+  \citep{hailperin2011}[p.~182]{johnson1924}. \emph{All} statistical and
+  probabilistic methods use assumptions. \enquote{The main difference is
+    that in a non-Bayesian analysis more is swept under the carpet. This
+    makes non-Bayesian methods politically expedient. The Bayesian is
+    forced to put his cards on the table instead of up his sleeve. He thus
+    helps others to improve his analysis, and this is always possible in a
+    problem concerning the real world.} \citep[\sect~2.3 p.~26]{good1969}.
+\end{innote}
+
 
 
 \bigskip
