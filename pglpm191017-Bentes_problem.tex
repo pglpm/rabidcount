@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-16T21:29:01+0100
+%% Last-Updated: 2020-01-16T21:32:23+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -720,13 +720,14 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \label{sec:intro}
 
 We are interested in quantifying the proportion with which several brain
-regions project to others. It is impossible, at least at present, to simply
-count individual projections. What is done experimentally, with very clever
+regions project to others. It's impossible, at least at present, to simply
+count individual projections. What's done experimentally, with very clever
 techniques, is analogous to survey sampling: we manage to see, more or less
 clearly, a small sample of projections. From this sample we want to infer
 the larger picture, for a single brain and on average for a
-\enquote{typical} brain. We show here how to make this inference using the
-probability-calculus, also known as Bayesian theory.
+\enquote{typical} brain. We show here how to make such inferences using the
+probability-calculus \citep{jaynes1994_r2003,hailperin1996}, also known as
+Bayesian theory.
 
 We accompany the method with an extensive discussion of its steps and
 assumptions, for the sake of researchers unfamiliar with it. But we believe
@@ -752,7 +753,7 @@ classes $C$, thus obtaining the proportion for each combination.
 
 But the question above is still imprecise. Are we asking about a specific
 mouse? or about the average across all mice having some specific
-characteristics? These two questions can be slightly different answers, and
+characteristics? These two cases can have slightly different answers, and
 their difference is important for the application of the
 probability-calculus and for experimental verification. We'll focus on
 these two kinds of question:
@@ -766,7 +767,7 @@ these two kinds of question:
   neurons in region $R$ projecting to target neurons of class $C$, -- what
   average number would we find?
 \end{description}
-It is intuitively clear that the answer to the second question comes from
+It's intuitively clear that the answer to the second question comes from
 the combination of answers to the first, for many mice.
 
 \medskip
