@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-16T11:52:22+0100
+%% Last-Updated: 2020-01-16T13:49:22+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -729,13 +729,26 @@ and types of neurons. More specifically we focus here on the following kind
 of question: How many input neurons in a region $R$ (independently of their
 type) project to target neurons of type $T$ (in a specific location)? And
 we want to compare the answer for several combinations of input regions $R$
-and target type $T$, thus obtaining the proportion for each combination.
+and target types $T$, thus obtaining the proportion for each combination.
 
-But the question above is still imprecise. Are we asking it about a
-specific mouse? Or are we asking about the average across all mice of a
-particular kind or with particular characteristics? The difference is
-important for the application of the probability calculus, and the answers
-to the two questions can be slightly different.
+But the question above is still imprecise. Are we asking about a specific
+mouse? Or are we asking about the average across all mice having some specific
+characteristics? The difference is important for the application of the
+probability-calculus, and the answers to these two questions can be
+slightly different. We'll focus on these two kinds of questions:
+\begin{description}[font=\mdseries]
+\item[Individual:] If we were able to perfectly count, in the next mouse to be examined,
+  the number of input neurons in region $R$ projecting to target neurons of
+  type $T$, -- what number would we find?
+\item[Collective:] If we were able to perfectly count, for each mouse (with some
+  specific traits such as age or gender and so on) to be examined in the
+  future or that could have been examined in the past, the number of input
+  neurons in region $R$ projecting to target neurons of type $T$, -- what
+  average number would we find?
+\end{description}
+It is intuitively clear that the answer to the second question comes from
+the combination of answers to the first, for many mice.
+
 
 
 
@@ -775,7 +788,7 @@ question more precise and to discuss possible strategies for answering it.
 \label{sec:prelim_remarks}
 
 
-Our inference, based the probability calculus, boils down to these steps:
+Our inference, based the probability-calculus, boils down to these steps:
 \begin{enumerate}[label=\arabic*.]
 \item \label{item:step_statements} Find a set of basic, factual
   statements, in terms of which we can formulate our questions and our
@@ -790,9 +803,10 @@ Our inference, based the probability calculus, boils down to these steps:
 \item \label{item:step_formulate_question_data} Express our data and the possible
   answers to our questions in terms of the basic statements.
 
-\item \label{item:step_calculate_probabilities} Use the probability
-  calculus to determine, from the joint probability distribution for the
-  basic statements of step~\ref{item:step_joint_prob}, the probability
+\item \label{item:step_calculate_probabilities} Use the
+  probability-calculus to determine, from the joint probability
+  distribution for the basic statements of step~\ref{item:step_joint_prob},
+  the probability
   \begin{equation}
     \label{eq:basic_conditional_prob}
     \pf(\text{\small answer} \| \text{\small data}, \yI) =
@@ -1348,7 +1362,7 @@ conditional probability we obtain it as
 \end{equation}
 The probabilities in the  numerator and denominator can be obtained from
 our main joint probability~\eqref{eq:main_init_prob} using the basic rules
-of the probability calculus.
+of the probability-calculus.
 
 \medskip
 
