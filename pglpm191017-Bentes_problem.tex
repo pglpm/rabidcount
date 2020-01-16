@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-15T14:59:39+0100
+%% Last-Updated: 2020-01-16T11:52:22+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -721,8 +721,25 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \label{sec:synopsis}
 
 We're considering two sets of neurons, which we call \emph{target} set and
-\emph{input} set. The target set comprises several neuron types, which can
-each be located in several regions. Same holds for the input set. Our
+\emph{input} set. The neurons in the target set are of several types, and
+are distributed across several regions. Same holds for the input set. In
+general we are interested in the number of projections of input neurons to
+target neurons, and in how such projections are distributed across regions
+and types of neurons. More specifically we focus here on the following kind
+of question: How many input neurons in a region $R$ (independently of their
+type) project to target neurons of type $T$ (in a specific location)? And
+we want to compare the answer for several combinations of input regions $R$
+and target type $T$, thus obtaining the proportion for each combination.
+
+But the question above is still imprecise. Are we asking it about a
+specific mouse? Or are we asking about the average across all mice of a
+particular kind or with particular characteristics? The difference is
+important for the application of the probability calculus, and the answers
+to the two questions can be slightly different.
+
+
+
+Our
 question is, roughly: \emph{what proportions of neurons of each input kind
   project to neurons of each target kind?} By \enquote{kind} we mean
 neurons that differ either in type or region.
