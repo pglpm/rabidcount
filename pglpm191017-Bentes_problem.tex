@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-16T13:51:20+0100
+%% Last-Updated: 2020-01-16T21:29:01+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -685,8 +685,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \setlength{\absrightindent}{0pt}
 \setlength{\abstitleskip}{-\absparindent}
 \begin{abstract}\labelsep 0pt%
-  \noindent Notes on Bente's problem about inferring connectivity. This is
-  just a memo, not meant to be detailed or precise.
+  \noindent Notes on Bente's problem about inferring connectivity.
 %\\\noindent\emph{\footnotesize Note: Dear Reader \amp\ Peer, this manuscript is being peer-reviewed by you. Thank you.}
 % \par%\\[\jot]
 % \noindent
@@ -717,69 +716,81 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 %%% BEGINNING OF MAIN TEXT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Introduction}
+\label{sec:intro}
+
+We are interested in quantifying the proportion with which several brain
+regions project to others. It is impossible, at least at present, to simply
+count individual projections. What is done experimentally, with very clever
+techniques, is analogous to survey sampling: we manage to see, more or less
+clearly, a small sample of projections. From this sample we want to infer
+the larger picture, for a single brain and on average for a
+\enquote{typical} brain. We show here how to make this inference using the
+probability-calculus, also known as Bayesian theory.
+
+We accompany the method with an extensive discussion of its steps and
+assumptions, for the sake of researchers unfamiliar with it. But we believe
+that some of the points of view will be of interest also to experts in the
+method.
+
+
 \section{Synopsis of the problem}
 \label{sec:synopsis}
 
 We're considering two sets of neurons, which we call \emph{target} set and
-\emph{input} set. The neurons in the target set are of several types, and
-are distributed across several regions. Same holds for the input set. In
-general we are interested in the number of projections of input neurons to
-target neurons, and in how such projections are distributed across regions
-and types of neurons. More specifically we focus here on the following kind
-of question: How many input neurons in a region $R$ (independently of their
-type) project to target neurons of type $T$ (in a specific location)? And
-we want to compare the answer for several combinations of input regions $R$
-and target types $T$, thus obtaining the proportion for each combination.
+\emph{input} set. The neurons in the target set are of several classes, for
+example parvalbumin or somatostatin interneurons; and are distributed
+across several regions, for example medial septal complex or thalamus).
+Same holds for the input set. In general we are interested in the number of
+projections of input neurons to target neurons, and in how such projections
+are distributed across regions, or classes, or both, of neurons. More
+specifically we focus here on the following kind of question: How many
+input neurons in a region $R$ (independently of their class) project to
+target neurons of class $C$ (in a specific location)? And we want to
+compare the answer for several combinations of input regions $R$ and target
+classes $C$, thus obtaining the proportion for each combination.
 
 But the question above is still imprecise. Are we asking about a specific
-mouse? Or are we asking about the average across all mice having some
-specific characteristics? The answers to these two questions can be
-slightly different, and their difference is important for the application
-of the probability-calculus and for experimental verification. We'll focus
-on these two kinds of questions:
+mouse? or about the average across all mice having some specific
+characteristics? These two questions can be slightly different answers, and
+their difference is important for the application of the
+probability-calculus and for experimental verification. We'll focus on
+these two kinds of question:
 \begin{description}[font=\mdseries]
-\item[Individual:] If we were able to perfectly count, in the next mouse to be examined,
-  the number of input neurons in region $R$ projecting to target neurons of
-  type $T$, -- what number would we find?
+\item[Individual:] If we were able to perfectly count, in the next mouse to
+  be examined, the number of input neurons in region $R$ projecting to
+  target neurons of class $C$, -- what number would we find?
 \item[Collective:] If we were able to perfectly count, for each mouse (with some
   specific traits such as age or gender and so on) to be examined in the
   future or that could have been examined in the past, the number of input
-  neurons in region $R$ projecting to target neurons of type $T$, -- what
+  neurons in region $R$ projecting to target neurons of class $C$, -- what
   average number would we find?
 \end{description}
 It is intuitively clear that the answer to the second question comes from
 the combination of answers to the first, for many mice.
 
-
-
-
-Our
-question is, roughly: \emph{what proportions of neurons of each input kind
-  project to neurons of each target kind?} By \enquote{kind} we mean
-neurons that differ either in type or region.
-
 \medskip
 
 \textbf{The observations and data we use}: In a mouse, virus methodologies
 allow us to select several neurons in the target set and to collectively
-see which neurons in the input set project to them. We can't distinguish,
-however, which input neuron projects to which target neurons. This
-observation is made in several mice.
+observe which neurons in the input set project to them. We can't
+distinguish, however, which input neuron projects to which target neuron.
+Such observations are made in several mice.
 
-There's a complication: to make this observation the mouse must be killed.
-If it's killed too early, the virus hasn't had the time to spread to all
-input neurons. If the mouse is killed too late, the starter neurons decay
-and are no longer visible. So we also need to guess, for each observed
-mouse, whether there were additional starter neurons, no longer visible,
-and what proportion of input neurons have been reached by the virus. As
-data we have the number of days between virus injection and killing, for
-each mouse. This complication for the moment is set aside to simplify the
-initial calculation, but will be taken into account later.
+There's a complication: to make this kind of observation the mouse must be
+killed. If it's killed too early, the virus hasn't had the time to spread
+to all input neurons. If the mouse is killed too late, the starter neurons
+decay and are no longer visible. So we also need to guess, for each
+observed mouse, whether there were additional starter neurons, no longer
+visible, and what proportion of input neurons have been reached by the
+virus. As data we have the number of days between virus injection and
+killing, for each mouse. This complication for the moment is set aside to
+simplify the method, but will be taken into account later.
 
 \medskip
 
-Now let's sketch a schematic picture of our problem in order to make our
-question more precise and to discuss possible strategies for answering it.
+Now let's sketch a schematic picture of the strategy to answer the two
+questions above.
 
 \section{Formulation and strategies}
 \label{sec:strategies}
