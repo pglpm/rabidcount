@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-16T22:11:07+0100
+%% Last-Updated: 2020-01-18T10:47:18+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -19,10 +19,10 @@ british%
 \newcommand*{\firstdraft}{17 October 2019}
 \newcommand*{\firstpublished}{17 October 2019}
 \newcommand*{\updated}{\ifarxiv***\else\today\fi}
-\newcommand*{\propertitle}{Notes on inferring connectivity\\ (Bente's problem) [draft]%\\{\large ***}%
+\newcommand*{\propertitle}{Memos on inferring connectivity [draft]%\\{\large ***}%
 }% title uses LARGE; set Large for smaller
 \newcommand*{\pdftitle}{\propertitle}
-\newcommand*{\headtitle}{Connectivity and Bente's problem}
+\newcommand*{\headtitle}{Inferring connectivity}
 \newcommand*{\pdfauthor}{P.G.L.  Porta Mana, B. Jacobsen}
 \newcommand*{\headauthor}{Porta Mana, Jacobsen}
 \newcommand*{\reporthead}{\ifarxiv\else Open Science Framework \href{https://doi.org/10.31219/osf.io/***}{\textsc{doi}:10.31219/osf.io/***}\fi}% Report number
@@ -685,7 +685,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \setlength{\absrightindent}{0pt}
 \setlength{\abstitleskip}{-\absparindent}
 \begin{abstract}\labelsep 0pt%
-  \noindent Notes on Bente's problem about inferring connectivity.
+  \noindent Some memos on the problem of inferring connectivity by means of
+  the probability-calculus aka Bayesian theory.
 %\\\noindent\emph{\footnotesize Note: Dear Reader \amp\ Peer, this manuscript is being peer-reviewed by you. Thank you.}
 % \par%\\[\jot]
 % \noindent
@@ -838,87 +839,69 @@ Our inference, based the probability-calculus, boils down to these steps:
 \begin{innote}
   Why do we need a pre-data distribution? can't we find the final
   probability from the data alone, without background information and
-  assumptions? -- No, we can't; it's a logical impossibility. Just like in
+  assumptions? -- No, we can't; it's a logical impossibility. Just as in
   the truth-calculus (formal logic) we can't prove any theorem if we don't
-  specify some initial axioms or postulates, so in the probability-calculus
-  we can't derive any probabilities without some initial
-  \enquote{probabilistic postulates}
-  \citep{hailperin2011}[p.~182]{johnson1924}. \emph{All} statistical and
-  probabilistic methods use assumptions. \enquote{The main difference is
-    that in a non-Bayesian analysis more is swept under the carpet. This
-    makes non-Bayesian methods politically expedient. The Bayesian is
-    forced to put his cards on the table instead of up his sleeve. He thus
-    helps others to improve his analysis, and this is always possible in a
-    problem concerning the real world.} \citep[\sect~2.3 p.~26]{good1969}.
+  specify some initial axioms or postulates \citep[\sect~2.1
+  p.~43]{barwiseetal1990_r2003}, so in the probability-calculus we can't
+  derive any probabilities without some initial \enquote{probabilistic
+    postulates} \citep{hailperin2011}[p.~182]{johnson1924}. \emph{All}
+  statistical and probabilistic methods use assumptions. \enquote{The main
+    difference is that in a non-Bayesian analysis more is swept under the
+    carpet. This makes non-Bayesian methods politically expedient. The
+    Bayesian is forced to put his cards on the table instead of up his
+    sleeve. He thus helps others to improve his analysis, and this is
+    always possible in a problem concerning the real world.}
+  \citep[\sect~2.3 p.~26]{good1969}.
 \end{innote}
 
-\clearpage
-\hrule
-[from here on: old text]
-\hrule
-\bigskip
+These steps are very interdependent and usually not faced sequentially. A
+choice of atomic statements, for example, may lead to great difficulties in
+the assignment of the pre-data probabilities. And trying to simplify the
+latter may lead us back to consider an alternative choice of atomic
+statements.
 
-The first two steps are especially important: it's there that we decide on
-the level of simplification or realism of our formulation. Let's make a
-couple of remarks about this.
+The first two steps always involve some degree of simplification and
+abstraction of our problem, necessary for eliminating features of the
+problem that are unimportant, and for making the problem mathematically and
+computationally tractable. The third step often involves some mathematical
+approximations.
 
 
-The possible formulations of our inference problem differ in their degree
-of simplification or realism, in the kinds of questions they allow us to
-answer, and in their mathematical complexity. Their degree of realism is,
-in the present case, tightly connected with the \emph{hierarchic} depth at
-which we analyse our problem. What do we mean by \enquote{hierarchy}? Here
-are two examples.
-\begin{enumerate}[label=(\roman*)]
-\item \label{item:3-level}For each pair of input-target kinds, we could
-  study the similarities and dissimilarities (expressed as, say, means and
-  variances) of the connections from the input kind to \emph{one} target
-  neuron. Then study how these similarities and dissimilarities are
-  themselves similar and dissimilar across all target neurons of the same
-  kind in \emph{one} mouse. And finally study how these higher-order
-  similarities and dissimilarities are themselves similar and dissimilar
-  across all mice.
-\item \label{item:1-level}For each pair of input-target kinds, we could
-  study the similarities and dissimilarities of the connections to all
-  target neurons of the same kind in all mice at once, pooling across
-  target neurons and mice.
-\end{enumerate}
-The first example is more realistic because it acknowledges different
-levels of similarities and variations in our study. It also allows us to
-ask specific questions, such as \enquote{how does the connectivity vary
-  from mouse to mouse?}. It leads, however, to very complex maths
-(integrals over function spaces). The second example is drastically
-simplified and doesn't allow us to ask very specific questions. But it
-leads to much simpler mathematical expressions. Other approaches are also
-possible in between and outside of these two.
+\medskip
 
-The number of hierarchies goes hand in hand with the number of
-\emph{symmetries}. In the first example, our analysis treats in a similar
--- symmetric -- way all input neurons to a specific target neuron, but not
-across target neurons; then it treats in a symmetric way the statistics of
-the connectivity of every target neuron in a mouse, but not across all
-mice; and so on. In the second example, our analysis treats all target
-neurons in all mice in a symmetric way. We'll shortly see how these symmetries
-have a mathematical counterpart and determine the formulae we use.
+We now discuss these steps for our problem.
 
-\subsection{Step 1: basic statements}
+
+\subsection{Step 1: atomic statements}
 \label{sec:step_statements}
+
+In our case there are several possibilities for this first step, the choice
+of atomic statements. Our choice below tries to simplify the problem, to
+make it computationally tractable, without making it unrealistic.
 
 We consider a very large number of mice: those we have observed and all
 those that we might observe in the future or we could have observed in the
 past. For our inferences to be valid, these mice must be judged
 \enquote{similar} in some respects. Let's label each mouse with an index
-$m=1,2,\dotsc$. For each mouse, we consider all neurons constituting its
-input region, labelling them $i=1,2,\dotsc, K_{m}$, and all neurons
-constituting its target region, labelling them $j=1,2,\dotsc, L_{m}$. The
-values of the three labels $i,j,m$ may be arbitrary or carry some
-information. For example, $m$ could reflect a temporal order, and $i$, $j$
-could each reflect a topographical order. The number $K_{m}$ of neurons in
-the input region and the number $L_{m}$ in the target region are different
-for each mouse $m$.
+$m=1,2,\dotsc$.
+
+For the moment let's fix a specific input region, for example the medial
+septal complex or thalamus, and a specific target class, for example
+parvalbumin interneurons, in a specific target region.
+
+For each mouse, we consider all neurons constituting the chosen input
+region, labelling them $i=1,2,\dotsc, I_{m}$, and all neurons constituting
+the target class, labelling them $j=1,2,\dotsc, J_{m}$. The total numbers
+of these neurons can be different from mouse to mouse, hence the index
+\enquote{$m$} in $I_{m}$ and $J_{m}$.
+
+The values of the three labels $i,j,m$ may be arbitrary or carry some
+information. For example, $m$ may reflect a temporal order, and $i$, $j$
+may each reflect a topographical order, for example ventral to dorsal. In
+the next step, however, we'll assume such order to be unimportant.
 
 Now that we've labelled the mice and their neurons in the two regions, we
-can consider specific statements about their connections, for example
+can consider specific statements about their connections. for example
 \[\parbox{0.95\linewidth}{\statm{In mouse $m=3$, the neuron $i=5$ in the input
       region projects to the neuron $j=4$ in the target region}}\]
 which can be either true or false. The situation described by these
@@ -960,6 +943,13 @@ neurons in the two regions according to morphology or location, and the
 mice according to age, weight, and so on. But I take it as a good starting
 compromise between simplification and realism. We'll consider further
 simplifications in the next step.
+
+
+\clearpage
+\hrule
+[from here on: old text]
+\hrule
+\bigskip
 
 \subsection{Step 2: joint probability distribution for the connections}
 \label{sec:step_joint_prob}
@@ -1663,6 +1653,49 @@ where $\ynu \defd (\nu_{m})$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Cut text (won't be compiled)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+The first two steps are especially important: it's there that we decide on
+the level of simplification or realism of our formulation. Let's make a
+couple of remarks about this.
+
+
+The possible formulations of our inference problem differ in their degree
+of simplification or realism, in the kinds of questions they allow us to
+answer, and in their mathematical complexity. Their degree of realism is,
+in the present case, tightly connected with the \emph{hierarchic} depth at
+which we analyse our problem. What do we mean by \enquote{hierarchy}? Here
+are two examples.
+\begin{enumerate}[label=(\roman*)]
+\item \label{item:3-level}For each pair of input-target kinds, we could
+  study the similarities and dissimilarities (expressed as, say, means and
+  variances) of the connections from the input kind to \emph{one} target
+  neuron. Then study how these similarities and dissimilarities are
+  themselves similar and dissimilar across all target neurons of the same
+  kind in \emph{one} mouse. And finally study how these higher-order
+  similarities and dissimilarities are themselves similar and dissimilar
+  across all mice.
+\item \label{item:1-level}For each pair of input-target kinds, we could
+  study the similarities and dissimilarities of the connections to all
+  target neurons of the same kind in all mice at once, pooling across
+  target neurons and mice.
+\end{enumerate}
+The first example is more realistic because it acknowledges different
+levels of similarities and variations in our study. It also allows us to
+ask specific questions, such as \enquote{how does the connectivity vary
+  from mouse to mouse?}. It leads, however, to very complex maths
+(integrals over function spaces). The second example is drastically
+simplified and doesn't allow us to ask very specific questions. But it
+leads to much simpler mathematical expressions. Other approaches are also
+possible in between and outside of these two.
+
+The number of hierarchies goes hand in hand with the number of
+\emph{symmetries}. In the first example, our analysis treats in a similar
+-- symmetric -- way all input neurons to a specific target neuron, but not
+across target neurons; then it treats in a symmetric way the statistics of
+the connectivity of every target neuron in a mouse, but not across all
+mice; and so on. In the second example, our analysis treats all target
+neurons in all mice in a symmetric way. We'll shortly see how these symmetries
+have a mathematical counterpart and determine the formulae we use.
 
 
 %%% Local Variables: 
