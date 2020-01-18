@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-18T23:33:58+0100
+%% Last-Updated: 2020-01-18T23:51:08+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -765,8 +765,8 @@ probability-calculus and for experimental verification. We'll focus on
 these two kinds of question:
 \begin{description}[font=\mdseries]
 \item[Individual:] If we were able to perfectly count, in the next mouse to
-  be examined, the number of input neurons in region $R$ projecting to
-  target neurons of class $C$, -- what number would we find?
+  be examined, the number of input neurons in region $R$ projecting on
+  average to a target neuron of class $C$, -- what number would we find?
 \item[Collective or average:] If we were able to perfectly count, for each
   mouse (with some specific traits such as age or gender and so on) to be
   examined in the future or that could have been examined in the past, the
@@ -952,54 +952,40 @@ statistics; for example:
   $\frac{1}{J_{m}}\sum_{j}\bigl(N_{j}-\yNa\bigr)^{2}$, or any other measure
   of variation;
 \item the full histogram $\yH\defd(H_{0},H_{1}, H_{2},\dotsc)$ of the
-  number of projections for that mouse: $H_{0}$ neurons (of the specific
-  target class) receive no projection (from the specific input region);
-  $H_{1}$ neurons receive only one projection; $H_{2}$ receive two
-  projections; and so on. From such histogram we can calculate the mean and
-  variance above; for example $\yNa = \frac{1}{J_{m}}\sum_{n}n\,H_{n}$.
+  number of projections for that mouse: $H_{0}$ neurons receive no
+  projection, that is, we have $N_{j}=0$ for $H_{0}$ different $j$s;
+  $H_{1}$ neurons receive only one projection, that is, $N_{j}=1$ for
+  $H_{1}$ different $j$s; $H_{2}$ receive two projections; and so on. From
+  such histogram we can calculate the mean and variance above; for example
+  $\yNa = \frac{1}{J_{m}}\sum_{n}n\,H_{n}$.
 \end{itemize}
 
 If we had these statistics and histogram $\yHm$ for each mouse $m$, we
 could then ask about the average histogram of projections for \enquote{a
   typical mouse}, $\yHa \defd \frac{1}{M}\sum_{m} \yHm$, where $M$ is the
 total number of mice; and also about the variance from such an average
-histogram.
+histogram. These histograms and their average would be the answers to the
+\enquote{individual} and \enquote{collective} questions we asked in
+\sect~\ref{sec:synopsis}.
+
+So, if we can give a probability distribution for the values $N_{j}$,
+\begin{equation}
+  \label{eq:guess_prob_N}
+  \pf(N_{1}, N_{2}, \dotsc \| \text{data}, \yI)
+\end{equation}
+then we can calculate from it the
+probabilities~\eqref{eq:basic_conditional_prob} for the answers of our main
+questions.
+
+
+
+\subsection{Step 2: joint probability distribution for the connections}
+\label{sec:step_joint_prob}
 
 
 
 
 \bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
-
-
-Mathematically we represent these statements and the grids of
-\fig~\ref{fig:cmij} with the following quantities:
-\begin{equation}
-  \label{eq:quantity_connection}
-  \yc_{ijm} =
-  \begin{cases}
-    1&\text{if neuron $i$ projects to neuron $j$ in mouse $m$},\\
-    0&\text{if neuron $i$ doesn't project to neuron $j$ in mouse $m$}.
-  \end{cases}
-\end{equation}
-Let's call them \emph{connections}.
-
-
-For most of these statements we'll obviously never be able to ascertain
-whether they're true or false. But they serve us well as basic statements:
-we can precisely formulate our questions and data in terms of them.
-
-\bigskip
-
-The formulation just proposed is already based on some simplifications and
-the neglect of possible hierarchies: we could have distinguished the
-neurons in the two regions according to morphology or location, and the
-mice according to age, weight, and so on. But I take it as a good starting
-compromise between simplification and realism. We'll consider further
-simplifications in the next step.
-
-
-\subsection{Step 2: joint probability distribution for the connections}
-\label{sec:step_joint_prob}
 
 
 In order to assign the initial joint probability distribution
@@ -1743,6 +1729,32 @@ the connectivity of every target neuron in a mouse, but not across all
 mice; and so on. In the second example, our analysis treats all target
 neurons in all mice in a symmetric way. We'll shortly see how these symmetries
 have a mathematical counterpart and determine the formulae we use.
+
+Mathematically we represent these statements and the grids of
+\fig~\ref{fig:cmij} with the following quantities:
+\begin{equation}
+  \label{eq:quantity_connection}
+  \yc_{ijm} =
+  \begin{cases}
+    1&\text{if neuron $i$ projects to neuron $j$ in mouse $m$},\\
+    0&\text{if neuron $i$ doesn't project to neuron $j$ in mouse $m$}.
+  \end{cases}
+\end{equation}
+Let's call them \emph{connections}.
+
+
+For most of these statements we'll obviously never be able to ascertain
+whether they're true or false. But they serve us well as basic statements:
+we can precisely formulate our questions and data in terms of them.
+
+\bigskip
+
+The formulation just proposed is already based on some simplifications and
+the neglect of possible hierarchies: we could have distinguished the
+neurons in the two regions according to morphology or location, and the
+mice according to age, weight, and so on. But I take it as a good starting
+compromise between simplification and realism. We'll consider further
+simplifications in the next step.
 
 
 %%% Local Variables: 
