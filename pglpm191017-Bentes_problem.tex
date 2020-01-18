@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-18T14:13:09+0100
+%% Last-Updated: 2020-01-18T23:33:58+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -663,7 +663,11 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yth}{\theta}
 \newcommand*{\ynu}{\bm{\nu}}
 \newcommand*{\yN}{N}
+\newcommand*{\yNa}{\Bar{N}}
 \newcommand*{\yF}{\bm{F}}
+\newcommand*{\yH}{\bm{H}}
+\newcommand*{\yHm}[1][m]{\yH^{(#1)}}
+\newcommand*{\yHa}{\Bar{\yH}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -932,7 +936,34 @@ the number 0.
 \end{figure}% bente_notes_drawings.svg
 
 These statements won't be our atomic statements, however: it's more
-profitable to use slightly less detailed statements, which we define now.
+profitable to use slightly less detailed ones. We're interested, in fact,
+in the total number of neurons in an input region that project to each
+target neuron $j$, but not on their individual identities. Let $N_{j}$
+denote this number. In \fig~\ref{fig:cmij} it's the total number of black
+squares in column $j$.
+
+If we could experimentally count the projections and find $N_{j}$ for all
+$J_{m}$ target neurons of mouse $m$,  we could then report several
+statistics; for example:
+\begin{itemize}[wide]
+\item the average number of projections to the target neurons in that
+  mouse: $\yNa \defd \frac{1}{J_{m}}\sum_{j}N_{j}$;
+\item the variance from that average number,
+  $\frac{1}{J_{m}}\sum_{j}\bigl(N_{j}-\yNa\bigr)^{2}$, or any other measure
+  of variation;
+\item the full histogram $\yH\defd(H_{0},H_{1}, H_{2},\dotsc)$ of the
+  number of projections for that mouse: $H_{0}$ neurons (of the specific
+  target class) receive no projection (from the specific input region);
+  $H_{1}$ neurons receive only one projection; $H_{2}$ receive two
+  projections; and so on. From such histogram we can calculate the mean and
+  variance above; for example $\yNa = \frac{1}{J_{m}}\sum_{n}n\,H_{n}$.
+\end{itemize}
+
+If we had these statistics and histogram $\yHm$ for each mouse $m$, we
+could then ask about the average histogram of projections for \enquote{a
+  typical mouse}, $\yHa \defd \frac{1}{M}\sum_{m} \yHm$, where $M$ is the
+total number of mice; and also about the variance from such an average
+histogram.
 
 
 
