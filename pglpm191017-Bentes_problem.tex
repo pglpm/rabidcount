@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-18T10:47:18+0100
+%% Last-Updated: 2020-01-18T14:13:09+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -882,12 +882,14 @@ make it computationally tractable, without making it unrealistic.
 We consider a very large number of mice: those we have observed and all
 those that we might observe in the future or we could have observed in the
 past. For our inferences to be valid, these mice must be judged
-\enquote{similar} in some respects. Let's label each mouse with an index
+\enquote{similar} in some respects. We label each mouse with an index
 $m=1,2,\dotsc$.
 
-For the moment let's fix a specific input region, for example the medial
-septal complex or thalamus, and a specific target class, for example
-parvalbumin interneurons, in a specific target region.
+For the moment \emph{let's fix a specific input region}, for example the
+medial septal complex or thalamus, \emph{and a specific target class}, for
+example parvalbumin interneurons, in a specific target region. We'll
+discuss later how to combine inferences about several input regions and target
+classes.
 
 For each mouse, we consider all neurons constituting the chosen input
 region, labelling them $i=1,2,\dotsc, I_{m}$, and all neurons constituting
@@ -900,23 +902,43 @@ information. For example, $m$ may reflect a temporal order, and $i$, $j$
 may each reflect a topographical order, for example ventral to dorsal. In
 the next step, however, we'll assume such order to be unimportant.
 
-Now that we've labelled the mice and their neurons in the two regions, we
-can consider specific statements about their connections. for example
+\medskip
+
+
+Now that we've labelled the mice and the input and target neurons of
+interest, let's consider some simple, specific statements about
+projections. for example:
 \[\parbox{0.95\linewidth}{\statm{In mouse $m=3$, the neuron $i=5$ in the input
-      region projects to the neuron $j=4$ in the target region}}\]
-which can be either true or false. The situation described by these
-statements is visualized in \fig~\ref{fig:cmij}. We have a grid for each
-mouse $m$; each row $i$ in the grid represents a neuron in the input region,
-each column $j$ a neuron in the target region. If in mouse $m$ neuron $i$
-projects to neuron $j$, then we colour the corresponding entry $i,j$ in
-grid $m$ in black, or we can associate the number 1 with it; if it doesn't
-project, then we use white or the number 0.
+      region projects to the neuron $j=4$ of the target class.}}\]
+Such a statement must be either true or false, even if we may not have the
+experimental technology to look and see. If we could experimentally
+ascertain each of these statements, for all mice $m$, input neurons $i$,
+target neurons $j$, then our problem would be solved. We'd just have to
+count, and we could report the exact projection proportions for each mouse,
+and also averages across all mice.
+
+The situation collectively described by these statements is visualized in
+\fig~\ref{fig:cmij}. We plot a grid for each mouse $m$. Each row $i$ in the
+grid represents a neuron in the input region, each column $j$ a neuron of
+the target class. If in mouse $m$ neuron $i$ projects to neuron $j$, then
+we colour the corresponding entry $(i,j)$ in grid $m$ in black; or we can
+write down the number 1 in it. If it doesn't project, then we use white or
+the number 0.
 %%\setlength{\intextsep}{0.5ex}% with wrapfigure
 \begin{figure}[t!]%{r}{0.4\linewidth} % with wrapfigure
  \centering\includegraphics[width=\linewidth]{bente_notes_drawings.png}\\
  \caption{Imaginary layout of the connectivity from input to target region
    for all mice}\label{fig:cmij}
 \end{figure}% bente_notes_drawings.svg
+
+These statements won't be our atomic statements, however: it's more
+profitable to use slightly less detailed statements, which we define now.
+
+
+
+
+\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
+
 
 Mathematically we represent these statements and the grids of
 \fig~\ref{fig:cmij} with the following quantities:
@@ -944,12 +966,6 @@ mice according to age, weight, and so on. But I take it as a good starting
 compromise between simplification and realism. We'll consider further
 simplifications in the next step.
 
-
-\clearpage
-\hrule
-[from here on: old text]
-\hrule
-\bigskip
 
 \subsection{Step 2: joint probability distribution for the connections}
 \label{sec:step_joint_prob}
