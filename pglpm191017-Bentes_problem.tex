@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T18:18:54+0100
+%% Last-Updated: 2020-01-19T18:59:37+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -666,7 +666,9 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yNa}{\widebar{N}}
 \newcommand*{\yF}{\bm{F}}
 \newcommand*{\yFm}[1][m]{\yF^{(#1)}}
+\newcommand*{\yFFm}[1][m]{F^{(#1)}}
 \newcommand*{\yh}{\bm{h}}
+\newcommand*{\yhm}[1][m]{\yh^{(#1)}}
 \newcommand*{\yH}{\bm{H}}
 \newcommand*{\yHHm}[1][m]{H^{(#1)}}
 \newcommand*{\yHm}[1][m]{\yH^{(#1)}}
@@ -1154,7 +1156,7 @@ want to make some generalized statements about mice within a specific
 group, for example with specific age, gender, or genetic modifications. Our
 experimental observations always exclude any mice that don't have the
 requirements defining the group under study; hence the assumption above is
-satisfied by design.
+satisfied by design. \mynote{add note about unknown biases}
 
 This assumption is again one of exchangeability, and it leads to a result
 similar to that of the previous section. The pre-data distribution for the
@@ -1164,9 +1166,59 @@ histograms $\tu{\yHm}$ of several mice is given by
   \pf( \yFm[1], \yFm[2], \dotsc \| \yI) =
   \int\!\!\!\di \yl\;
   \pf(\yl \| \yI)\;
-  \yll_{\yFm[1]} \times \yll_{\yFm[2]} \times \dotsm
+  \yll_{\yFm[1]} \times \yll_{\yFm[2]} \times \dotsm\;.
 \end{equation}
+Here $\yl$ is the distribution of all normalized histograms $\yF$. That is,
+we imagine to check every single mouse, and for each we write down what's
+its histogram of projections $\yF$; then we count how many mice have a the
+particular histogram $\yF'$ in common, how many have another particular
+histogram $\yF''$ in common, and so on. Then $\yll_{\yF}$ is the proportion
+of mice that have the same histogram $\yF$. This summary allows us to say
+what's the most common histogram of projections in our mice population,
+what's the average histogram, and how much the histograms can vary from the
+average one, across the population. Since each possible $\yF$ is a tuple
+with $I+1$ elements, the distribution $\yl$ is over an $(I+1)$-dimensional
+space.
 
+The distribution $\yl$ is unknown to us, and the probability density
+$\pf(\yl \| \yI)$ expresses our pre-data uncertainty about it. We still
+have to specify this density. It turns out that its exact form is
+unimportant if we have numerous data, because the data will change its
+shape to reflect the observed statistics.
+For the moment we assume it to be constant:
+\begin{equation}
+  \label{eq:distr_lambda}
+  \pf(\yl \| \yI) = \text{const.}
+\end{equation}
+but later we'll check if changes in this distribution lead to important
+changes in our final inferences.
+
+
+\subsubsection{Final form for our pre-data distribution}
+\label{sec:final_predata}
+
+We can finally combine the pre-data
+distributions~\eqref{eq:definetti_Nj_infinite_approx},
+\eqref{eq:distr_H_mice}, and \eqref{eq:distr_lambda} to obtain the pre-data
+distribution for our atomic sentences:
+\begin{multline}
+  \label{eq:pre-data_final}
+  \pf(\underbracket{\yNm[1]_{1},\yNm[1]_{2},\dotsc}_{\text{histogram $\yhm[1]$}},
+  \underbracket{\yNm[2]_{1},\yNm[2]_{2},\dotsc}_{\text{histogram $\yhm[2]$}},
+  \dotsc   \| \yI)
+  \propto{}\\
+  \begin{aligned}
+  &\int\!\!\!\di\yl\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
+  \yll_{\yFm} \;
+  \prod_{j} \yFFm_{N_{j}}
+  \Biggr]
+\equiv{}\\
+  &\int\!\!\!\di\yl\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
+  \yll_{\yFm} \;
+  \prod_{n=0}^{\yIm} \bigl(\yFFm_{n}\bigr)^{h^{(m)}_{n}}
+  \Biggr].
+  \end{aligned}
+\end{multline}
 
 
 
