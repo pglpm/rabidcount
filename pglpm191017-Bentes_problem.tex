@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-18T23:58:03+0100
+%% Last-Updated: 2020-01-19T09:21:16+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -666,7 +666,12 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yNa}{\Bar{N}}
 \newcommand*{\yF}{\bm{F}}
 \newcommand*{\yH}{\bm{H}}
+\newcommand*{\yHHm}[1][m]{H^{(#1)}}
 \newcommand*{\yHm}[1][m]{\yH^{(#1)}}
+\newcommand*{\yIm}[1][m]{I^{(#1)}}
+\newcommand*{\yJm}[1][m]{J^{(#1)}}
+\newcommand*{\yNm}[1][m]{N^{(#1)}}
+\newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
 \newcommand*{\yHa}{\Bar{\yH}}
 %%% Custom macros end @@@
 
@@ -896,10 +901,11 @@ discuss later how to combine inferences about several input regions and target
 classes.
 
 For each mouse, we consider all neurons constituting the chosen input
-region, labelling them $i=1,2,\dotsc, I_{m}$, and all neurons constituting
-the target class, labelling them $j=1,2,\dotsc, J_{m}$. The total numbers
-of these neurons can be different from mouse to mouse, hence the index
-\enquote{$m$} in $I_{m}$ and $J_{m}$.
+region, labelling them $i=1,2,\dotsc, \yIm$, and all neurons constituting
+the target class, labelling them $j=1,2,\dotsc, \yJm$. The total numbers
+of these neurons can be different from mouse to mouse, hence the 
+\enquote{$(m)$} subscript, which we shall use also for other quantities
+that may vary from mouse to mouse.
 
 The values of the three labels $i,j,m$ may be arbitrary or carry some
 information. For example, $m$ may reflect a temporal order, and $i$, $j$
@@ -935,29 +941,31 @@ the number 0.
    for all mice}\label{fig:cmij}
 \end{figure}% bente_notes_drawings.svg
 
+\medskip
+
 These statements won't be our atomic statements, however: it's more
 profitable to use slightly less detailed ones. We're interested, in fact,
 in the total number of neurons in an input region that project to each
-target neuron $j$, but not on their individual identities. Let $N_{j}$
+target neuron $j$, but not on their individual identities. Let $\yNm_{j}$
 denote this number. In \fig~\ref{fig:cmij} it's the total number of black
-squares in column $j$.
+squares in column $j$ of grid $m$.
 
-If we could experimentally count the projections and find $N_{j}$ for all
-$J_{m}$ target neurons of mouse $m$,  we could then report several
+If we could experimentally count the projections and find $\yNm_{j}$ for all
+$\yJm$ target neurons of mouse $m$,  we could then report several
 statistics; for example:
 \begin{itemize}[wide]
 \item the average number of projections to the target neurons in that
-  mouse: $\yNa \defd \frac{1}{J_{m}}\sum_{j}N_{j}$;
+  mouse: $\yNma \defd \frac{1}{\yJm}\sum_{j}\yNm_{j}$;
 \item the variance from that average number,
-  $\frac{1}{J_{m}}\sum_{j}\bigl(N_{j}-\yNa\bigr)^{2}$, or any other measure
+  $\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2}$, or any other measure
   of variation;
-\item the full histogram $\yH\defd(H_{0},H_{1}, H_{2},\dotsc)$ of the
-  number of projections for that mouse: $H_{0}$ neurons receive no
-  projection, that is, we have $N_{j}=0$ for $H_{0}$ different $j$s;
-  $H_{1}$ neurons receive only one projection, that is, $N_{j}=1$ for
-  $H_{1}$ different $j$s; $H_{2}$ receive two projections; and so on. From
-  such histogram we can calculate the mean and variance above; for example
-  $\yNa = \frac{1}{J_{m}}\sum_{n}n\,H_{n}$.
+\item the full histogram $\yHm\defd(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc)$
+  of the number of projections for that mouse: $\yHHm_{0}$ neurons receive
+  no projection, that is, we have $\yNm_{j}=0$ for $\yHHm_{0}$ different
+  $j$s; $\yHHm_{1}$ neurons receive only one projection, that is,
+  $\yNm_{j}=1$ for $\yHHm_{1}$ different $j$s; $\yHHm_{2}$ receive two
+  projections; and so on. From such histogram we can calculate the mean and
+  variance above; for example $\yNma = \frac{1}{\yJm}\sum_{n}n\,\yHHm_{n}$.
 \end{itemize}
 
 If we had these statistics and histogram $\yHm$ for each mouse $m$, we
@@ -968,11 +976,13 @@ histogram. These histograms and their average would be the answers to the
 \enquote{individual} and \enquote{collective} questions we asked in
 \sect~\ref{sec:synopsis}.
 
-So, if we can give a probability distribution for the values $N_{j}$ for
+So, if we can give a probability distribution for the values $\yNm_{j}$ for
 each mouse,
 \begin{equation}
   \label{eq:guess_prob_N}
-  \pf(N_{1}, N_{2}, \dotsc \| \text{data}, \yI)
+  \pf(\yNm[1]_{1}, \yNm[1]_{2}, \yNm[1]_{3}, \dotsc,
+  \yNm[2]_{1}, \yNm[2]_{2},  \yNm[2]_{3}, \dotsc
+  \| \text{data}, \yI)
 \end{equation}
 then we can calculate from it the
 probabilities~\eqref{eq:basic_conditional_prob} for the answers of our main
