@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T16:04:50+0100
+%% Last-Updated: 2020-01-19T18:18:54+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -665,6 +665,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yN}{N}
 \newcommand*{\yNa}{\widebar{N}}
 \newcommand*{\yF}{\bm{F}}
+\newcommand*{\yFm}[1][m]{\yF^{(#1)}}
 \newcommand*{\yh}{\bm{h}}
 \newcommand*{\yH}{\bm{H}}
 \newcommand*{\yHHm}[1][m]{H^{(#1)}}
@@ -674,6 +675,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
 \newcommand*{\yHa}{\widebar{\yH}}
+\newcommand*{\yll}{\lambda}
+\newcommand*{\yl}{\bm{\yll}}
 \DeclarePairedDelimiter\tu{\{}{\}}
 %%% Custom macros end @@@
 
@@ -1002,27 +1005,31 @@ questions. We do this in the following section.
 
 The probability distribution $\pf(\tu{\yNm_{j}} \| \yI)$ represents our
 pre-data guess about the numbers $\tu{\yNm_{j}}$. It should be a
-reasonable, unbiased guess. Some researchers feel uncomfortable in
-quantifying such a guess. But, as we stressed in \sect~\ref{sec:strategies}
-such a quantification is unavoidable: without it our experimental
-observations could not be probabilistically generalized to other mice. Some
-researchers also believe that there are statistical methods, such as
-so-called frequentist ones, which avoid this kind of pre-data assumptions.
-This is a mistaken belief: those methods \emph{do} make pre-data
-assumptions -- but keep them hidden. The advantage of the Bayesian approach
-is that the pre-data assumptions are explicitly stated instead. As I. J.
-Good said: \enquote{The main difference is that in a non-Bayesian analysis
-  more is swept under the carpet. This makes non-Bayesian methods
-  politically expedient. The Bayesian is forced to put his cards on the
-  table instead of up his sleeve. He thus helps others to improve his
-  analysis, and this is always possible in a problem concerning the real
-  world} \citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator
-in the breaking of the \emph{Enigma} code during World War II, using
-probabilistic methods). In fact, as the amount of experimental data
-increases, the effect of our pre-data guesses usually decreases. The
-Bayesian approach allows us to quantify this dependence and thus to decide
-whether the data we have collected are enough or whether we want to collect
-more.
+reasonable, unbiased guess.
+\begin{innote}
+  Some researchers feel uncomfortable in quantifying such a guess. But, as
+  we stressed in \sect~\ref{sec:strategies} such a quantification is
+  unavoidable: without it our experimental observations could not be
+  probabilistically generalized to other mice. Some researchers also
+  believe that there are statistical methods, such as so-called frequentist
+  ones, which avoid this kind of pre-data assumptions. This is a mistaken
+  belief: those methods \emph{do} make pre-data assumptions -- but keep
+  them hidden. The advantage of the Bayesian approach is that the pre-data
+  assumptions are explicitly stated instead. As I. J. Good said:
+  \enquote{The main difference is that in a non-Bayesian analysis more is
+    swept under the carpet. This makes non-Bayesian methods politically
+    expedient. The Bayesian is forced to put his cards on the table instead
+    of up his sleeve. He thus helps others to improve his analysis, and
+    this is always possible in a problem concerning the real world}
+  \citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator in the
+  breaking of the \emph{Enigma} code during World War II, using
+  probabilistic methods). In fact, as the amount of experimental data
+  increases, the effect of our pre-data guesses usually decreases. The
+  Bayesian approach allows us to quantify this dependence and thus to
+  decide whether the data we have collected are enough or whether we want
+  to collect more.
+\end{innote}
+
 
 To assign the distribution $\pf(\tu{\yNm_{j}} \| \yI)$ we are going to use
 two \emph{symmetry} assumptions: one about the target neurons of each mouse
@@ -1062,7 +1069,7 @@ the results for different neighbourhoods can be combined.
 
 The exchangeability assumption has a powerful mathematical consequence,
 called the de~Finetti's representation theorem
-\citep{definetti1930,hewittetal1955,heathetal1976,diaconis1977,diaconisetal1980,dawid2013}.
+\citep[\mynote{add refs for finite case}]{definetti1930,hewittetal1955,heathetal1976,diaconis1977,diaconisetal1980,dawid2013}.
 Suppose we're going to examine the projections to $J'$ target neurons, and
 we want the probability of finding $N_{1}$ for the first, and so on, up to
 $N_{J'}$ for the $J'$th. Each of these values is between $0$ and $I$.
@@ -1087,13 +1094,78 @@ either of these cases leads to an histogram with $h_{4}=2$ and $h_{6}=1$.
 De~Finetti's theorem say that the probability of observing a set of
 projections $N_{1},\dotsc,N_{J'}$ having the histogram $\yh$ is
 \begin{equation}
-  \label{eq:definetti_Nj}
+  \label{eq:definetti_Nj_finite}
   \pf(\underbracket{N_{1},\dotsc,N_{J'}}_{\text{histogram $\yh$}} \| \yI) =
 \frac{1}{J'}  \sum_{\yH} \pf(\yH \| \yI)\;
-  \frac{\binom{H_{0}}{h_{0}}\times\dotsm\times\binom{H_{n}}{h_{n}}}{\binom{J}{J'}}
+  \frac{\binom{H_{0}}{h_{0}}\times\dotsm\times\binom{H_{n}}{h_{n}}}{\binom{J}{J'}},
 \end{equation}
+where $\yH$ is the histogram for the full set of $J$ target neurons,
+previously discussed. The sum ranges over all possible such histograms, and
+$\pf(\yH \| \yI)$ is our pre-data probability distribution for them. The
+fraction is a multivariate hypergeometric distribution
+\citep[\chap~39]{johnsonetal1969_r1996} characteristic of \enquote{sampling
+  without replacement}. The formula above corresponds to first guessing the
+histogram $\yH$ for all target neurons, and then \enquote{sampling} $J'$
+out of them.
+
+If our question is about a small set of $J'$ neurons compared to the total
+number $J$, and the values $N_{j}$ are small compared to their theoretical
+maximum $I$, the formula above has a useful approximation. Denote by
+$\yF \defd \yH/J$ the normalized histogram, corresponding to the relative
+frequency distribution of projections. Then
+\begin{multline}
+  \label{eq:definetti_Nj_infinite_approx}
+  \pf(\underbracket{N_{1},\dotsc,N_{J'}}_{\text{histogram $\yh$}} \| \yI) \approx
+\int\!\!\!\di\yF\;
+\pf(\yF \| \yI)\; F_{N_{1}} \times \dotsm \times F_{N_{J'}}
+\equiv{}\\[-2\jot]
+\int\!\!\!\di\yF\;
+\pf(\yF \| \yI)\; \prod_{n=0}^{I}{F_{n}}^{h_{n}}.
+\end{multline}
+The integral appears because we approximate the tuple $\yF$ as a continuous
+quantity. It takes values in an $(I+1)$-dimensional space.
 
 
+We still have to specify the pre-data distribution $\pf(\yH \| \yI)$ or
+$\pf(\yF \| \yI)$ for the full histogram $\yH$ or its normalized version
+$\yF$. We do this in the next section, where we consider our inferences
+about all mice.
+% For the moment we assume it to be constant:
+% \begin{equation}
+%   \label{eq:distr_H_F}
+%   \pf(\yF \| \yI) = \text{const.}
+% \end{equation}
+
+\subsubsection{All mice: exchangeability}
+\label{sec:allmice_exch}
+
+We have now the pre-data distribution for the numbers of projections, as
+well as their histogram, in a single mouse: $\pf(\tu{N_{j}} \| \yI)$. How
+to extend this to the projections in all mice,
+$\pf\bigl(\tu{\yNm[1]_{j}}, \tu{\yNm[2]_{j}}, \dotsc \| \yI\bigr)$?
+
+Also in this case we invoke symmetry, this time for the frequency
+distribution of projections $\yFm$ that a mouse can have. Our assumption is
+this: \emph{there isn't any reason for some mouse $m$ to have a specific
+  distribution of projections $\yF$ more than another mouse $m'$}. In other
+words, we consider all mice under study, past and future, to be similar
+regarding their distributions of projections. This makes sense because we
+want to make some generalized statements about mice within a specific
+group, for example with specific age, gender, or genetic modifications. Our
+experimental observations always exclude any mice that don't have the
+requirements defining the group under study; hence the assumption above is
+satisfied by design.
+
+This assumption is again one of exchangeability, and it leads to a result
+similar to that of the previous section. The pre-data distribution for the
+histograms $\tu{\yHm}$ of several mice is given by
+\begin{equation}
+  \label{eq:distr_H_mice}
+  \pf( \yFm[1], \yFm[2], \dotsc \| \yI) =
+  \int\!\!\!\di \yl\;
+  \pf(\yl \| \yI)\;
+  \yll_{\yFm[1]} \times \yll_{\yFm[2]} \times \dotsm
+\end{equation}
 
 
 
