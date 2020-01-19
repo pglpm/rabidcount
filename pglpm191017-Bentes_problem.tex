@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T11:42:57+0100
+%% Last-Updated: 2020-01-19T12:21:13+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -673,6 +673,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
 \newcommand*{\yHa}{\widebar{\yH}}
+\DeclarePairedDelimiter\tu{\{}{\}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -854,13 +855,7 @@ Our inference, based the probability-calculus, boils down to these steps:
   p.~43]{barwiseetal1990_r2003}, so in the probability-calculus we can't
   derive any probabilities without some initial \enquote{probabilistic
     postulates} \citep{hailperin2011}[p.~182]{johnson1924}. \emph{All}
-  statistical and probabilistic methods use assumptions. \enquote{The main
-    difference is that in a non-Bayesian analysis more is swept under the
-    carpet. This makes non-Bayesian methods politically expedient. The
-    Bayesian is forced to put his cards on the table instead of up his
-    sleeve. He thus helps others to improve his analysis, and this is
-    always possible in a problem concerning the real world.}
-  \citep[\sect~2.3 p.~26]{good1969}.
+  statistical and probabilistic methods use assumptions.
 \end{innote}
 
 These steps are very interdependent and usually not faced sequentially. A
@@ -959,10 +954,11 @@ statistics; for example:
 \item the variance from that average number,
   $\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2}$, or any other measure
   of variation;
-\item the full histogram $\yHm\defd(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc)$
-  of the number of projections for that mouse. That is: we count how many
-  target neurons receive no projection from the input region, that's
-  $\yHHm_{0}$; we count how many receive projection from only one neuron, that's
+\item the full histogram
+  $\yHm\defd \bigl(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc\bigr)$ of the
+  number of projections for that mouse. That is: we count how many target
+  neurons receive no projection from the input region, that's $\yHHm_{0}$;
+  we count how many receive projections from only one neuron, that's
   $\yHHm_{1}$; and so on. Mathematically this is written
   \begin{equation}
     \label{eq:count_histogram}
@@ -975,28 +971,55 @@ statistics; for example:
 
 If we had these statistics and histograms $\yHm$ for each mouse $m$, we
 could then ask about the average histogram of projections
-$\yHa \defd \frac{1}{M}\sum_{m} \yHm$ across the mouse population, where
-$M$ is the total number of mice. We could also ask about the variance from
-such an average histogram. These histograms and their average would be the
-answers to the \enquote{individual} and \enquote{collective} questions we
-asked in \sect~\ref{sec:synopsis}.
+$\yHa \defd \frac{1}{M}\sum_{m} \yHm$ across the whole mouse population,
+where $M$ is the total number of mice. We could also ask about the variance
+from such an average histogram. These histograms and their average would be
+the answers to the \enquote{individual} and \enquote{collective} questions
+we asked in \sect~\ref{sec:synopsis}.
 
-So, if we can give a probability distribution for the values $\yNm_{j}$ for
-each mouse,
+So, \emph{our atomic statements will be about the values of the quantities
+  $\tu{\yNm_{j}}$}, for each target neuron $j$ of each mouse $m$. If we give a
+probability distribution for these quantities,
 \begin{equation}
   \label{eq:guess_prob_N}
+  \pf(\tu{\yNm_{j}} \| \yI)
+  \equiv
   \pf(\yNm[1]_{1}, \yNm[1]_{2}, \yNm[1]_{3}, \dotsc,
   \yNm[2]_{1}, \yNm[2]_{2},  \yNm[2]_{3}, \dotsc
-  \| \text{data}, \yI)
+  \|  \yI),
 \end{equation}
 then we can calculate from it the
-probabilities~\eqref{eq:basic_conditional_prob} for the answers of our main
-questions.
+probabilities~\eqref{eq:basic_conditional_prob} for the answers to our main
+questions. We do this in the following section.
 
 
 
 \subsection{Step 2: pre-data probabilities for the atomic statements}
 \label{sec:step_joint_prob}
+
+The probability distribution $\pf(\tu{\yNm_{j}} \| \yI)$ represents our
+pre-data guess about the numbers $\tu{\yNm_{j}}$. It should be a
+reasonable, unbiased guess. Some researchers feel uncomfortable in
+quantifying such a guess. But, as we stressed in \sect~\ref{sec:strategies}
+such a quantification is unavoidable: without it our experimental
+observations could not be probabilistically generalized to other mice. Some
+researchers also believe that there are statistical methods, such as
+so-called frequentist ones, which avoid this kind of pre-data assumptions.
+This is a false belief: those methods \emph{do} make pre-data assumptions,
+but keep them hidden. The advantage of the Bayesian approach is that the
+pre-data assumptions are explicitly stated instead. As I. J. Goodsaid:
+\enquote{The main difference is that in a non-Bayesian analysis more is
+  swept under the carpet. This makes non-Bayesian methods politically
+  expedient. The Bayesian is forced to put his cards on the table instead
+  of up his sleeve. He thus helps others to improve his analysis, and this
+  is always possible in a problem concerning the real world}
+\citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator in
+breaking the \emph{Enigma} code during World War II, using probabilistic
+methods). In fact, as the amount of experimental data increases, the effect
+of our pre-data guesses usually decreases. The Bayesian approach allows us
+to quantify this dependence and thus to decide whether the data we have
+collected are enough or whether we want to collect more.
+
 
 
 
