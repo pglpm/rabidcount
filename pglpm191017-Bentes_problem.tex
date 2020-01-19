@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T09:21:16+0100
+%% Last-Updated: 2020-01-19T11:42:57+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -663,7 +663,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yth}{\theta}
 \newcommand*{\ynu}{\bm{\nu}}
 \newcommand*{\yN}{N}
-\newcommand*{\yNa}{\Bar{N}}
+\newcommand*{\yNa}{\widebar{N}}
 \newcommand*{\yF}{\bm{F}}
 \newcommand*{\yH}{\bm{H}}
 \newcommand*{\yHHm}[1][m]{H^{(#1)}}
@@ -672,7 +672,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yJm}[1][m]{J^{(#1)}}
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
-\newcommand*{\yHa}{\Bar{\yH}}
+\newcommand*{\yHa}{\widebar{\yH}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -960,21 +960,26 @@ statistics; for example:
   $\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2}$, or any other measure
   of variation;
 \item the full histogram $\yHm\defd(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc)$
-  of the number of projections for that mouse: $\yHHm_{0}$ neurons receive
-  no projection, that is, we have $\yNm_{j}=0$ for $\yHHm_{0}$ different
-  $j$s; $\yHHm_{1}$ neurons receive only one projection, that is,
-  $\yNm_{j}=1$ for $\yHHm_{1}$ different $j$s; $\yHHm_{2}$ receive two
-  projections; and so on. From such histogram we can calculate the mean and
-  variance above; for example $\yNma = \frac{1}{\yJm}\sum_{n}n\,\yHHm_{n}$.
+  of the number of projections for that mouse. That is: we count how many
+  target neurons receive no projection from the input region, that's
+  $\yHHm_{0}$; we count how many receive projection from only one neuron, that's
+  $\yHHm_{1}$; and so on. Mathematically this is written
+  \begin{equation}
+    \label{eq:count_histogram}
+    \yHHm_{n} \defd \tsum_{j} \delt\bigl(\yNm_{j} = n\bigr)
+  \end{equation}
+  where $\delt$ is the Kronecker delta.
+  From such histogram we can calculate the mean and variance above; for
+  example $\yNma = \frac{1}{\yJm}\sum_{n}n\,\yHHm_{n}$.
 \end{itemize}
 
-If we had these statistics and histogram $\yHm$ for each mouse $m$, we
-could then ask about the average histogram of projections for \enquote{a
-  typical mouse}, $\yHa \defd \frac{1}{M}\sum_{m} \yHm$, where $M$ is the
-total number of mice; and also about the variance from such an average
-histogram. These histograms and their average would be the answers to the
-\enquote{individual} and \enquote{collective} questions we asked in
-\sect~\ref{sec:synopsis}.
+If we had these statistics and histograms $\yHm$ for each mouse $m$, we
+could then ask about the average histogram of projections
+$\yHa \defd \frac{1}{M}\sum_{m} \yHm$ across the mouse population, where
+$M$ is the total number of mice. We could also ask about the variance from
+such an average histogram. These histograms and their average would be the
+answers to the \enquote{individual} and \enquote{collective} questions we
+asked in \sect~\ref{sec:synopsis}.
 
 So, if we can give a probability distribution for the values $\yNm_{j}$ for
 each mouse,
