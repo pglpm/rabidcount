@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T12:21:13+0100
+%% Last-Updated: 2020-01-19T13:31:01+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1005,20 +1005,69 @@ such a quantification is unavoidable: without it our experimental
 observations could not be probabilistically generalized to other mice. Some
 researchers also believe that there are statistical methods, such as
 so-called frequentist ones, which avoid this kind of pre-data assumptions.
-This is a false belief: those methods \emph{do} make pre-data assumptions,
-but keep them hidden. The advantage of the Bayesian approach is that the
-pre-data assumptions are explicitly stated instead. As I. J. Goodsaid:
-\enquote{The main difference is that in a non-Bayesian analysis more is
-  swept under the carpet. This makes non-Bayesian methods politically
-  expedient. The Bayesian is forced to put his cards on the table instead
-  of up his sleeve. He thus helps others to improve his analysis, and this
-  is always possible in a problem concerning the real world}
-\citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator in
-breaking the \emph{Enigma} code during World War II, using probabilistic
-methods). In fact, as the amount of experimental data increases, the effect
-of our pre-data guesses usually decreases. The Bayesian approach allows us
-to quantify this dependence and thus to decide whether the data we have
-collected are enough or whether we want to collect more.
+This is a mistaken belief: those methods \emph{do} make pre-data
+assumptions -- but keep them hidden. The advantage of the Bayesian approach
+is that the pre-data assumptions are explicitly stated instead. As I. J.
+Good said: \enquote{The main difference is that in a non-Bayesian analysis
+  more is swept under the carpet. This makes non-Bayesian methods
+  politically expedient. The Bayesian is forced to put his cards on the
+  table instead of up his sleeve. He thus helps others to improve his
+  analysis, and this is always possible in a problem concerning the real
+  world} \citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator
+in the breaking of the \emph{Enigma} code during World War II, using
+probabilistic methods). In fact, as the amount of experimental data
+increases, the effect of our pre-data guesses usually decreases. The
+Bayesian approach allows us to quantify this dependence and thus to decide
+whether the data we have collected are enough or whether we want to collect
+more.
+
+To assign the distribution $\pf(\tu{\yNm_{j}} \| \yI)$ we are going to use
+two \emph{symmetry} assumptions: one about the target neurons of each mouse
+individually, and then one about the statistics of all mice.
+
+\subsubsection{One mouse: exchangeability}
+\label{sec:onemouse_exch}
+
+Let's start by focusing on a specific but arbitrary mouse $m$. We'll thus
+suppress all \enquote{$(m)$} for the moment, to make the notation lighter.
+
+We want to assign the distribution for the $\tu{N_{j}}$ of that mouse: of
+$\pf(\tu{N_{j}} \| \yI)$. Our assumption is this: \emph{there isn't any
+  reason for some target neuron $j$ to have more or less projections than
+  some other target neuron $j'$}. In other words, the specific index $j$ of
+a neuron shouldn't give us any information about the number of projections
+$N_{j}$ to it. This is called an \emph{exchangeability} assumption. Let's
+discuss in which cases this assumption can be at least approximately
+justified.
+
+One case is if the indexing of the target neurons is done in a completely
+unknown way, for example by an automated unique-string generator. This
+isn't our case, because no matter how a neuron is indexed we can always
+check what its location was, for example.
+
+Another case is if we do not believe the number of projections to depend on
+the \emph{relative} locations of the target neurons, or on their specific
+small differences in morphology. This may be justified if all target
+neurons under consideration are very similar and very close, with respect
+to larger brain scales; or if previous studies showed that their relative
+locations and morphological differences are unimportant. This assumption
+may therefore be unreasonable if the target neurons are located in widely
+different brain areas. In the latter case we can divide the target neurons
+into small neighbourhood (and morphology) groups, and apply the
+exchangeability assumption only within neighbourhoods. We'll see later how
+the results for different neighbourhoods can be combined.
+
+The exchangeability assumption has a powerful mathematical consequence,
+called the de~Finetti's representation theorem
+\citep{definetti1930,hewittetal1955,heathetal1976,diaconis1977,diaconisetal1980,dawid2013}.
+It says that the distribution $\pf(\tu{N_{j}} \| \yI)$ must take this very
+specific form:
+\begin{equation}
+  \label{eq:definetti_Nj}
+  \pf(\tu{N_{j}} \| \yI) =
+  \sum_{\yH} \pf(\yH \| \yI)\; \prod_{j} H_{N_{j}}
+\end{equation}
+
 
 
 
