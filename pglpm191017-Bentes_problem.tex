@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T13:31:01+0100
+%% Last-Updated: 2020-01-19T16:04:50+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -665,6 +665,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yN}{N}
 \newcommand*{\yNa}{\widebar{N}}
 \newcommand*{\yF}{\bm{F}}
+\newcommand*{\yh}{\bm{h}}
 \newcommand*{\yH}{\bm{H}}
 \newcommand*{\yHHm}[1][m]{H^{(#1)}}
 \newcommand*{\yHm}[1][m]{\yH^{(#1)}}
@@ -943,7 +944,8 @@ profitable to use slightly less detailed ones. We're interested, in fact,
 in the total number of neurons in an input region that project to each
 target neuron $j$, but not on their individual identities. Let $\yNm_{j}$
 denote this number. In \fig~\ref{fig:cmij} it's the total number of black
-squares in column $j$ of grid $m$.
+squares in column $j$ of grid $m$. Its possible values are between $0$ and
+$\yIm$.
 
 If we could experimentally count the projections and find $\yNm_{j}$ for all
 $\yJm$ target neurons of mouse $m$,  we could then report several
@@ -955,18 +957,19 @@ statistics; for example:
   $\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2}$, or any other measure
   of variation;
 \item the full histogram
-  $\yHm\defd \bigl(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc\bigr)$ of the
-  number of projections for that mouse. That is: we count how many target
-  neurons receive no projection from the input region, that's $\yHHm_{0}$;
-  we count how many receive projections from only one neuron, that's
-  $\yHHm_{1}$; and so on. Mathematically this is written
+  $\yHm\defd \bigl(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc,
+  \yHHm_{I_{m}}\bigr)$ of the number of projections for that mouse. That
+  is: we count how many target neurons receive no projection from the input
+  region, that's $\yHHm_{0}$; we count how many receive projections from
+  only one neuron, that's $\yHHm_{1}$; and so on. Mathematically this is
+  written
   \begin{equation}
     \label{eq:count_histogram}
     \yHHm_{n} \defd \tsum_{j} \delt\bigl(\yNm_{j} = n\bigr)
   \end{equation}
   where $\delt$ is the Kronecker delta.
   From such histogram we can calculate the mean and variance above; for
-  example $\yNma = \frac{1}{\yJm}\sum_{n}n\,\yHHm_{n}$.
+  example $\yNma = \frac{1}{\yIm}\sum_{n}n\,\yHHm_{n}$.
 \end{itemize}
 
 If we had these statistics and histograms $\yHm$ for each mouse $m$, we
@@ -984,9 +987,9 @@ probability distribution for these quantities,
   \label{eq:guess_prob_N}
   \pf(\tu{\yNm_{j}} \| \yI)
   \equiv
-  \pf(\yNm[1]_{1}, \yNm[1]_{2}, \yNm[1]_{3}, \dotsc,
-  \yNm[2]_{1}, \yNm[2]_{2},  \yNm[2]_{3}, \dotsc
-  \|  \yI),
+  \pf\bigl(\yNm[1]_{1}, \yNm[1]_{2},  \dotsc, \yNm[1]_{\yJm[1]},
+  \yNm[2]_{1}, \yNm[2]_{2},  \dotsc,\yNm[2]_{\yJm[2]}, \dotsc
+  \|  \yI\bigr),
 \end{equation}
 then we can calculate from it the
 probabilities~\eqref{eq:basic_conditional_prob} for the answers to our main
@@ -1031,7 +1034,7 @@ individually, and then one about the statistics of all mice.
 Let's start by focusing on a specific but arbitrary mouse $m$. We'll thus
 suppress all \enquote{$(m)$} for the moment, to make the notation lighter.
 
-We want to assign the distribution for the $\tu{N_{j}}$ of that mouse: of
+We want to assign the distribution for the $\tu{N_{j}}$ of that mouse:
 $\pf(\tu{N_{j}} \| \yI)$. Our assumption is this: \emph{there isn't any
   reason for some target neuron $j$ to have more or less projections than
   some other target neuron $j'$}. In other words, the specific index $j$ of
@@ -1060,12 +1063,34 @@ the results for different neighbourhoods can be combined.
 The exchangeability assumption has a powerful mathematical consequence,
 called the de~Finetti's representation theorem
 \citep{definetti1930,hewittetal1955,heathetal1976,diaconis1977,diaconisetal1980,dawid2013}.
-It says that the distribution $\pf(\tu{N_{j}} \| \yI)$ must take this very
-specific form:
+Suppose we're going to examine the projections to $J'$ target neurons, and
+we want the probability of finding $N_{1}$ for the first, and so on, up to
+$N_{J'}$ for the $J'$th. Each of these values is between $0$ and $I$.
+
+To find this probability it's easier to first form the histogram
+$\yh=(h_{0},\dotsc,h_{I})$ of these values. We do this by first grouping
+together all $N_{j}$ that have the same value. For example, if the first,
+third, and tenth neurons have five projections, then $N_{1}=N_{3}=N_{10}=5$
+and we group them together. There are $I+1$ groups: the group with no
+projection, that is, with all $N_{j}=0$, up to the group with $I$
+projections, that is, with all $N_{j}=I$. Count how many $N_{j}$ are in the
+group with $n$ projections: that's $h_{n}$.
+
+The histogram $\yh$ is useful because \emph{all sets of values
+  $N_{1},\dotsc,N_{J'}$ leading to the same histogram have the same
+  probability}. This is a consequence of exchangeability: it is as likely
+that first and second neurons have $4$ projections each, and the third has
+$6$ projection, as that the first and the third have $4$ projections and
+the second has $6$ instead, because the index $j$ doesn't matter. But
+either of these cases leads to an histogram with $h_{4}=2$ and $h_{6}=1$.
+
+De~Finetti's theorem say that the probability of observing a set of
+projections $N_{1},\dotsc,N_{J'}$ having the histogram $\yh$ is
 \begin{equation}
   \label{eq:definetti_Nj}
-  \pf(\tu{N_{j}} \| \yI) =
-  \sum_{\yH} \pf(\yH \| \yI)\; \prod_{j} H_{N_{j}}
+  \pf(\underbracket{N_{1},\dotsc,N_{J'}}_{\text{histogram $\yh$}} \| \yI) =
+\frac{1}{J'}  \sum_{\yH} \pf(\yH \| \yI)\;
+  \frac{\binom{H_{0}}{h_{0}}\times\dotsm\times\binom{H_{n}}{h_{n}}}{\binom{J}{J'}}
 \end{equation}
 
 
