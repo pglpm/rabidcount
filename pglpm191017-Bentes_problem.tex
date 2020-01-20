@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-20T11:14:57+0100
+%% Last-Updated: 2020-01-20T11:41:49+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -775,15 +775,17 @@ characteristics? These two cases can have slightly different answers, and
 their difference is important for the application of the
 probability-calculus and for experimental verification. We'll focus on
 these two kinds of question:
-\begin{description}[font=\mdseries]
-\item[Individual:] If we were able to perfectly count, in the next mouse to
-  be examined, the number of input neurons in region $R$ projecting on
-  average to a target neuron of class $C$, -- what number would we find?
-\item[Collective or average:] If we were able to perfectly count, for each
-  mouse (with some specific traits such as age or gender and so on) to be
-  examined in the future or that could have been examined in the past, the
-  number of input neurons in region $R$ projecting to target neurons of
-  class $C$, -- what average number would we find?
+\begin{description}[font=\itshape\mdseries]
+\item[Individual:]\label{item:Qindiv} If we were able to perfectly count,
+  in the next mouse to be examined, the number of input neurons in region
+  $R$ projecting on average to a target neuron of class $C$, -- what number
+  would we find?
+\item[Collective or average:]\label{item:Qcollect} If we were able to
+  perfectly count, for each mouse (with some specific traits such as age or
+  gender and so on) to be examined in the future or that could have been
+  examined in the past, the number of input neurons in region $R$
+  projecting to target neurons of class $C$, -- what average number would
+  we find?
 \end{description}
 It's intuitively clear that the answer to the second question comes from
 the combination of answers to the first, for many mice.
@@ -858,10 +860,10 @@ Our inference, based the probability-calculus, boils down to these steps:
   information:
   \begin{equation}
     \label{eq:basic_conditional_prob}
-    \pf(\text{\small answer} \| \text{\small data}, \yI).
-    % =
-    % \frac{\pf(\text{\small answer} \| \yI)}
-    % {\pf(\text{\small data} \| \yI)}
+    \pf(\text{\small answer} \| \text{\small data}, \yI)
+    =
+    \frac{\pf(\text{\small answer}, \text{\small data} \| \yI)}
+    {\pf(\text{\small data} \| \yI)}.
   \end{equation}
   The probabilities for all possible answers form the so-called
   \enquote{post-data} or \enquote{posterior} distribution.
@@ -1184,13 +1186,19 @@ histograms $\tu{\yHm}$ of several mice is given by
   \ySS_{\yFm[1]} \times \ySS_{\yFm[2]} \times \dotsm\;.
 \end{equation}
 Here $\yS$ is the distribution of all normalized histograms $\yF$. That is,
-we imagine to check every single mouse, and for each we write down what's
-its histogram of projections $\yF$; then we count how many mice have a the
+we imagine to check every single mouse, and for each we write down 
+its histogram of projections $\yF$; then we count how many mice have the
 particular histogram $\yF'$ in common, how many have another particular
 histogram $\yF''$ in common, and so on. Thus $\ySS_{\yF}$ is the proportion
 of mice that have the same histogram $\yF$; it's a sort of
-\enquote{super-statistics}. It allows us to say what's the most common
-histogram of projections in our mice population, what's the average
+\enquote{super-statistics}. Mathematically it's expressed as
+  \begin{equation}
+    \label{eq:count_superhistogram}
+    \ySS_{\bm{f}} \defd \frac{1}{M} \tsum_{m} \delt\bigl(\yFm = \bm{f}\bigr),
+\end{equation}
+similarly to the expression for the individual
+statistics~\eqref{eq:count_histogram}. It allows us to say what's the most
+common histogram of projections in our mice population, what's the average
 histogram, and how much the histograms can vary from the average one,
 across the population. Since each possible $\yF$ is a tuple with $I+1$
 elements, the distribution $\yS$ is over an $(I+1)$-dimensional space.
@@ -1242,11 +1250,27 @@ statistics $\yFm$ for that mouse. Such full statistics for all mice are in
 turn given a probability based on a \enquote{super-statistics} $\yS$ for
 the full mouse population.
 
+\medskip
+
 In the next step we express our experimental data in terms of the atomic
 statements about the projection numbers $\yNm_{j}$. This will allow us to
 use the probability~\eqref{eq:pre-data_final} in reverse: from the
 $\yNm_{j}$ that make up the data we will make guesses about the
 single-mouse statistics $\yFm$ and the mouse-population statistics $\yS$.
+
+\subsection{Step 3: data and answers in terms of atomic statements}
+\label{sec:data_as_atomic}
+
+Let's start with the answers to our main questions of
+p.~\pageref{item:Qindiv}. As discussed in \sect~\ref{sec:step_statements},
+these answers are given by the statistics $\yFm$ and $\yS$, already expressed in
+terms of the projection numbers $\yNm_{j}$ via
+formulae~\eqref{eq:count_histogram} and \eqref{eq:count_superhistogram}.
+These statistics already appear in the pre-data
+probabilities~\eqref{eq:pre-data_final}. So 
+
+
+
 \clearpage
 
 \bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
