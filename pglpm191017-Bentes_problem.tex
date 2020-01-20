@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-20T15:50:01+0100
+%% Last-Updated: 2020-01-20T23:27:17+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -393,13 +393,13 @@ citestyle=authoryear-comp,bibstyle=pglpm-authoryear,autopunct=false,sorting=ny,s
 \raggedright}
 %\setbeforesecskip{-1.5ex plus 1ex minus .2ex}% plus 1ex minus .2ex}
 %\setaftersecskip{1.3ex plus .2ex }% plus 1ex minus .2ex}
-%\setsubsubsecheadstyle{\bfseries\sffamily\slshape\raggedright}
+\setsubsubsecheadstyle{\bfseries\sffamily\slshape\raggedright}
 %\setbeforesubsecskip{1.25ex plus 1ex minus .2ex }% plus 1ex minus .2ex}
 %\setaftersubsecskip{-1em}%{-0.5ex plus .2ex}% plus 1ex minus .2ex}
 \setsubsecindent{0pt}%0ex plus 1ex minus .2ex}
 \setparaheadstyle{\bfseries\sffamily%
 \raggedright}
-\setcounter{secnumdepth}{2}
+\setcounter{secnumdepth}{3}
 \setlength{\headwidth}{\textwidth}
 \newcommand{\addchap}[1]{\chapter*[#1]{#1}\addcontentsline{toc}{chapter}{#1}}
 \newcommand{\addsec}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
@@ -676,7 +676,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yJm}[1][m]{J^{(#1)}}
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
-\newcommand*{\yHa}{\widebar{\yH}}
+\newcommand*{\ycm}[1][m]{c^{(#1)}}
+\newcommand*{\yFa}{\widebar{\yF}}
 \newcommand*{\ySS}{S}
 \newcommand*{\yS}{\bm{\ySS}}
 \DeclarePairedDelimiter\tu{\{}{\}}
@@ -797,7 +798,9 @@ these two kinds of question:
   we find?
 \end{description}
 It's intuitively clear that the answer to the second question comes from
-the combination of answers to the first, for many mice.
+the combination of answers to the first, for many mice. In either case, our
+questions are about \emph{statistics}: total numbers, averages, deviations
+from averages, and so on. 
 
 \medskip
 
@@ -829,14 +832,28 @@ questions above.
 \subsection{Preliminary remarks}
 \label{sec:prelim_remarks}
 
-
-Our inference, based the probability-calculus, boils down to these steps:
+Probabilistic inferences are just generalizations of logical inferences.
+Their analysis therefore involve a logical analysis of the problem. A
+probabilistic inference generally boils down to these steps:
 \begin{enumerate}[label=\arabic*.]
 \item \label{item:step_statements} Find a set of simple, factual
-  statements, in terms of which we can formulate our questions and our
-  data. These are called \enquote{atomic statements}; atomic in the sense
-  that we won't analyse them into more precise statements.
+  statements, in terms of which the questions and the data can be
+  formulated. These are called \enquote{atomic statements}; atomic in the
+  sense that we won't analyse them into more precise statements. The choice
+  of atomic statements is not unique and is mostly dictated by convenience.
 
+\item \label{item:step_formulate_question_data} Express the data and the
+  possible answers to the questions in terms of the atomic statements:
+  \begin{equation}
+    \label{eq:data_answ_as_combos}
+    \begin{gathered}
+      \text{\small data} = \textit{\small[some combination of atomic statements]},
+      \\
+      \text{\small answers} =
+      \textit{\small[some combination of atomic statements]}.
+    \end{gathered}
+  \end{equation}
+  
 \item \label{item:step_joint_prob} Assign a joint probability distribution
   for all the possible combinations of these atomic statements,
   \begin{equation}
@@ -848,24 +865,12 @@ Our inference, based the probability-calculus, boils down to these steps:
   information and assumptions, denoted by $\yI$, but not yet on the
   experimental data.
 
-\item \label{item:step_formulate_question_data} Express our data and the
-  possible answers to our questions in terms of the atomic statements:
-  \begin{equation}
-    \label{eq:data_answ_as_combos}
-    \begin{gathered}
-      \text{\small data} = \textit{\small[some combination of atomic statements]},
-      \\
-      \text{\small answers} =
-      \textit{\small[some combination of atomic statements]}.
-    \end{gathered}
-  \end{equation}
-
 
 \item \label{item:step_calculate_probabilities} Use the
   probability-calculus to determine, from the pre-data
   distribution~\eqref{eq:p_atomic_stats_eg} and the
   expressions~\eqref{eq:data_answ_as_combos}, the probability for each
-  answer of interest, conditional on the data observed and on our pre-data
+  answer of interest, conditional on the data observed and on the pre-data
   information:
   \begin{equation}
     \label{eq:basic_conditional_prob}
@@ -891,12 +896,12 @@ Our inference, based the probability-calculus, boils down to these steps:
 \end{innote}
 
 These steps are very interdependent and usually not faced sequentially. A
-choice of atomic statements, for example, may lead to great difficulties in
-the assignment of the pre-data probabilities. And trying to simplify the
-latter may lead us back to consider an alternative choice of atomic
+choice of atomic statements, for example, may lead to difficulties in the
+assignment of the pre-data probabilities. Trying to simplify the latter
+probabilities may lead us back to consider an alternative choice of atomic
 statements.
 
-The first two steps always involve some degree of simplification and
+The first and third steps always involve some degree of simplification and
 abstraction of our problem, necessary for eliminating features of the
 problem that are unimportant, and for making the problem mathematically and
 computationally tractable. The third step often involves some mathematical
@@ -952,7 +957,8 @@ experimental technology to look and see. If we could experimentally
 ascertain each of these statements, for all mice $m$, input neurons $i$,
 target neurons $j$, then our problem would be solved. We'd just have to
 count, and we could report the exact projection proportions for each mouse,
-and also averages across all mice.
+and also averages across all mice. \emph{We'll use this kind of statements as our
+atomic statements.}
 
 The situation collectively described by these statements is visualized in
 \fig~\ref{fig:cmij}. We plot a grid for each mouse $m$. Each row $i$ in the
@@ -968,7 +974,189 @@ the number 0.
    for all mice}\label{fig:cmij}
 \end{figure}% bente_notes_drawings.svg
 
+Let's indicate the entries of all grids with the binary indicators
+$\ycm_{ij}$. If input neuron $i$ projects to target neuron $j$ in mouse
+$m$, we write $\ycm_{ij}=1$; otherwise we write $\ycm_{ij}=0$. Then
+\emph{our atomic statements will be of the form \enquote{$\ycm_{ij}=0$} or
+  \enquote{$\ycm_{ij}=1$}} for all $m,i,j$ we need.
+
+By assigning  a probability distribution for all combinations of these indicators,
+\begin{equation}
+  \label{eq:guess_prob_c}
+  \pf(\tu{\ycm_{j}} \| \yI)
+  \equiv
+  \pf\bigl(
+  \ycm[1]_{1\,1}, \ycm[1]_{1\,2}, \dotsc,
+  \ycm[1]_{2\,1}, \ycm[1]_{2\,2}, \dotsc,\;
+  \ycm[2]_{1\,1}, \dotsc
+  \|  \yI\bigr),
+\end{equation}
+we can calculate from it the
+probabilities~\eqref{eq:basic_conditional_prob} for the answers to our main
+questions.
+
+First let's see how to express those answers and our data in terms of the
+atomic statements.
+
+\subsection{Step 2: data and answers in terms of atomic statements}
+\label{sec:data_as_atomic}
+
+\subsubsection{Our questions}
+\label{sec:atomic_questions}
+
+Let's start with the answers to our questions. As discussed in
+\sect~\ref{sec:synopsis}, our questions are about individual and collective
+statistics. Let's then introduce some statistics, expressed in terms of the
+atomic statements.
+
+Consider first a specific mouse $m$ and target neuron $j$. A useful
+statistics is the total number of input neurons that project to that target
+neuron. Denote this by $\yNm_{j}$. It is of course given by
+\begin{equation}
+  \label{eq:def_Nj}
+  \yNm_{j} \defd \sum_{i} \ycm_{ij},
+\end{equation}
+that is, by counting the black squares in the $j$th column of the $m$th
+grid in \fig~\ref{fig:cmij}.
+
+This statistic is useful because from it we can calculate, for example, the average
+number of projections to the target neurons in that mouse:
+\begin{equation}
+\yNma \defd \frac{1}{\yJm}\sum_{j}\yNm_{j},\label{eq:aver_proj_m}
+\end{equation}
+and the variance from that average,
+\begin{equation}
+\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2},\label{eq:variance_proj_m}
+\end{equation}
+which answer some basic questions about a specific mouse.
+
+But we may be interested in a more statistics of the projections in that
+mouse. For example, how many target neurons receive no projections from the
+input region? how many receive only one projection? how many receive two?
+And so on. This statistics is given by a histogram
+$\yHm\defd \bigl(\yHHm_{0},\yHHm_{1}, \yHHm_{2},\dotsc, \yHHm_{\yIm}\bigr)$
+of the number of projections for that mouse: $\yHHm_{0}$ is the number of
+neurons receiving no projections, $\yHHm_{1}$ the number receiving only one
+projection, and so on, up to the total number of neurons $\yIm$ in the
+input region. Mathematically this histogram is given by
+\begin{equation}
+   \label{eq:count_histogram}
+    \yHHm_{n} \defd \tsum_{j} \delt\bigl(\yNm_{j} = n\bigr)
+\end{equation}
+where $\delt$ is the Kronecker delta. From such histogram we can calculate
+the mean and variance above; for example
+$\yNma = \frac{1}{\yIm}\sum_{n}n\,\yHHm_{n}$.
+
+Also useful is the normalized version of the histogram,
+$\yFm \defd \yHm/\yJm$, corresponding to the relative frequency
+distribution of projections.
+
 \medskip
+
+At the level of the whole mouse population (or subpopulation with specific
+traits, as discussed before), we are interested again on the average number
+of projections from the input region to an target neuron, and so on. But we
+can ask for more statistical information. For example, if we had the
+histograms $\yFm$ for each mouse $m$, we could then ask about the average
+histogram of projections $\yFa \defd \frac{1}{M}\sum_{m} \yFm$ across the
+whole population, where $M$ is the total number of mice. We could also ask
+about the variance from such an average histogram. More in detail, we could
+build a \enquote{super-statistics} or \enquote{histogram of histograms}: we
+imagine to check every mouse, and for each we write down its histogram of
+projections $\yFm$; then we count how many mice have the particular
+histogram $\yF'$ in common, how many have another particular histogram
+$\yF''$ in common, and so on. We obtain a \enquote{super-histogram}
+$\yS=(\ySS_{\yF})$: $\ySS_{\yF'}$ is the proportion of mice that have the
+same histogram $\yF'$, and so on. Mathematically it's expressed as
+  \begin{equation}
+    \label{eq:count_superhistogram}
+    \ySS_{\bm{f}} \defd \frac{1}{M} \tsum_{m} \delt\bigl(\yFm = \bm{f}\bigr),
+\end{equation}
+similarly to the expression for the individual
+statistics~\eqref{eq:count_histogram}. It allows us to say what's the most
+common histogram of projections in our mice population, what's the average
+histogram, and how much the histograms can vary from the average one,
+across the population. Since each possible $\yFm$ is a tuple with $\yIm+1$
+elements, the distribution $\yS$ is over an $(I+1)$-dimensional space,
+where $I$ is the largest of all $\yIm$.
+
+
+\subsubsection{Our data}
+\label{sec:atomic_data}
+
+
+The expression of the data in terms of the atomic statements
+$\tu{\ycm_{ij}}$ requires some more thinking. We're still focusing on a
+specific input region (say, thalamus) and a specific target class (say,
+parvalbumin). Our data consists, for a number of mice, of the total number
+of target neurons marked by the virus, and the total number of input
+neurons that have been infected by the target ones, and thus also marked by
+the virus. Let's use a circumflex to indicate observed quantities. The
+observed mice are indexed with $\ymh$, the marked target neurons with
+$\yjh$, and the marked input neurons with $\yih$. The total numbers of
+marked target and input neurons in mouse $\ymh$ are $\yJhm$ and $\yIhm$.
+
+Consider a specific mouse (we omit its index $\ymh$ for the moment), and
+the grid that represents its projections. Owing to our assumption that the
+specific order and indexing of target and input neurons doesn't matter, we
+can rearrange the grid so that the input neurons marked by the virus are
+the first $\yIh$ rows, and the marked target neurons are the first $\yJh$
+columns; see \fig~\ref{fig:datamouse}.
+%%\setlength{\intextsep}{0.5ex}% with wrapfigure
+\begin{figure}[b!]%{r}{0.33\linewidth} % with wrapfigure
+ \centering\includegraphics[width=0.5\linewidth]{data_mouse2.png}\\
+ \caption{Imaginary layout of the connectivity data for an observed mouse}\label{fig:datamouse}
+\end{figure}% data_mouse.svg
+
+Because of the way the virus infection works, our data correspond to the
+following two main pieces of information; refer to the grid of
+\fig~\ref{fig:datamouse}:
+\begin{itemize}
+\item[\textcolor{myred}{$\ka$}:] Each marked input neuron must project to
+  \emph{at least one} marked target neuron -- otherwise it wouldn't have
+  been infected and marked. This means that \emph{each row} in the
+  upper-right, \textcolor{myred}{red-bounded} part of the grid \emph{must
+    have at least one black entry} -- but we don't know how many black
+  entries and where.
+\item[\textcolor{mypurpleblue}{$\kb$}:] The unmarked input neurons
+  \emph{cannot} project to the marked target neurons -- because otherwise
+  they would have been infected and would be marked instead. Thus the
+  lower-right, \textcolor{mypurpleblue}{blue-bounded} part of the grid has
+  no black entries.
+\end{itemize}
+On the other hand we don't know anything about the projections of marked
+and unmarked input neurons to the unmarked target neurons. This is
+represented by the \textcolor{myyellow}{yellow-bounded} region on the right
+with the large yellow question mark.
+
+The expression of $\ka$ is simple: it corresponds to
+\begin{equation}
+  \label{eq:alpha_and}
+  \ycm_{ij} =0 \quad\text{for }i=\yIhm+1,\dotsc,\yIm
+  \quad\text{and }j=1,\dotsc,\yJhm.
+\end{equation}
+
+
+
+
+We want to express $\ka$ and $\kb$ in terms of the projection numbers
+$\tu{N_{j}}$ and find the probability of obtaining the data we actually
+observed:
+\begin{equation}
+  \label{eq:prob_infodata}
+  \pf(\ka, \kb \| \yI) = \pf(\ka \| \kb, \yI) \times \pf(\kb \| \yI).
+\end{equation}
+
+
+
+
+\clearpage
+
+\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
+
+
+\subsection{Step 2: pre-data probabilities for the atomic statements}
+\label{sec:step_joint_prob}
 
 These statements won't be our atomic statements, however: it's more
 profitable to use slightly less detailed ones. We're interested, in fact,
@@ -1005,7 +1193,7 @@ statistics; for example:
 
 If we had these statistics and histograms $\yHm$ for each mouse $m$, we
 could then ask about the average histogram of projections
-$\yHa \defd \frac{1}{M}\sum_{m} \yHm$ across the whole mouse population,
+$\yFa \defd \frac{1}{M}\sum_{m} \yFm$ across the whole mouse population,
 where $M$ is the total number of mice. We could also ask about the variance
 from such an average histogram. These histograms and their average would be
 the answers to the \enquote{individual} and \enquote{collective} questions
@@ -1026,10 +1214,6 @@ then we can calculate from it the
 probabilities~\eqref{eq:basic_conditional_prob} for the answers to our main
 questions. We do this in the following section.
 
-
-
-\subsection{Step 2: pre-data probabilities for the atomic statements}
-\label{sec:step_joint_prob}
 
 The probability distribution $\pf(\tu{\yNm_{j}} \| \yI)$ represents our
 pre-data guess about the numbers $\tu{\yNm_{j}}$. It should be a
@@ -1279,63 +1463,9 @@ And these statistics already appear in the pre-data
 probabilities~\eqref{eq:pre-data_final}, we don't need to analyse them
 further.
 
-The expression of the data in terms of $\tu{\yNm_{j}}$ requires some more
-thinking. We're still focusing on a specific input region (say, thalamus)
-and a specific target class (say, parvalbumin). Our data consists, for a
-number of mice, of the total number of target neurons marked by the virus,
-and the total number of input neurons that have been infected by the target
-ones, and thus also marked by the virus. Let's use a circumflex to indicate
-observed quantities. The observed mice are indexed with $\ymh$, the marked
-target neurons with $\yjh$, and the marked input neurons with $\yih$. The
-total numbers of marked target and input neurons in mouse $\ymh$ are
-$\yJhm$ and $\yIhm$.
-
-Consider a specific mouse (we omit its index $\ymh$ for the moment), and
-the grid that represents its projections. Owing to our assumption that the
-specific order and indexing of target and input neurons doesn't matter, we
-can rearrange the grid so that the input neurons marked by the virus are
-the first $\yIh$ rows, and the marked target neurons are the first $\yJh$
-columns; see \fig~\ref{fig:datamouse}.
-%%\setlength{\intextsep}{0.5ex}% with wrapfigure
-\begin{figure}[t!]%{r}{0.33\linewidth} % with wrapfigure
- \centering\includegraphics[width=0.5\linewidth]{data_mouse2.png}\\
- \caption{Imaginary layout of the connectivity data for an observed mouse}\label{fig:datamouse}
-\end{figure}% data_mouse.svg
-
-Because of the way the virus infection works, our data correspond to the
-following two main pieces of information; refer to the grid of
-\fig~\ref{fig:datamouse}:
-\begin{itemize}
-\item[\textcolor{myred}{$\ka$}:] Each marked input neuron must project to
-  \emph{at least one} marked target neuron -- otherwise it wouldn't have
-  been infected and marked. This means that \emph{each row} in the
-  upper-right, \textcolor{myred}{red-bounded} part of the grid \emph{must
-    have at least one black entry} -- but we don't know how many black
-  entries and where.
-\item[\textcolor{mypurpleblue}{$\kb$}:] The unmarked input neurons
-  \emph{cannot} project to the marked target neurons -- because otherwise
-  they would have been infected and would be marked instead. Thus the
-  lower-right, \textcolor{mypurpleblue}{blue-bounded} part of the grid has
-  no black entries.
-\end{itemize}
-On the other hand we don't know anything about the projections of marked
-and unmarked input neurons to the unmarked target neurons. This is
-represented by the \textcolor{myyellow}{yellow-bounded} region on the right
-with the large yellow question mark.
-
-We want to express $\ka$ and $\kb$ in terms of the projection numbers
-$\tu{N_{j}}$ and find the probability of obtaining the data we actually
-observed:
-\begin{equation}
-  \label{eq:prob_infodata}
-  \pf(\ka, \kb \| \yI) = \pf(\ka \| \kb, \yI) \times \pf(\kb \| \yI).
-\end{equation}
 
 
 
-\clearpage
-
-\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
 
 
 In order to assign the initial joint probability distribution
