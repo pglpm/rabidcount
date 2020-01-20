@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-19T18:59:37+0100
+%% Last-Updated: 2020-01-20T11:14:57+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -677,8 +677,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
 \newcommand*{\yHa}{\widebar{\yH}}
-\newcommand*{\yll}{\lambda}
-\newcommand*{\yl}{\bm{\yll}}
+\newcommand*{\ySS}{S}
+\newcommand*{\yS}{\bm{\ySS}}
 \DeclarePairedDelimiter\tu{\{}{\}}
 %%% Custom macros end @@@
 
@@ -827,19 +827,34 @@ Our inference, based the probability-calculus, boils down to these steps:
   that we won't analyse them into more precise statements.
 
 \item \label{item:step_joint_prob} Assign a joint probability distribution
-  for all the possible combinations of these atomic statements. This
-  probability distribution is called a \enquote{pre-data} or
+  for all the possible combinations of these atomic statements,
+  \begin{equation}
+    \label{eq:p_atomic_stats_eg}
+    \pf(\textit{\small[combination of atomic statements]} \| \yI).
+  \end{equation}
+  This probability distribution is called the \enquote{pre-data} or
   \enquote{prior} distribution, because it depends on our background
   information and assumptions, denoted by $\yI$, but not yet on the
   experimental data.
 
 \item \label{item:step_formulate_question_data} Express our data and the
-  possible answers to our questions in terms of the atomic statements.
+  possible answers to our questions in terms of the atomic statements:
+  \begin{equation}
+    \label{eq:data_answ_as_combos}
+    \begin{gathered}
+      \text{\small data} = \textit{\small[some combination of atomic statements]},
+      \\
+      \text{\small answers} =
+      \textit{\small[some combination of atomic statements]}.
+    \end{gathered}
+  \end{equation}
+
 
 \item \label{item:step_calculate_probabilities} Use the
-  probability-calculus to determine, from the pre-data distribution of
-  step~\ref{item:step_joint_prob}, the probability for each answer of
-  interest, conditional on the data observer and on our pre-data
+  probability-calculus to determine, from the pre-data
+  distribution~\eqref{eq:p_atomic_stats_eg} and the
+  expressions~\eqref{eq:data_answ_as_combos}, the probability for each
+  answer of interest, conditional on the data observed and on our pre-data
   information:
   \begin{equation}
     \label{eq:basic_conditional_prob}
@@ -1164,31 +1179,31 @@ histograms $\tu{\yHm}$ of several mice is given by
 \begin{equation}
   \label{eq:distr_H_mice}
   \pf( \yFm[1], \yFm[2], \dotsc \| \yI) =
-  \int\!\!\!\di \yl\;
-  \pf(\yl \| \yI)\;
-  \yll_{\yFm[1]} \times \yll_{\yFm[2]} \times \dotsm\;.
+  \int\!\!\!\di \yS\;
+  \pf(\yS \| \yI)\;
+  \ySS_{\yFm[1]} \times \ySS_{\yFm[2]} \times \dotsm\;.
 \end{equation}
-Here $\yl$ is the distribution of all normalized histograms $\yF$. That is,
+Here $\yS$ is the distribution of all normalized histograms $\yF$. That is,
 we imagine to check every single mouse, and for each we write down what's
 its histogram of projections $\yF$; then we count how many mice have a the
 particular histogram $\yF'$ in common, how many have another particular
-histogram $\yF''$ in common, and so on. Then $\yll_{\yF}$ is the proportion
-of mice that have the same histogram $\yF$. This summary allows us to say
-what's the most common histogram of projections in our mice population,
-what's the average histogram, and how much the histograms can vary from the
-average one, across the population. Since each possible $\yF$ is a tuple
-with $I+1$ elements, the distribution $\yl$ is over an $(I+1)$-dimensional
-space.
+histogram $\yF''$ in common, and so on. Thus $\ySS_{\yF}$ is the proportion
+of mice that have the same histogram $\yF$; it's a sort of
+\enquote{super-statistics}. It allows us to say what's the most common
+histogram of projections in our mice population, what's the average
+histogram, and how much the histograms can vary from the average one,
+across the population. Since each possible $\yF$ is a tuple with $I+1$
+elements, the distribution $\yS$ is over an $(I+1)$-dimensional space.
 
-The distribution $\yl$ is unknown to us, and the probability density
-$\pf(\yl \| \yI)$ expresses our pre-data uncertainty about it. We still
+The distribution $\yS$ is unknown to us, and the probability density
+$\pf(\yS \| \yI)$ expresses our pre-data uncertainty about it. We still
 have to specify this density. It turns out that its exact form is
 unimportant if we have numerous data, because the data will change its
 shape to reflect the observed statistics.
 For the moment we assume it to be constant:
 \begin{equation}
   \label{eq:distr_lambda}
-  \pf(\yl \| \yI) = \text{const.}
+  \pf(\yS \| \yI) = \text{const.}
 \end{equation}
 but later we'll check if changes in this distribution lead to important
 changes in our final inferences.
@@ -1200,27 +1215,39 @@ changes in our final inferences.
 We can finally combine the pre-data
 distributions~\eqref{eq:definetti_Nj_infinite_approx},
 \eqref{eq:distr_H_mice}, and \eqref{eq:distr_lambda} to obtain the pre-data
-distribution for our atomic sentences:
+distribution for all combinations of  atomic statements:
 \begin{multline}
   \label{eq:pre-data_final}
-  \pf(\underbracket{\yNm[1]_{1},\yNm[1]_{2},\dotsc}_{\text{histogram $\yhm[1]$}},
-  \underbracket{\yNm[2]_{1},\yNm[2]_{2},\dotsc}_{\text{histogram $\yhm[2]$}},
+  \pf(\underbracket{\yNm[1]_{1},\yNm[1]_{2},\dotsc}_{\text{histogram $\yhm[1]$}},\;
+  \underbracket{\yNm[2]_{1},\yNm[2]_{2},\dotsc}_{\text{histogram $\yhm[2]$}},\;
   \dotsc   \| \yI)
   \propto{}\\
   \begin{aligned}
-  &\int\!\!\!\di\yl\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
-  \yll_{\yFm} \;
+  &\int\!\!\!\di\yS\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
+  \ySS_{\yFm} \;
   \prod_{j} \yFFm_{N_{j}}
   \Biggr]
 \equiv{}\\
-  &\int\!\!\!\di\yl\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
-  \yll_{\yFm} \;
+  &\int\!\!\!\di\yS\;\prod_{m}\Biggl[\int\!\!\!\di\yFm\;
+  \ySS_{\yFm} \;
   \prod_{n=0}^{\yIm} \bigl(\yFFm_{n}\bigr)^{h^{(m)}_{n}}
   \Biggr].
   \end{aligned}
 \end{multline}
 
+Note what the formula above is doing: we have one expression within
+brackets for each mouse $m$; this expression gives a probability to the
+projections $N_{j}$ of any target neurons we please, based on the full
+statistics $\yFm$ for that mouse. Such full statistics for all mice are in
+turn given a probability based on a \enquote{super-statistics} $\yS$ for
+the full mouse population.
 
+In the next step we express our experimental data in terms of the atomic
+statements about the projection numbers $\yNm_{j}$. This will allow us to
+use the probability~\eqref{eq:pre-data_final} in reverse: from the
+$\yNm_{j}$ that make up the data we will make guesses about the
+single-mouse statistics $\yFm$ and the mouse-population statistics $\yS$.
+\clearpage
 
 \bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
 
