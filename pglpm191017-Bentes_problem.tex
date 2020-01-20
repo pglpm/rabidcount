@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-20T11:41:49+0100
+%% Last-Updated: 2020-01-20T13:41:37+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -680,6 +680,13 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\ySS}{S}
 \newcommand*{\yS}{\bm{\ySS}}
 \DeclarePairedDelimiter\tu{\{}{\}}
+\newcommand*{\ymh}{\Hat{m}}
+\newcommand*{\yih}{\Hat{\imath}}
+\newcommand*{\yjh}{\Hat{\jmath}}
+\newcommand*{\yIhm}[1][m]{\Hat{I}^{(#1)}}
+\newcommand*{\yJhm}[1][m]{\Hat{J}^{(#1)}}
+\newcommand*{\yIh}{\Hat{I}}
+\newcommand*{\yJh}{\Hat{J}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1253,9 +1260,9 @@ the full mouse population.
 \medskip
 
 In the next step we express our experimental data in terms of the atomic
-statements about the projection numbers $\yNm_{j}$. This will allow us to
+statements about the projection numbers $\tu{\yNm_{j}}$. This will allow us to
 use the probability~\eqref{eq:pre-data_final} in reverse: from the
-$\yNm_{j}$ that make up the data we will make guesses about the
+$\tu{\yNm_{j}}$ that make up the data we will make guesses about the
 single-mouse statistics $\yFm$ and the mouse-population statistics $\yS$.
 
 \subsection{Step 3: data and answers in terms of atomic statements}
@@ -1263,12 +1270,51 @@ single-mouse statistics $\yFm$ and the mouse-population statistics $\yS$.
 
 Let's start with the answers to our main questions of
 p.~\pageref{item:Qindiv}. As discussed in \sect~\ref{sec:step_statements},
-these answers are given by the statistics $\yFm$ and $\yS$, already expressed in
-terms of the projection numbers $\yNm_{j}$ via
+these answers are given by the statistics $\yFm$ and $\yS$, already
+expressed in terms of the projection numbers $\tu{\yNm_{j}}$ via
 formulae~\eqref{eq:count_histogram} and \eqref{eq:count_superhistogram}.
-These statistics already appear in the pre-data
-probabilities~\eqref{eq:pre-data_final}. So 
+And these statistics already appear in the pre-data
+probabilities~\eqref{eq:pre-data_final}, we don't need to analyse them
+further.
 
+The expression of the data in terms of $\tu{\yNm_{j}}$ requires some more
+thinking. We're still focusing on a specific input region (say, thalamus)
+and a specific target class (say, parvalbumin). Our data consists, for a
+number of mice, of the total number of target neurons marked by the virus,
+and the total number of input neurons that have been infected by the target
+ones, and thus also marked by the virus. Let's use a circumflex to indicate
+observed quantities. The observed mice are indexed with $\ymh$, the marked
+target neurons with $\yjh$, and the marked input neurons with $\yih$. The
+total numbers of marked target and input neurons in mouse $\ymh$ are
+$\yJhm$ and $\yIhm$.
+
+Consider a specific mouse (we omit its index $\ymh$ for the moment), and
+the grid that represents its projections. Owing to our assumption that the
+specific order and indexing of target and input neurons doesn't matter, we
+can rearrange the grid so that the input neurons marked by the virus are
+the first $\yIh$ rows, and the marked target neurons are the first $\yJh$
+columns; see \fig~\ref{fig:datamouse}.
+%%\setlength{\intextsep}{0.5ex}% with wrapfigure
+\begin{figure}[t!]%{r}{0.33\linewidth} % with wrapfigure
+ \centering\includegraphics[width=0.5\linewidth]{data_mouse2.png}\\
+ \caption{Imaginary layout of the connectivity data for an observed mouse}\label{fig:datamouse}
+\end{figure}% data_mouse.svg
+
+Because of the way the virus infection works, our data tell us the following:
+\begin{itemize}
+\item We don't know anything about the projections of marked and unmarked
+  input neurons to the unmarked target neurons. This is represented by the
+  region with the large yellow question mark in \fig~\ref{fig:datamouse}.
+\item We know that the unmarked input neurons \emph{cannot} project to the
+  marked target neurons -- because otherwise they would have been infected
+  and would be marked instead. Thus the lower-right, green part of the grid in
+  \fig~\ref{fig:datamouse} has no black elements.
+\item We know that each marked input neuron must project to \emph{at least
+    one} marked target neuron -- otherwise it wouldn't have been infected
+  and marked. This means that \emph{each row} in the upper-right, red part
+  of the grid \emph{must have at least one black entry} -- but we don't
+  know how many entries and where.
+\end{itemize}
 
 
 \clearpage
