@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-20T13:49:25+0100
+%% Last-Updated: 2020-01-20T15:37:38+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -687,6 +687,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yJhm}[1][m]{\Hat{J}^{(#1)}}
 \newcommand*{\yIh}{\Hat{I}}
 \newcommand*{\yJh}{\Hat{J}}
+\newcommand*{\ka}{$\alpha$}
+\newcommand*{\kb}{$\beta$}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1303,19 +1305,21 @@ columns; see \fig~\ref{fig:datamouse}.
 Because of the way the virus infection works, our data tell us the
 following; refer to the grid of \fig~\ref{fig:datamouse}:
 \begin{itemize}
-\item We don't know anything about the projections of marked and unmarked
-  input neurons to the unmarked target neurons. This is represented by the
-  yellow-bounded region on the right with the large yellow question mark.
-\item We know that the unmarked input neurons \emph{cannot} project to the
-  marked target neurons -- because otherwise they would have been infected
-  and would be marked instead. Thus the lower-right, green-bounded part of the grid
-  has no black entries.
-\item We know that each marked input neuron must project to \emph{at least
-    one} marked target neuron -- otherwise it wouldn't have been infected
-  and marked. This means that \emph{each row} in the upper-right, red-bounded part
-  of the grid in \fig\emph{must have at least one black entry} -- but we don't
-  know how many black entries and where.
+\item[\textcolor{myred}{\ka}:] We know that each marked input neuron must
+  project to \emph{at least one} marked target neuron -- otherwise it
+  wouldn't have been infected and marked. This means that \emph{each row}
+  in the upper-right, \textcolor{myred}{red-bounded} part of the grid in
+  \fig\emph{must have at least one black entry} -- but we don't know how
+  many black entries and where.
+\item[\textcolor{mypurpleblue}{\kb}:] We know that the unmarked input neurons
+  \emph{cannot} project to the marked target neurons -- because otherwise
+  they would have been infected and would be marked instead. Thus the
+  lower-right, \textcolor{mypurpleblue}{blue-bounded} part of the grid has no black entries.
 \end{itemize}
+We don't know anything about the projections of marked and unmarked input
+neurons to the unmarked target neurons. This is represented by the
+\textcolor{myyellow}{yellow-bounded} region on the right with the large
+yellow question mark.
 
 
 \clearpage
