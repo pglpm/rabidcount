@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T00:12:29+0100
+%% Last-Updated: 2020-01-21T08:32:58+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1178,12 +1178,12 @@ We must now assign the pre-data probabilities
 \begin{equation}
   \labelbis{eq:guess_prob_c}
   \pf(\tu{\ycm_{ij}} \| \yI)
-  \equiv
-  \pf\bigl(
-  \ycm[1]_{1\,1}, \ycm[1]_{1\,2}, \dotsc,
-  \ycm[1]_{2\,1}, \ycm[1]_{2\,2}, \dotsc,\;
-  \ycm[2]_{1\,1}, \dotsc
-  \|  \yI\bigr),
+  % \equiv
+  % \pf\bigl(
+  % \ycm[1]_{1\,1}, \ycm[1]_{1\,2}, \dotsc,
+  % \ycm[1]_{2\,1}, \ycm[1]_{2\,2}, \dotsc,\;
+  % \ycm[2]_{1\,1}, \dotsc
+  % \|  \yI\bigr),
 \end{equation}
 for all possible combinations of any number of atomic statements
 $\ycm_{ij}$.
@@ -1194,42 +1194,104 @@ numbers presence or absence of projections. It should be a reasonable,
 unbiased guess.
 \begin{innote}
   Some researchers feel uncomfortable in quantifying such a guess. But, as
-  we stressed in \sect~\ref{sec:strategies} such a quantification is
+  we stressed in \sect~\ref{sec:strategies}, such a quantification is
   unavoidable: without it our experimental observations could not be
-  probabilistically generalized to other mice. Some researchers also
-  believe that there are statistical methods, such as so-called frequentist
-  ones, which avoid this kind of pre-data assumptions. This is a mistaken
-  belief: those methods \emph{do} make pre-data assumptions -- but keep
-  them hidden. The advantage of the Bayesian approach is that the pre-data
-  assumptions are explicitly stated instead. As I. J. Good said:
-  \enquote{The main difference is that in a non-Bayesian analysis more is
-    swept under the carpet. This makes non-Bayesian methods politically
-    expedient. The Bayesian is forced to put his cards on the table instead
-    of up his sleeve. He thus helps others to improve his analysis, and
-    this is always possible in a problem concerning the real world}
-  \citep[\sect~2.3 p.~26]{good1969} (Good was Turing's collaborator in the
-  breaking of the \emph{Enigma} code during World War II, using
-  probabilistic methods). In fact, as the amount of experimental data
-  increases, the effect of our pre-data guesses usually decreases. The
-  Bayesian approach allows us to quantify this dependence and thus to
-  decide whether the data we have collected are enough or whether we want
-  to collect more.
+  probabilistically generalized to other neurons or mice. Some researchers
+  also believe that there are statistical methods, such as so-called
+  frequentist ones, which avoid this kind of pre-data assumptions. This is
+  a mistaken belief. Those methods \emph{do} make pre-data assumptions, but
+  misleadingly keep them hidden. % The advantage of the Bayesian approach is
+  % that the pre-data assumptions are explicitly stated instead.
+  As I. J. Good said: \enquote{The main difference is that in a
+    non-Bayesian analysis more is swept under the carpet. This makes
+    non-Bayesian methods politically expedient. The Bayesian is forced to
+    put his cards on the table instead of up his sleeve. He thus helps
+    others to improve his analysis, and this is always possible in a
+    problem concerning the real world} \citep[\sect~2.3 p.~26]{good1969}
+  (Good was Turing's collaborator in the breaking of the \emph{Enigma} code
+  during World War II, using probabilistic methods). In fact, as the amount
+  of experimental data increases, the effect of our pre-data guesses
+  usually decreases. The Bayesian approach allows us to quantify this
+  dependence and thus to decide whether the data we have collected are
+  enough or whether we want to collect more.
 \end{innote}
 
 
 To assign this distribution we are going to use three \emph{symmetry}
 assumptions, at three increasing levels of generality: about the statistics
-$\yNm_{j}$ for each individual target neuron of each individual mouse; about
-the statistics $\yFm$ for each individual mouse; and finally about the
-super-statistics $\yS$ for all mice.
+$\yNm_{j}$ for each individual target neuron of each individual mouse;
+about the statistics $\yFm$ for each individual mouse; and finally about
+the super-statistics $\yS$ for all mice.
 
 
-\subsubsection{One target neuron: exchangeability}
+\subsubsection{$\ycm_{ij}$ for one target neuron and mouse:
+  exchangeability}
 \label{sec:oneneuron_exch}
 
+Let's start by focusing on a specific but arbitrary target neuron in a
+specific but arbitrary mouse $m$. We'll suppress all \enquote{$(m)$} for
+the moment, to make the notation lighter.
+
+Suppose we know the total number $N_{j}$ of projections to that neuron from
+the input region, but not which neurons in the input neurons are
+projecting. We want to assign the probability distribution for the
+projection indicators $c_{1j}$, $c_{2j}$, and so on, conditional on
+knowledge of $N_{j}$. Our assumption is this: \emph{there isn't any reason
+  to believe that some input neuron $i'$ projects to $j$, more than some
+  other input neuron $i'$}. In other words, the specific index $i$ of an
+shouldn't give us any special information about the projection. This is
+called an \emph{exchangeability} assumption.  In
+which cases can this assumption be at least approximately justified?
+
+One case is if the indexing of the input neurons is done in a way
+completely unknown to us, for example by an automated unique-string
+generator. This isn't our case, because no matter how an input neuron is
+indexed we can always check what its location was. Another case is if all
+input neurons under consideration are very similar, and very close with
+respect to larger brain scales. Then none of them should find it easier to
+project than any other. A third case is if previous studies showed that the
+relative locations and morphological differences of the input neurons are
+unimportant.
+
+The exchangeability assumption may therefore be unreasonable if the input
+neurons are located in widely different brain areas. In the latter case we
+can sort them into small neighbourhood (and morphology) groups, and apply
+the exchangeability assumption only within neighbourhoods. This is
+equivalent to redefining the input region $R$ to a smaller one.
+
+Exchangeability has a powerful mathematical consequence, called the
+de~Finetti's representation theorem \citep{definetti1930,hewittetal1955}[a
+more intuitive explanation is in][]{heathetal1976}[for an informative
+review:][]{dawid2013}[the particular form used here is discussed
+in][]{diaconis1977,diaconisetal1980}. Effectively it's a combinatorial
+argument based on the assumed symmetry.
+
+In our case, suppose we are interested in $n=n_{0}+n_{1}$ input neurons,
+and we want the conditional probability that $n_{0}$ of them don't project
+to $j$, so that their indicators $c_{ij}$ are $0$, and the other $n_{1}$
+do project to $j$, and their indicators are $1$. We know that there are $I$
+neurons in the whole input region, and that $N_{j}$ of these project. By
+the assumed symmetry, this situation is equivalent to \enquote{drawing
+  without replacement}, described by the hypergeometric distribution:
+\begin{equation}
+  \label{eq:hyperg_Nj}
+  \pf(\tu{\underbracket{c_{\dotso j}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
+  \;\tu{\underbracket{c_{\dotso j}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{j}, \yI)
+  =
+  \binom{N_{j}}{n_{1}}\;\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
+\end{equation}
+where the parentheses on the right are binomial coefficients. This
+distribution simply comes from counting in how many ways we can draw
+$n_{0}$ white and $n_{1}$ black balls from an urn containing $I-N_{j}$
+white and $N_{j}$ black ones.
+
+This distribution about the projections holds separately for each target
+neuron $j$. But these distributions depend on knowledge of all the
+$\tu{N_{j}}$, which we don't know. We consider our guess about them next.
 
 
-\subsubsection{One mouse: exchangeability}
+
+\subsubsection{$\yNm_{j}$ for one mouse}
 \label{sec:onemouse_exch}
 
 Let's start by focusing on a specific but arbitrary mouse $m$. We'll thus
@@ -1240,34 +1302,7 @@ $\pf(\tu{N_{j}} \| \yI)$. Our assumption is this: \emph{there isn't any
   reason for some target neuron $j$ to have more or less projections than
   some other target neuron $j'$}. In other words, the specific index $j$ of
 a neuron shouldn't give us any information about the number of projections
-$N_{j}$ to it. This is called an \emph{exchangeability} assumption. Let's
-discuss in which cases this assumption can be at least approximately
-justified.
-
-One case is if the indexing of the target neurons is done in a completely
-unknown way, for example by an automated unique-string generator. This
-isn't our case, because no matter how a neuron is indexed we can always
-check what its location was, for example.
-
-Another case is if we do not believe the number of projections to depend on
-the \emph{relative} locations of the target neurons, or on their specific
-small differences in morphology. This may be justified if all target
-neurons under consideration are very similar and very close, with respect
-to larger brain scales; or if previous studies showed that their relative
-locations and morphological differences are unimportant. This assumption
-may therefore be unreasonable if the target neurons are located in widely
-different brain areas. In the latter case we can divide the target neurons
-into small neighbourhood (and morphology) groups, and apply the
-exchangeability assumption only within neighbourhoods. We'll see later how
-the results for different neighbourhoods can be combined.
-
-The exchangeability assumption has a powerful mathematical consequence,
-called the de~Finetti's representation theorem
-\citep[\mynote{add refs for finite case}]{definetti1930,hewittetal1955,heathetal1976,diaconis1977,diaconisetal1980,dawid2013}.
-Suppose we're going to examine the projections to $J'$ target neurons, and
-we want the probability of finding $N_{1}$ for the first, and so on, up to
-$N_{J'}$ for the $J'$th. Each of these values is between $0$ and $I$.
-
+$N_{j}$ to it. This is called an \emph{exchangeability} assumption.
 To find this probability it's easier to first form the histogram
 $\yh=(h_{0},\dotsc,h_{I})$ of these values. We do this by first grouping
 together all $N_{j}$ that have the same value. For example, if the first,
