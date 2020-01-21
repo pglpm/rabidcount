@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T09:24:13+0100
+%% Last-Updated: 2020-01-21T10:59:35+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1285,8 +1285,8 @@ distribution simply comes from counting in how many ways we can draw
 $n_{0}$ white and $n_{1}$ black balls from an urn containing $I-N_{j}$
 white and $N_{j}$ black ones.
 
-This distribution about the projections holds separately for each target
-neuron $j$. But these distributions depend on knowledge of all the
+We have such distribution separately for each target neuron $j$. But the
+collection of these distributions depend on knowledge of all the
 $\tu{N_{j}}$, which we don't know. We consider our guess about them next.
 
 
@@ -1298,22 +1298,23 @@ We're still focusing on a specific but arbitrary mouse $m$. Now we want to
 express our guesses about the numbers of projections $N_{j}$ to a specific
 set of $h$ target neurons.
 
-Suppose that we know the statistics $\yF=(F_{0}, F_{1}, \dotsc, F_{I})$ of
-such numbers for the full set of $J$ target neurons, as described in
-\sect~\ref{sec:atomic_questions}. That is, $F_{0}$ is the proportion of all
-target neurons receiving no projections from the input region, $F_{1}$ the
-proportion receiving one projection, and so on.
+Suppose we know the statistics $\yF=(F_{0}, F_{1}, \dotsc, F_{I})$,
+described in \sect~\ref{sec:atomic_questions}, of such numbers of
+projections for all $J$ target neurons. That is, $F_{0}$ is the proportion
+of all target neurons receiving no projections from the input region,
+$F_{1}$ the proportion receiving one projection, and so on. The number of
+target neurons in each case is given by $J\,F_{n} \equiv H_{n}$.
 
-Also in this case we make an assumption of symmetry: \emph{there isn't any
-  reason for some target neuron $j'$ to have more or less projections than
-  some other target neuron $j''$}. This is again an assumption of
-exchangeability, and the discussion of its validity is analogous to that of
-the previous section.
+We make again an assumption of symmetry: \emph{there isn't any reason for
+  some target neuron $j'$ to have more or less projections than some other
+  target neuron $j''$}. This is again an assumption of exchangeability, and
+the discussion of its validity is analogous to that of the previous
+section.
 
 The result for our guesses is also similar. Our situation in this case is
-analogous to \enquote{drawing without replacement}: from an urn having $J$
+analogous to \enquote{drawing without replacement} from an urn having $J$
 balls of $I+1$ different colours or kinds (corresponding to the cases of
-$0$ to $I$ projections), with proportions $(F_{0}, \dotsc, F_{I})$, we ask
+$0$ to $I$ projections), with proportions $(F_{0}, \dotsc, F_{I})$. We ask
 in how many ways we can draw $h$ specific balls with proportions
 $(f_{0}, \dotsc, f_{I})$, some of which may be zero. A counting argument
 leads to the multivariate hypergeometric distribution
@@ -1352,6 +1353,42 @@ formula above has a useful approximation:
 \end{equation}
 The integral appears because we approximate the tuple $\yF$ as a continuous
 quantity. It takes values in an $(I+1)$-dimensional space.
+
+\medskip
+
+We have one such distribution separately for each mouse. But the collection
+of these distributions depend on the statistics $\tu{\yFm}$, which we don't
+know. We discuss our guess about them next
+
+
+\subsubsection{$\yFm$ for the mouse population}
+\label{sec:allmice_exch}
+
+So far we have expressed our guess about the projection indicators
+$\tu{\ycm_{ij}}$ conditional on the number of projections $\tu{\yNm_{j}}$
+and our guess about these numbers conditional on the statistics
+$\tu{\yFm}$. Let's finally consider our guess about these statistics.
+
+We proceed analogously as in the previous two guesses, by assuming that
+we know the \enquote{super-statistics} $\yS$ about the statistics
+$\tu{\yFm}$ of all mice. This time, however, we'll also assign a guess for
+$\yS$ without relying on higher-level statistics. We also make an analogous
+symmetry assumption, this time about the mouse population.
+
+The result is analogous to the guess about $\tu{\yNm_{j}}$. This time we
+use the analogous version of the approximate
+form~\eqref{eq:definetti_Nj_infinite_approx}, since the number of mice is
+in principle infinite, for the happiness of exterminator companies:
+\begin{equation}
+  \label{eq:distr_H_mice}
+  \pf( \underbracket{\yFm[1], \yFm[2], \dotsc}_{\text{any number}} \| \yS, \yI) =
+  % \int\!\!\!\di \yS\;
+  % \pf(\yS \| \yI)\;
+  \ySS_{\yFm[1]} \times \ySS_{\yFm[2]} \times \dotsm\;.
+\end{equation}
+
+
+
 
 
 \clearpage
