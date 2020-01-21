@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T13:59:08+0100
+%% Last-Updated: 2020-01-21T14:42:41+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -690,6 +690,8 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yJh}{\Hat{J}}
 \newcommand*{\ka}{\alpha}
 \newcommand*{\kb}{\beta}
+\newcommand*{\kam}[1][\yhm]{\ka^{(#1)}}
+\newcommand*{\kbm}[1][\yhm]{\kb^{(#1)}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1278,7 +1280,7 @@ the assumed symmetry, this situation is equivalent to \enquote{drawing
   \pf(\tu{\underbracket{c_{\dotso j}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
   \;\tu{\underbracket{c_{\dotso j}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{j}, \yI)
   =
-\frac{1}{n!}  \binom{N_{j}}{n_{1}}\;\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
+\frac{1}{n!}  \binom{N_{j}}{n_{1}}\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
 \end{equation}
 where the parentheses on the right are binomial coefficients. This
 distribution simply comes from counting in how many ways we can draw
@@ -1446,11 +1448,39 @@ as Monte Carlo.
 We now find the probability of the data, assuming for the moment that all
 statistics $\yS$, $\tu{\yFm}$, $\tu{\yNm_{j}}$ are known.
 
-The data consist in the two main statements $\ka$ and $\kb$ discussed in
-\sect~\ref{sec:atomic_data}. We calculate it as follows:
+The data consist in the two main statements $\kam$ and $\kbm$, discussed in
+\sect~\ref{sec:atomic_data}, for all observed mice $\tu{\ymh}$. Let's first
+focus on one specific mouse and omit \enquote{$\ymh$}. We calculate the
+probability for the data as follows:
+\begin{multline}
+  \label{eq:alph_beta_given_stats}
+  \pf( \ka,\kb \|\tu{N_{j}},  \yF, \yS, \yI) ={}\\
+  \pf( \ka \|\kb, \tu{N_{j}},  \yF, \yS, \yI) \times
+    \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI).
+\end{multline}
 
-
-
+The last factor is easily calculated using formula~\eqref{eq:hyperg_Nj}:
+\begin{multline}
+  \label{eq:kb_given_stats}
+  \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI) \equiv
+  \pf(\tu{\underbracket{c_{\dotso,1}=0}_{\mathclap{\text{$I-\yIh$ of them}}}},
+  \dotsc,
+  \tu{\underbracket{c_{\dotso,\yJh}=0}_{\mathclap{\text{$I-\yIh$ of them}}}}
+  \|\tu{N_{j}},  \yF, \yS, \yI)
+  ={}\\
+  \prod_{j=1}^{\yJh}
+  \frac{1}{(I-\yIh)!}  \binom{N_{j}}{0}\binom{I-N_{j}}{I-\yIh}
+  \bigg/ \binom{I}{I-\yIh}
+  \equiv
+  \prod_{j=1}^{\yJh}
+\binom{\yIh}{N_{j}}\bigg/ \binom{I}{N_{j}}.  
+\end{multline}
+This results makes sense: for each column $j$, the denominator
+$\binom{I}{N_{j}}$ counts the total number of ways in which $N_{j}$ black
+entries can be distributed among $\yIh$ places. The numerator
+$\binom{\yIh}{N_{j}}$ counts the number of ways in which the $N_{j}$ black
+entries can be limited to the first $\yIh$ places, leaving the remaining
+$I-\yIh$ blank, as requested by our data $\kb$.
 
 
 
