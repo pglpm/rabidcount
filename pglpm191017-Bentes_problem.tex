@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T16:00:54+0100
+%% Last-Updated: 2020-01-21T17:58:55+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -673,7 +673,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yHHm}[1][m]{H^{(#1)}}
 \newcommand*{\yHm}[1][m]{\yH^{(#1)}}
 \newcommand*{\yIm}[1][m]{I^{(#1)}}
-\newcommand*{\yJm}[1][m]{J^{(#1)}}
+\newcommand*{\yJm}[1][m]{T^{(#1)}}
 \newcommand*{\yNm}[1][m]{N^{(#1)}}
 \newcommand*{\yNma}[1][m]{\yNa^{(#1)}}
 \newcommand*{\ycm}[1][m]{c^{(#1)}}
@@ -683,12 +683,12 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \DeclarePairedDelimiter\tu{\{}{\}}
 \newcommand*{\ymh}{\Hat{m}}
 \newcommand*{\yih}{\Hat{\imath}}
-\newcommand*{\yjh}{\Hat{\jmath}}
+\newcommand*{\yjh}{\Hat{t}}
 \newcommand*{\yNhm}{\yNm[\ymh]}
 \newcommand*{\yIhm}[1][m]{\Hat{I}^{(#1)}}
-\newcommand*{\yJhm}[1][m]{\Hat{J}^{(#1)}}
+\newcommand*{\yJhm}[1][m]{\Hat{T}^{(#1)}}
 \newcommand*{\yIh}{\Hat{I}}
-\newcommand*{\yJh}{\Hat{J}}
+\newcommand*{\yJh}{\Hat{T}}
 \newcommand*{\ka}{\alpha}
 \newcommand*{\kb}{\beta}
 \newcommand*{\kam}[1][m]{\ka^{(#1)}}
@@ -937,13 +937,13 @@ classes.
 
 For each mouse, we consider all neurons constituting the chosen input
 region, labelling them $i=1,2,\dotsc, \yIm$, and all neurons constituting
-the target class, labelling them $j=1,2,\dotsc, \yJm$. The total numbers
+the target class, labelling them $t=1,2,\dotsc, \yJm$. The total numbers
 of these neurons can be different from mouse to mouse, hence the 
 \enquote{$(m)$} subscript, which we shall use also for other quantities
 that may vary from mouse to mouse.
 
-The values of the three labels $i,j,m$ may be arbitrary or carry some
-information. For example, $m$ may reflect a temporal order, and $i$, $j$
+The values of the three labels $i,t,m$ may be arbitrary or carry some
+information. For example, $m$ may reflect a temporal order, and $i$, $t$
 may each reflect a topographical order, for example ventral to dorsal. In
 the next step, however, we'll assume such order to be unimportant.
 
@@ -954,20 +954,20 @@ Now that we've labelled the mice and the input and target neurons of
 interest, let's consider some simple, specific statements about
 projections. for example:
 \[\parbox{0.95\linewidth}{\statm{In mouse $m=3$, the neuron $i=5$ in the input
-      region projects to the neuron $j=4$ of the target class.}}\]
+      region projects to the neuron $t=4$ of the target class.}}\]
 Such a statement must be either true or false, even if we may not have the
 experimental technology to look and see. If we could experimentally
 ascertain each of these statements, for all mice $m$, input neurons $i$,
-target neurons $j$, then our problem would be solved. We'd just have to
+target neurons $t$, then our problem would be solved. We'd just have to
 count, and we could report the exact projection proportions for each mouse,
 and also averages across all mice. \emph{We'll use this kind of statements as our
 atomic statements.}
 
 The situation collectively described by these statements is visualized in
 \fig~\ref{fig:cmij}. We plot a grid for each mouse $m$. Each row $i$ in the
-grid represents a neuron in the input region, each column $j$ a neuron of
-the target class. If in mouse $m$ neuron $i$ projects to neuron $j$, then
-we colour the corresponding entry $(i,j)$ in grid $m$ in black; or we can
+grid represents a neuron in the input region, each column $t$ a neuron of
+the target class. If in mouse $m$ neuron $i$ projects to neuron $t$, then
+we colour the corresponding entry $(i,t)$ in grid $m$ in black; or we can
 write down the number 1 in it. If it doesn't project, then we use white or
 the number 0.
 %%\setlength{\intextsep}{0.5ex}% with wrapfigure
@@ -978,15 +978,15 @@ the number 0.
 \end{figure}% bente_notes_drawings.svg
 
 Let's indicate the entries of all grids with the binary indicators
-$\ycm_{ij}$. If input neuron $i$ projects to target neuron $j$ in mouse
-$m$, we write $\ycm_{ij}=1$; otherwise we write $\ycm_{ij}=0$. Then
-\emph{our atomic statements will be of the form \enquote{$\ycm_{ij}=0$} or
-  \enquote{$\ycm_{ij}=1$}} for all $m,i,j$ we need.
+$\ycm_{i t}$. If input neuron $i$ projects to target neuron $t$ in mouse
+$m$, we write $\ycm_{i t}=1$; otherwise we write $\ycm_{i t}=0$. Then
+\emph{our atomic statements will be of the form \enquote{$\ycm_{i t}=0$} or
+  \enquote{$\ycm_{i t}=1$}} for all $m,i,t$ we need.
 
 By assigning  a probability distribution for all combinations of these indicators,
 \begin{equation}
   \label{eq:guess_prob_c}
-  \pf(\tu{\ycm_{ij}} \| \yI)
+  \pf(\tu{\ycm_{i t}} \| \yI)
   \equiv
   \pf\bigl(
   \ycm[1]_{1\,1}, \ycm[1]_{1\,2}, \dotsc,
@@ -1012,24 +1012,24 @@ Let's start with the answers to our questions. As discussed in
 statistics. Let's then introduce some statistics, expressed in terms of the
 atomic statements.
 
-Consider first a specific mouse $m$ and target neuron $j$. A useful
+Consider first a specific mouse $m$ and target neuron $t$. A useful
 statistics is the total number of input neurons that project to that target
-neuron. Denote this by $\yNm_{j}$. It is of course given by
+neuron. Denote this by $\yNm_{t}$. It is of course given by
 \begin{equation}
   \label{eq:def_Nj}
-  \yNm_{j} \defd \sum_{i} \ycm_{ij},
+  \yNm_{t} \defd \sum_{i} \ycm_{i t},
 \end{equation}
-that is, by counting the black squares in the $j$th column of the $m$th
+that is, by counting the black squares in the $t$th column of the $m$th
 grid in \fig~\ref{fig:cmij}.
 
 This statistic is useful because from it we can calculate, for example, the average
 number of projections to the target neurons in that mouse:
 \begin{equation}
-\yNma \defd \frac{1}{\yJm}\sum_{j}\yNm_{j},\label{eq:aver_proj_m}
+\yNma \defd \frac{1}{\yJm}\sum_{t}\yNm_{t},\label{eq:aver_proj_m}
 \end{equation}
 and the variance from that average,
 \begin{equation}
-\frac{1}{\yJm}\sum_{j}\bigl(\yNm_{j}-\yNma\bigr)^{2},\label{eq:variance_proj_m}
+\frac{1}{\yJm}\sum_{t}\bigl(\yNm_{t}-\yNma\bigr)^{2},\label{eq:variance_proj_m}
 \end{equation}
 which answer some basic questions about a specific mouse.
 
@@ -1044,7 +1044,7 @@ projection, and so on, up to the total number of neurons $\yIm$ in the
 input region. Mathematically this histogram is given by
 \begin{equation}
    \label{eq:count_histogram}
-    \yHHm_{n} \defd \tsum_{j} \delt\bigl(\yNm_{j} = n\bigr)
+    \yHHm_{n} \defd \tsum_{t} \delt\bigl(\yNm_{t} = n\bigr)
 \end{equation}
 where $\delt$ is the Kronecker delta. From such histogram we can calculate
 the mean and variance above; for example
@@ -1089,7 +1089,7 @@ where $I$ is the largest of all $\yIm$.
 
 
 The expression of the data in terms of the atomic statements
-$\tu{\ycm_{ij}}$ requires some more thinking. We're still focusing on a
+$\tu{\ycm_{i t}}$ requires some more thinking. We're still focusing on a
 specific input region (say, thalamus) and a specific target class (say,
 parvalbumin). Our data consists, for a number of mice, of the total number
 of target neurons marked by the virus, and the total number of input
@@ -1135,31 +1135,31 @@ with the large yellow question mark.
 The expression of $\kb$ is simple: it corresponds to
 \begin{equation}
   \label{eq:alpha_and}
-\kb:\qquad  c_{ij} =0 \quad\text{for }i=\yIh+1,\dotsc, I
-  \quad\text{and }j=1,\dotsc,\yJh.
+\kb:\qquad  c_{i t} =0 \quad\text{for }i=\yIh+1,\dotsc, I
+  \quad\text{and }t=1,\dotsc,\yJh.
 \end{equation}
 
 The expression of $\ka$ is slightly more involved. Fix a row $i$; the
-statement that this row is empty is \enquote{$c_{ij}=0$ for
-  $j=1, \dotsc, \yJh$}. Such a statement must be false (because a row must
+statement that this row is empty is \enquote{$c_{i t}=0$ for
+  $t=1, \dotsc, \yJh$}. Such a statement must be false (because a row must
 contain at least one black entry), whether we choose the row $i=1$, or
 $i=2$, and so on to $i=\yIh$. Then
 \begin{equation}
   \label{eq:alpha_and}
   \begin{aligned}
-  \ka:\qquad \text{not }\bigl[ &(c_{1j} =0 \quad\text{for }j=1,\dotsc,\yJh)
+  \ka:\qquad \text{not }\bigl[ &(c_{1 t} =0 \quad\text{for }t=1,\dotsc,\yJh)
 \\  &\text{or }
-  (c_{2j} =0 \quad\text{for }j=1,\dotsc,\yJh)
+  (c_{2 t} =0 \quad\text{for }t=1,\dotsc,\yJh)
     \\  &\text{or } \dotsb
     \\&\text{or }
-  \bigl(c_{\yIh j} =0 \quad\text{for }j=1,\dotsc,\yJh \bigr)\bigr],
+  \bigl(c_{\yIh t} =0 \quad\text{for }t=1,\dotsc,\yJh \bigr)\bigr],
   \end{aligned}
 \end{equation}
 which can be more compactly written using Boolean logical operators as
 \begin{equation}
   \label{eq:alpha_and_boole}
     \ka:\qquad \lnot \tlor_{i=1}^{\yIh} \bigl[
-\tland_{j=1}^{\yJh} (c_{ij} \eq 0)
+\tland_{t=1}^{\yJh} (c_{i t} \eq 0)
     \bigr].
 \end{equation}
 
@@ -1180,7 +1180,7 @@ distribution of the latter.
 We must now assign the pre-data probabilities
 \begin{equation}
   \labelbis{eq:guess_prob_c}
-  \pf(\tu{\ycm_{ij}} \| \yI)
+  \pf(\tu{\ycm_{i t}} \| \yI)
   % \equiv
   % \pf\bigl(
   % \ycm[1]_{1\,1}, \ycm[1]_{1\,2}, \dotsc,
@@ -1189,7 +1189,7 @@ We must now assign the pre-data probabilities
   % \|  \yI\bigr),
 \end{equation}
 for all possible combinations of any number of atomic statements
-$\ycm_{ij}$.
+$\ycm_{i t}$.
 
 
 This probability distribution represents our pre-data guess about the
@@ -1222,12 +1222,12 @@ unbiased guess.
 
 To assign this distribution we are going to use three \emph{symmetry}
 assumptions, at three increasing levels of generality: about the statistics
-$\yNm_{j}$ for each individual target neuron of each individual mouse;
+$\yNm_{t}$ for each individual target neuron of each individual mouse;
 about the statistics $\yFm$ for each individual mouse; and finally about
 the super-statistics $\yS$ for all mice.
 
 
-\subsubsection{$\ycm_{ij}$ for one target neuron and mouse:
+\subsubsection{$\ycm_{i t}$ for one target neuron and mouse:
   exchangeability}
 \label{sec:oneneuron_exch}
 
@@ -1235,12 +1235,12 @@ Let's start by focusing on a specific but arbitrary target neuron in a
 specific but arbitrary mouse $m$. We'll suppress all \enquote{$(m)$} for
 the moment, to make the notation lighter.
 
-Suppose we know the total number $N_{j}$ of projections to that neuron from
+Suppose we know the total number $N_{t}$ of projections to that neuron from
 the input region, but not which neurons in the input neurons are
 projecting. We want to assign the probability distribution for the
-projection indicators $c_{1j}$, $c_{2j}$, and so on, conditional on
-knowledge of $N_{j}$. Our assumption is this: \emph{there isn't any reason
-  to believe that some input neuron $i'$ projects to $j$, more than some
+projection indicators $c_{1 t}$, $c_{2 j}$, and so on, conditional on
+knowledge of $N_{t}$. Our assumption is this: \emph{there isn't any reason
+  to believe that some input neuron $i'$ projects to $t$, more than some
   other input neuron $i''$}. In other words, the specific index $i$ of an
 shouldn't give us any special information about the projection. This is
 called an \emph{exchangeability} assumption.  In
@@ -1271,44 +1271,44 @@ argument based on the assumed symmetry.
 
 In our case, suppose we are interested in $n=n_{0}+n_{1}$ input neurons,
 and we want the conditional probability that $n_{0}$ of them don't project
-to $j$, so that their indicators $c_{ij}$ are $0$, and the other $n_{1}$
-do project to $j$, and their indicators are $1$. We know that there are $I$
-neurons in the whole input region, and that $N_{j}$ of these project. By
+to $t$, so that their indicators $c_{i t}$ are $0$, and the other $n_{1}$
+do project to $t$, and their indicators are $1$. We know that there are $I$
+neurons in the whole input region, and that $N_{t}$ of these project. By
 the assumed symmetry, this situation is equivalent to \enquote{drawing
   without replacement}, described by the hypergeometric distribution \citep[\chap~3]{jaynes1994_r2003}:
 \begin{equation}
   \label{eq:hyperg_Nj}
-  \pf(\tu{\underbracket{c_{\dotso j}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
-  \;\tu{\underbracket{c_{\dotso j}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{j}, \yI)
+  \pf(\tu{\underbracket{c_{\dotso t}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
+  \;\tu{\underbracket{c_{\dotso t}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{t}, \yI)
   =
-\frac{1}{\binom{n}{n_{0},n_{1}}}  \binom{N_{j}}{n_{1}}\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
+\frac{1}{\binom{n}{n_{0},n_{1}}}  \binom{N_{t}}{n_{1}}\binom{I-N_{t}}{n_{0}}\bigg/ \binom{I}{n},
 \end{equation}
 where the parentheses on the right are binomial coefficients. This
 distribution simply comes from counting in how many ways we can draw
-$n_{0}$ white and $n_{1}$ black balls from an urn containing $I-N_{j}$
-white and $N_{j}$ black ones. The term $\binom{n}{n_{0},n_{1}}$ is a
+$n_{0}$ white and $n_{1}$ black balls from an urn containing $I-N_{t}$
+white and $N_{t}$ black ones. The term $\binom{n}{n_{0},n_{1}}$ is a
 multinomial coefficient, necessary because we are asking about the
 probability of a specific set of input neurons.
 
-We have such distribution separately for each target neuron $j$. But the
+We have such distribution separately for each target neuron $t$. But the
 collection of these distributions depend on knowledge of all the
-$\tu{N_{j}}$, which we don't know. We consider our guess about them next.
+$\tu{N_{t}}$, which we don't know. We consider our guess about them next.
 
 
 
-\subsubsection{$\yNm_{j}$ for one mouse}
+\subsubsection{$\yNm_{t}$ for one mouse}
 \label{sec:onemouse_exch}
 
 We're still focusing on a specific but arbitrary mouse $m$. Now we want to
-express our guesses about the numbers of projections $N_{j}$ to a specific
+express our guesses about the numbers of projections $N_{t}$ to a specific
 set of $h$ target neurons.
 
 Suppose we know the statistics $\yF=(F_{0}, F_{1}, \dotsc, F_{I})$,
 described in \sect~\ref{sec:atomic_questions}, of such numbers of
-projections for all $J$ target neurons. That is, $F_{0}$ is the proportion
+projections for all $T$ target neurons. That is, $F_{0}$ is the proportion
 of all target neurons receiving no projections from the input region,
 $F_{1}$ the proportion receiving one projection, and so on. The number of
-target neurons in each case is given by $J\,F_{n} \equiv H_{n}$.
+target neurons in each case is given by $T\,F_{n} \equiv H_{n}$.
 
 We make again an assumption of symmetry: \emph{there isn't any reason for
   some target neuron $j'$ to have more or less projections than some other
@@ -1317,7 +1317,7 @@ the discussion of its validity is analogous to that of the previous
 section.
 
 The result for our guesses is also similar. Our situation in this case is
-analogous to \enquote{drawing without replacement} from an urn having $J$
+analogous to \enquote{drawing without replacement} from an urn having $T$
 balls of $I+1$ different colours or kinds (corresponding to the cases of
 $0$ to $I$ projections), with proportions $(F_{0}, \dotsc, F_{I})$. We ask
 in how many ways we can draw $h$ specific balls with proportions
@@ -1334,11 +1334,11 @@ leads to the multivariate hypergeometric distribution
   ={}\\
   \frac{1}{\binom{h}{hf_{0},\dotsc,hf_{I}}}
   \binom{JF_{0}}{hf_{0}}\times\dotsm\times\binom{JF_{I}}{hf_{I}}\bigg/
-  \binom{J}{h}.
+  \binom{T}{h}.
 \end{multline}
 
 If our question is about a small set of $h$ neurons compared to the total
-number $J$, and the proportions $f_{j}$ are small compared to $1$, the
+number $T$, and the proportions $f_{t}$ are small compared to $1$, the
 formula above has a useful approximation:
 \begin{equation}
   \label{eq:definetti_Nj_infinite_approx}
@@ -1370,7 +1370,7 @@ know. We discuss our guess about them next
 \label{sec:allmice_exch}
 
 So far we have expressed our guess about the projection indicators
-$\tu{\ycm_{ij}}$ conditional on the number of projections $\tu{\yNm_{j}}$
+$\tu{\ycm_{i t}}$ conditional on the number of projections $\tu{\yNm_{t}}$
 and our guess about these numbers conditional on the statistics
 $\tu{\yFm}$. Let's finally consider our guess about these statistics.
 
@@ -1380,7 +1380,7 @@ $\tu{\yFm}$ of all mice. This time, however, we'll also assign a guess for
 $\yS$ without relying on higher-level statistics. We also make an analogous
 symmetry assumption, this time about the mouse population.
 
-The result is analogous to the guess about $\tu{\yNm_{j}}$. This time we
+The result is analogous to the guess about $\tu{\yNm_{t}}$. This time we
 use the analogous version of the approximate
 form~\eqref{eq:definetti_Nj_infinite_approx}, since the number of mice is
 in principle infinite, for the happiness of exterminator companies:
@@ -1411,7 +1411,7 @@ The final form of our pre-data distribution is obtained by combining the
 distributions~\eqref{eq:hyperg_Nj} and \eqref{eq:definetti_Nj_finite} for
 each mouse of interest, together with \eqref{eq:distr_H_mice} and
 \eqref{eq:distr_lambda}. And summing over all possible values of $\yS$, of
-all $\tu{\yFm}$ and of all $\tu{\yNm_{j}}$. We don't write this down,
+all $\tu{\yFm}$ and of all $\tu{\yNm_{t}}$. We don't write this down,
 because some of those sums won't be necessary when we calculate the
 probability of the desired answers given our data.
 
@@ -1419,12 +1419,12 @@ probability of the desired answers given our data.
 \label{sec:step4_answer_from_data}
 
 Our final goal is to guess the projection statistics $\yFm$ for the
-experimentally observed mice $\tu{\ymh}$, and the super-statistics $\yS$
+experimentally observed mice $\tu{m}$, and the super-statistics $\yS$
 for the whole mouse population under study, given our experimental data and
 pre-data information:
 \begin{equation}
   \label{eq:guess_given_data}
-  \pf(\underbracket{\tu{\yFm[\ymh]}}_{\mathclap{\text{observed mice}}}, \yS
+  \pf(\underbracket{\tu{\yFm}}_{\mathclap{\text{observed mice}}}, \yS
   \| \text{\small data}, \yI).
 \end{equation}
 This conditional probability can be calculated in different ways. The most
@@ -1432,12 +1432,12 @@ convenient for our problem is Bayes's theorem, because it relates this
 conditional probability to one with data and statistics inverted:
 \begin{equation}
   \label{eq:bayes_data_answers}
-  \pf(\tu{\yFm[\ymh]}, \yS
+  \pf(\tu{\yFm}, \yS
   \| \text{\small data}, \yI)
   \propto
   \pf( \text{\small data} \|
-  \tu{\yFm[\ymh]}, \yS, \yI)
-  \times \pf( \tu{\yFm[\ymh]}, \yS \| \yI)
+  \tu{\yFm}, \yS, \yI)
+  \times \pf( \tu{\yFm}, \yS \| \yI)
 \end{equation}
 The probability distribution on the right is useful because it has the
 unknown statistics in the conditional, allowing us to use the pre-data
@@ -1449,68 +1449,68 @@ as Monte Carlo.
 \medskip
 
 We now find the probability of the data, assuming for the moment that all
-statistics $\yS$, $\tu{\yFm}$, $\tu{\yNm_{j}}$ are known.
+statistics $\yS$, $\tu{\yFm}$, $\tu{\yNm_{t}}$ are known.
 
 The data consist in the two main statements $\kam$ and $\kbm$, discussed in
-\sect~\ref{sec:atomic_data}, for all observed mice $\tu{\ymh}$. Let's first
-focus on one specific mouse and omit \enquote{$\ymh$}. We calculate the
+\sect~\ref{sec:atomic_data}, for all observed mice $\tu{m}$. Let's first
+focus on one specific mouse and omit \enquote{$(m)$}. We calculate the
 probability for the data as follows:
 \begin{multline}
   \label{eq:alph_beta_given_stats}
-  \pf( \ka,\kb \|\tu{N_{j}},  \yF, \yS, \yI) ={}\\
-  \pf( \ka \|\kb, \tu{N_{j}},  \yF, \yS, \yI) \times
-    \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI).
+  \pf( \ka,\kb \|\tu{N_{t}},  \yF, \yS, \yI) ={}\\
+  \pf( \ka \|\kb, \tu{N_{t}},  \yF, \yS, \yI) \times
+    \pf( \kb \|\tu{N_{t}},  \yF, \yS, \yI).
 \end{multline}
 
 The last factor is easily calculated using formula~\eqref{eq:hyperg_Nj}
 with $n_{0}=I-\yIh$ and $n_{1}=0$:
 \begin{multline}
   \label{eq:kb_given_stats}
-  \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI) \equiv
+  \pf( \kb \|\tu{N_{t}},  \yF, \yS, \yI) \equiv
   \pf(\tu{\underbracket{c_{\dotso,1}=0}_{\mathclap{\text{$I-\yIh$ of them}}}},
   \dotsc,
   \tu{\underbracket{c_{\dotso,\yJh}=0}_{\mathclap{\text{$I-\yIh$ of them}}}}
-  \|\tu{N_{j}},  \yF, \yS, \yI)
+  \|\tu{N_{t}},  \yF, \yS, \yI)
   ={}\\
-  \prod_{j=1}^{\yJh}
-  \binom{N_{j}}{0}\binom{I-N_{j}}{I-\yIh}
+  \prod_{t=1}^{\yJh}
+  \binom{N_{t}}{0}\binom{I-N_{t}}{I-\yIh}
   \bigg/ \binom{I}{I-\yIh}
   \equiv
-  \prod_{j=1}^{\yJh}
-\binom{\yIh}{N_{j}}\bigg/ \binom{I}{N_{j}}.  
+  \prod_{t=1}^{\yJh}
+\binom{\yIh}{N_{t}}\bigg/ \binom{I}{N_{t}}.  
 \end{multline}
-This results makes sense: for each column $j$, the denominator
-$\binom{I}{N_{j}}$ counts the total number of ways in which $N_{j}$ black
+This results makes sense: for each column $t$, the denominator
+$\binom{I}{N_{t}}$ counts the total number of ways in which $N_{t}$ black
 entries can be distributed among $\yIh$ places. The numerator
-$\binom{\yIh}{N_{j}}$ counts the number of ways in which the $N_{j}$ black
+$\binom{\yIh}{N_{t}}$ counts the number of ways in which the $N_{t}$ black
 entries can be limited to the first $\yIh$ places, leaving the remaining
 $I-\yIh$ blank, as requested by our data $\kb$.
 
 
-Now to $\pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI)$. By the Boolean
+Now to $\pf( \ka \|\kb, \tu{N_{t}}, \yF, \yS, \yI)$. By the Boolean
 expression of $\ka$, \eqn~\eqref{eq:alpha_and_boole},
 \begin{multline}
   \label{eq:p_ka_boole}
-  \pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI) \equiv
+  \pf( \ka \|\kb, \tu{N_{t}}, \yF, \yS, \yI) \equiv
   \pf\Bigl\{
 \lnot \tlor_{i=1}^{\yIh} \bigl[
-\tland_{j=1}^{\yJh} (c_{ij} \eq 0)
+\tland_{t=1}^{\yJh} (c_{i t} \eq 0)
     \bigr]
     \|\dotso \Bigr\} ={}\\
     1-
   \pf\Bigl\{
 \tlor_{i=1}^{\yIh} \bigl[
-\tland_{j=1}^{\yJh} (c_{ij} \eq 0)
+\tland_{t=1}^{\yJh} (c_{i t} \eq 0)
     \bigr]
     \|\dotso \Bigr\} ={}\\
     \begin{aligned}[b]
     1&-
 \sum_{i=1}^{\yIh} \pf\bigl[
-\tland_{j=1}^{\yJh} (c_{ij} \eq 0) \|\dotso \bigr]
+\tland_{t=1}^{\yJh} (c_{i t} \eq 0) \|\dotso \bigr]
 \\&+
 \sum_{i',i''}^{i'> i''} \pf\bigl[
-\tland_{j=1}^{\yJh} (c_{i'\,j} \eq 0)\;
-\tland_{j=1}^{\yJh} (c_{i''\,j} \eq 0)
+\tland_{t=1}^{\yJh} (c_{i'\,t} \eq 0)\;
+\tland_{t=1}^{\yJh} (c_{i''\,t} \eq 0)
 \|\dotso \bigr]
 \\&- \dotsb\text{ \small[terms with three and more $i$]}.
     \end{aligned}
@@ -1519,7 +1519,7 @@ Where we have indicated the conditional with $\dotso$ for brevity. For the
 first equality we have used the rule for probability of the negation of a
 statement. For the second equality we have used the sum rule of probability
 for \emph{non}-mutually exclusive statements. In fact, the expression
-$\tland_{j=1}^{\yJh} (c_{ij} \eq 0)$ says that the $i$th row is empty, but
+$\tland_{t=1}^{\yJh} (c_{i t} \eq 0)$ says that the $i$th row is empty, but
 this doesn't exclude that other rows be empty as well.
 
 Each summand in the last expression is calculated using
@@ -1527,22 +1527,22 @@ formula~\eqref{eq:hyperg_Nj}. Consider the generic term with $r$ different $i$s:
 \begin{multline}
   \label{eq:generic_term_disjunction_p}
 (-1)^{r}  \pf\bigl[
-\underbracket{\tland_{j=1}^{\yJh} (c_{\dotso\,j} \eq 0)\;\dotsm\;
-  \tland_{j=1}^{\yJh} (c_{\dotso\,j} \eq 0)}_{\text{$r$ of these}}
+\underbracket{\tland_{t=1}^{\yJh} (c_{\dotso\,t} \eq 0)\;\dotsm\;
+  \tland_{t=1}^{\yJh} (c_{\dotso\,t} \eq 0)}_{\text{$r$ of these}}
 \|\dotso \bigr] \equiv{}\\
-(-1)^{r} \prod_{j=1}^{\yJh}
+(-1)^{r} \prod_{t=1}^{\yJh}
   \pf\bigl[
-\underbracket{(c_{\dotso\,j} \eq 0),\dotso, (c_{\dotso\,j} \eq 0)}_{\text{$r$ of them}}
-\|N_{j},\dotso \bigr] ={}\\
-(-1)^{r} \prod_{j=1}^{\yJh}\Biggl[
-\binom{N_{j}}{0} \binom{\yIh-N_{j}}{r} \bigg/ \binom{\yIh}{r}
+\underbracket{(c_{\dotso\,t} \eq 0),\dotso, (c_{\dotso\,t} \eq 0)}_{\text{$r$ of them}}
+\|N_{t},\dotso \bigr] ={}\\
+(-1)^{r} \prod_{t=1}^{\yJh}\Biggl[
+\binom{N_{t}}{0} \binom{\yIh-N_{t}}{r} \bigg/ \binom{\yIh}{r}
 \Biggr]
 \equiv{}\\
-(-1)^{r} \prod_{j=1}^{\yJh}\Biggl[
-\binom{\yIh-r}{N_{j}}  \bigg/ \binom{\yIh}{N_{j}}
+(-1)^{r} \prod_{t=1}^{\yJh}\Biggl[
+\binom{\yIh-r}{N_{t}}  \bigg/ \binom{\yIh}{N_{t}}
 \Biggr].
 \end{multline}
-The first equivalence is just a regrouping of the terms with the same $j$s
+The first equivalence is just a regrouping of the terms with the same $t$s
 together. The second equality is just the application of the pre-data
 distribution~\eqref{eq:hyperg_Nj} to this case, with $n_{0}=r$ and
 $n_{1}=0$. Note that we have $\yIh$ instead of $I$ because we are limited
@@ -1558,11 +1558,11 @@ term~\eqref{eq:generic_term_disjunction_p} for $r=0$ equals $1$. We can
 therefore rewrite the probability~\eqref{eq:p_ka_boole} for $\ka$ as
 \begin{equation}
   \label{eq:final_p_ka_boole}
-  \pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI)
+  \pf( \ka \|\kb, \tu{N_{t}}, \yF, \yS, \yI)
 =
 \sum_{r=0}^{\yIh}(-1)^{r}\binom{\yIh}{r}
-\prod_{j=1}^{\yJh}\Biggl[
-\binom{\yIh-r}{N_{j}}  \bigg/ \binom{\yIh}{N_{j}}
+\prod_{t=1}^{\yJh}\Biggl[
+\binom{\yIh-r}{N_{t}}  \bigg/ \binom{\yIh}{N_{t}}
 \Biggr].
 \end{equation}
 
@@ -1571,11 +1571,11 @@ $\kb$, simplifying the combinatorial terms, and considering all observed
 mice $m$ we obtain
 \begin{equation}
   \label{eq:prob_data_given_stats}
-  \pf( \text{\small data} \|\tu{\yNm_{j}},  \yF, \yS, \yI) =
+  \pf( \text{\small data} \|\tu{\yNm_{t}},  \tu{\yFm}, \yS, \yI) =
   \prod_{m}
   \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
-\prod_{j=1}^{\yJhm}\Biggl[
-\binom{\yIhm-r}{\yNm_{j}}  \bigg/ \binom{\yIm}{\yNm_{j}}
+\prod_{t=1}^{\yJhm}\Biggl[
+\binom{\yIhm-r}{\yNm_{t}}  \bigg/ \binom{\yIm}{\yNm_{t}}
 \Biggr].
 \end{equation}
 
@@ -1834,7 +1834,7 @@ further.
 
 
 In order to assign the initial joint probability distribution
-$\pf[(\yc_{ijm}) \| \yI]$, for all values of the connections $(\yc_{mij})$,
+$\pf[(\yc_{i t m}) \| \yI]$, for all values of the connections $(\yc_{mij})$,
 we explore the symmetries of our problem. Symmetries translate into
 equalities of some values of the joint distribution, and therefore restrict
 its possible values and mathematical form.
