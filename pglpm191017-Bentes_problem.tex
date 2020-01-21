@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T11:16:27+0100
+%% Last-Updated: 2020-01-21T11:23:07+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1412,6 +1412,19 @@ probability of the desired answers given our data.
 
 \subsection{Step 4: the probability for the answers given the data}
 \label{sec:step4_answer_from_data}
+
+Our final goal is to guess the projection statistics $\yFm$ for the
+experimentally observed mice, and the super-statistics $\yS$ for the whole
+mouse population under study, given our experimental data and pre-data
+information:
+\begin{equation}
+  \label{eq:guess_given_data}
+  \pf(\underbracket{\tu{\yFm}}_{\mathclap{\text{observed mice}}}, \yS
+  \| \text{\small data}, \yI).
+\end{equation}
+
+
+
 
 
 
