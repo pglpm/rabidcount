@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T08:32:58+0100
+%% Last-Updated: 2020-01-21T09:24:13+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -653,7 +653,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 %\DeclareMathOperator*{\argsup}{arg\,sup}
 \newcommand*{\dob}{degree of belief}
 \newcommand*{\dobs}{degrees of belief}
-\newcommand*{\yI}{\varIota}
+\newcommand*{\yI}{\varBeta}
 \newcommand*{\yC}{C}
 \newcommand*{\yc}{c}
 \newcommand*{\statm}[1]{\textsl{\textsf{#1}}}
@@ -1238,7 +1238,7 @@ projecting. We want to assign the probability distribution for the
 projection indicators $c_{1j}$, $c_{2j}$, and so on, conditional on
 knowledge of $N_{j}$. Our assumption is this: \emph{there isn't any reason
   to believe that some input neuron $i'$ projects to $j$, more than some
-  other input neuron $i'$}. In other words, the specific index $i$ of an
+  other input neuron $i''$}. In other words, the specific index $i$ of an
 shouldn't give us any special information about the projection. This is
 called an \emph{exchangeability} assumption.  In
 which cases can this assumption be at least approximately justified?
@@ -1272,13 +1272,13 @@ to $j$, so that their indicators $c_{ij}$ are $0$, and the other $n_{1}$
 do project to $j$, and their indicators are $1$. We know that there are $I$
 neurons in the whole input region, and that $N_{j}$ of these project. By
 the assumed symmetry, this situation is equivalent to \enquote{drawing
-  without replacement}, described by the hypergeometric distribution:
+  without replacement}, described by the hypergeometric distribution \citep[\chap~3]{jaynes1994_r2003}:
 \begin{equation}
   \label{eq:hyperg_Nj}
   \pf(\tu{\underbracket{c_{\dotso j}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
   \;\tu{\underbracket{c_{\dotso j}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{j}, \yI)
   =
-  \binom{N_{j}}{n_{1}}\;\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
+\frac{1}{n!}  \binom{N_{j}}{n_{1}}\;\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
 \end{equation}
 where the parentheses on the right are binomial coefficients. This
 distribution simply comes from counting in how many ways we can draw
@@ -1294,23 +1294,82 @@ $\tu{N_{j}}$, which we don't know. We consider our guess about them next.
 \subsubsection{$\yNm_{j}$ for one mouse}
 \label{sec:onemouse_exch}
 
-Let's start by focusing on a specific but arbitrary mouse $m$. We'll thus
-suppress all \enquote{$(m)$} for the moment, to make the notation lighter.
+We're still focusing on a specific but arbitrary mouse $m$. Now we want to
+express our guesses about the numbers of projections $N_{j}$ to a specific
+set of $h$ target neurons.
 
-We want to assign the distribution for the $\tu{N_{j}}$ of that mouse:
-$\pf(\tu{N_{j}} \| \yI)$. Our assumption is this: \emph{there isn't any
-  reason for some target neuron $j$ to have more or less projections than
-  some other target neuron $j'$}. In other words, the specific index $j$ of
-a neuron shouldn't give us any information about the number of projections
-$N_{j}$ to it. This is called an \emph{exchangeability} assumption.
-To find this probability it's easier to first form the histogram
-$\yh=(h_{0},\dotsc,h_{I})$ of these values. We do this by first grouping
-together all $N_{j}$ that have the same value. For example, if the first,
-third, and tenth neurons have five projections, then $N_{1}=N_{3}=N_{10}=5$
-and we group them together. There are $I+1$ groups: the group with no
-projection, that is, with all $N_{j}=0$, up to the group with $I$
-projections, that is, with all $N_{j}=I$. Count how many $N_{j}$ are in the
-group with $n$ projections: that's $h_{n}$.
+Suppose that we know the statistics $\yF=(F_{0}, F_{1}, \dotsc, F_{I})$ of
+such numbers for the full set of $J$ target neurons, as described in
+\sect~\ref{sec:atomic_questions}. That is, $F_{0}$ is the proportion of all
+target neurons receiving no projections from the input region, $F_{1}$ the
+proportion receiving one projection, and so on.
+
+Also in this case we make an assumption of symmetry: \emph{there isn't any
+  reason for some target neuron $j'$ to have more or less projections than
+  some other target neuron $j''$}. This is again an assumption of
+exchangeability, and the discussion of its validity is analogous to that of
+the previous section.
+
+The result for our guesses is also similar. Our situation in this case is
+analogous to \enquote{drawing without replacement}: from an urn having $J$
+balls of $I+1$ different colours or kinds (corresponding to the cases of
+$0$ to $I$ projections), with proportions $(F_{0}, \dotsc, F_{I})$, we ask
+in how many ways we can draw $h$ specific balls with proportions
+$(f_{0}, \dotsc, f_{I})$, some of which may be zero. A counting argument
+leads to the multivariate hypergeometric distribution
+\citep[\chap~39]{johnsonetal1969_r1996}:
+\begin{multline}
+  \label{eq:definetti_Nj_finite}
+  \pf(\tu{\underbracket{N_{\dotso}=0}_{\mathclap{\text{$hf_{0}$ of them}}}},
+  \;\tu{\underbracket{N_{\dotso}=1}_{\mathclap{\text{$hf_{1}$ of them}}}},
+\;\dotsc
+  \;\tu{\underbracket{N_{\dotso}=I}_{\mathclap{\text{$hf_{I}$ of them}}}}
+  \| \yF, \yI)
+  ={}\\
+  \frac{1}{h!}
+  \binom{JF_{0}}{hf_{0}}\times\dotsm\times\binom{JF_{I}}{hf_{I}}\bigg/
+  \binom{J}{h}.
+\end{multline}
+
+If our question is about a small set of $h$ neurons compared to the total
+number $J$, and the proportions $f_{j}$ are small compared to $1$, the
+formula above has a useful approximation:
+\begin{equation}
+  \label{eq:definetti_Nj_infinite_approx}
+  \pf(\tu{\underbracket{N_{\dotso}=0}_{\mathclap{\text{$hf_{0}$ of them}}}},
+  \;\tu{\underbracket{N_{\dotso}=1}_{\mathclap{\text{$hf_{1}$ of them}}}},
+\;\dotsc
+  \;\tu{\underbracket{N_{\dotso}=I}_{\mathclap{\text{$hf_{I}$ of them}}}}
+  \| \yF, \yI)
+\approx
+% \int\!\!\!\di\yF\;
+% \pf(\yF \| \yI)\;
+% F_{N_{1}} \times \dotsm \times F_{N_{h}}
+% \equiv{}\\[-2\jot]
+% \int\!\!\!\di\yF\;
+% \pf(\yF \| \yI)\; 
+\prod_{n=0}^{I}(F_{n})^{hf_{n}}.
+\end{equation}
+The integral appears because we approximate the tuple $\yF$ as a continuous
+quantity. It takes values in an $(I+1)$-dimensional space.
+
+
+\clearpage
+
+\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
+
+
+In other words, the specific index $j$
+of a neuron shouldn't give us any information about the number of
+projections $N_{j}$ to it. This is called an \emph{exchangeability}
+assumption. To find this probability it's easier to first form the
+histogram $\yh=(h_{0},\dotsc,h_{I})$ of these values. We do this by first
+grouping together all $N_{j}$ that have the same value. For example, if the
+first, third, and tenth neurons have five projections, then
+$N_{1}=N_{3}=N_{10}=5$ and we group them together. There are $I+1$ groups:
+the group with no projection, that is, with all $N_{j}=0$, up to the group
+with $I$ projections, that is, with all $N_{j}=I$. Count how many $N_{j}$
+are in the group with $n$ projections: that's $h_{n}$.
 
 The histogram $\yh$ is useful because \emph{all sets of values
   $N_{1},\dotsc,N_{J'}$ leading to the same histogram have the same
@@ -1464,9 +1523,6 @@ the full mouse population.
 
 
 
-\clearpage
-
-\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
 
 
 These statements won't be our atomic statements, however: it's more
