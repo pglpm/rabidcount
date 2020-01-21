@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T10:59:35+0100
+%% Last-Updated: 2020-01-21T11:16:27+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1387,6 +1387,31 @@ in principle infinite, for the happiness of exterminator companies:
   \ySS_{\yFm[1]} \times \ySS_{\yFm[2]} \times \dotsm\;.
 \end{equation}
 
+The super-statistics $\yS$ is unknown to us. Our pre-data guess about it is
+expressed by a probability density $\pf(\yS \| \yI)\,\di\yS$. It turns out
+that the exact form of this density is unimportant if we have numerous
+data, because the data will change its shape to reflect the observed
+statistics. For the moment we assume it to be constant:
+\begin{equation}
+  \label{eq:distr_lambda}
+  \pf(\yS \| \yI) = \text{const.}
+\end{equation}
+but later we'll check if changes in this distribution lead to important
+changes in our final inferences.
+
+\subsubsection{Final form for our pre-data distribution}
+\label{sec:final_predata}
+
+The final form of our pre-data distribution is obtained by combining the
+distributions~\eqref{eq:hyperg_Nj} and \eqref{eq:definetti_Nj_finite} for
+each mouse of interest, together with \eqref{eq:distr_H_mice} and
+\eqref{eq:distr_lambda}. And summing over all possible values of $\yS$, of
+all $\tu{\yFm}$ and of all $\tu{\yNm_{j}}$. We don't write this down,
+because some of those sums won't be necessary when we calculate the
+probability of the desired answers given our data.
+
+\subsection{Step 4: the probability for the answers given the data}
+\label{sec:step4_answer_from_data}
 
 
 
@@ -1523,8 +1548,6 @@ but later we'll check if changes in this distribution lead to important
 changes in our final inferences.
 
 
-\subsubsection{Final form for our pre-data distribution}
-\label{sec:final_predata}
 
 We can finally combine the pre-data
 distributions~\eqref{eq:definetti_Nj_infinite_approx},
