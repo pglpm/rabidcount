@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T14:42:41+0100
+%% Last-Updated: 2020-01-21T16:00:54+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -684,14 +684,15 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\ymh}{\Hat{m}}
 \newcommand*{\yih}{\Hat{\imath}}
 \newcommand*{\yjh}{\Hat{\jmath}}
+\newcommand*{\yNhm}{\yNm[\ymh]}
 \newcommand*{\yIhm}[1][m]{\Hat{I}^{(#1)}}
 \newcommand*{\yJhm}[1][m]{\Hat{J}^{(#1)}}
 \newcommand*{\yIh}{\Hat{I}}
 \newcommand*{\yJh}{\Hat{J}}
 \newcommand*{\ka}{\alpha}
 \newcommand*{\kb}{\beta}
-\newcommand*{\kam}[1][\yhm]{\ka^{(#1)}}
-\newcommand*{\kbm}[1][\yhm]{\kb^{(#1)}}
+\newcommand*{\kam}[1][m]{\ka^{(#1)}}
+\newcommand*{\kbm}[1][m]{\kb^{(#1)}}
 %%% Custom macros end @@@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1134,7 +1135,7 @@ with the large yellow question mark.
 The expression of $\kb$ is simple: it corresponds to
 \begin{equation}
   \label{eq:alpha_and}
-\ka:\qquad  c_{ij} =0 \quad\text{for }i=\yIh+1,\dotsc, I
+\kb:\qquad  c_{ij} =0 \quad\text{for }i=\yIh+1,\dotsc, I
   \quad\text{and }j=1,\dotsc,\yJh.
 \end{equation}
 
@@ -1146,7 +1147,7 @@ $i=2$, and so on to $i=\yIh$. Then
 \begin{equation}
   \label{eq:alpha_and}
   \begin{aligned}
-  \kb:\qquad \text{not }\bigl[ &(c_{1j} =0 \quad\text{for }j=1,\dotsc,\yJh)
+  \ka:\qquad \text{not }\bigl[ &(c_{1j} =0 \quad\text{for }j=1,\dotsc,\yJh)
 \\  &\text{or }
   (c_{2j} =0 \quad\text{for }j=1,\dotsc,\yJh)
     \\  &\text{or } \dotsb
@@ -1157,7 +1158,7 @@ $i=2$, and so on to $i=\yIh$. Then
 which can be more compactly written using Boolean logical operators as
 \begin{equation}
   \label{eq:alpha_and_boole}
-    \kb:\qquad \lnot \tlor_{i=1}^{\yIh} \bigl[
+    \ka:\qquad \lnot \tlor_{i=1}^{\yIh} \bigl[
 \tland_{j=1}^{\yJh} (c_{ij} \eq 0)
     \bigr].
 \end{equation}
@@ -1280,12 +1281,14 @@ the assumed symmetry, this situation is equivalent to \enquote{drawing
   \pf(\tu{\underbracket{c_{\dotso j}=0}_{\mathclap{\text{$n_{0}$ of them}}}},
   \;\tu{\underbracket{c_{\dotso j}=1}_{\mathclap{\text{$n_{1}$ of them}}}} \| N_{j}, \yI)
   =
-\frac{1}{n!}  \binom{N_{j}}{n_{1}}\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
+\frac{1}{\binom{n}{n_{0},n_{1}}}  \binom{N_{j}}{n_{1}}\binom{I-N_{j}}{n_{0}}\bigg/ \binom{I}{n},
 \end{equation}
 where the parentheses on the right are binomial coefficients. This
 distribution simply comes from counting in how many ways we can draw
 $n_{0}$ white and $n_{1}$ black balls from an urn containing $I-N_{j}$
-white and $N_{j}$ black ones.
+white and $N_{j}$ black ones. The term $\binom{n}{n_{0},n_{1}}$ is a
+multinomial coefficient, necessary because we are asking about the
+probability of a specific set of input neurons.
 
 We have such distribution separately for each target neuron $j$. But the
 collection of these distributions depend on knowledge of all the
@@ -1329,7 +1332,7 @@ leads to the multivariate hypergeometric distribution
   \;\tu{\underbracket{N_{\dotso}=I}_{\mathclap{\text{$hf_{I}$ of them}}}}
   \| \yF, \yI)
   ={}\\
-  \frac{1}{h!}
+  \frac{1}{\binom{h}{hf_{0},\dotsc,hf_{I}}}
   \binom{JF_{0}}{hf_{0}}\times\dotsm\times\binom{JF_{I}}{hf_{I}}\bigg/
   \binom{J}{h}.
 \end{multline}
@@ -1459,7 +1462,8 @@ probability for the data as follows:
     \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI).
 \end{multline}
 
-The last factor is easily calculated using formula~\eqref{eq:hyperg_Nj}:
+The last factor is easily calculated using formula~\eqref{eq:hyperg_Nj}
+with $n_{0}=I-\yIh$ and $n_{1}=0$:
 \begin{multline}
   \label{eq:kb_given_stats}
   \pf( \kb \|\tu{N_{j}},  \yF, \yS, \yI) \equiv
@@ -1469,7 +1473,7 @@ The last factor is easily calculated using formula~\eqref{eq:hyperg_Nj}:
   \|\tu{N_{j}},  \yF, \yS, \yI)
   ={}\\
   \prod_{j=1}^{\yJh}
-  \frac{1}{(I-\yIh)!}  \binom{N_{j}}{0}\binom{I-N_{j}}{I-\yIh}
+  \binom{N_{j}}{0}\binom{I-N_{j}}{I-\yIh}
   \bigg/ \binom{I}{I-\yIh}
   \equiv
   \prod_{j=1}^{\yJh}
@@ -1481,6 +1485,99 @@ entries can be distributed among $\yIh$ places. The numerator
 $\binom{\yIh}{N_{j}}$ counts the number of ways in which the $N_{j}$ black
 entries can be limited to the first $\yIh$ places, leaving the remaining
 $I-\yIh$ blank, as requested by our data $\kb$.
+
+
+Now to $\pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI)$. By the Boolean
+expression of $\ka$, \eqn~\eqref{eq:alpha_and_boole},
+\begin{multline}
+  \label{eq:p_ka_boole}
+  \pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI) \equiv
+  \pf\Bigl\{
+\lnot \tlor_{i=1}^{\yIh} \bigl[
+\tland_{j=1}^{\yJh} (c_{ij} \eq 0)
+    \bigr]
+    \|\dotso \Bigr\} ={}\\
+    1-
+  \pf\Bigl\{
+\tlor_{i=1}^{\yIh} \bigl[
+\tland_{j=1}^{\yJh} (c_{ij} \eq 0)
+    \bigr]
+    \|\dotso \Bigr\} ={}\\
+    \begin{aligned}[b]
+    1&-
+\sum_{i=1}^{\yIh} \pf\bigl[
+\tland_{j=1}^{\yJh} (c_{ij} \eq 0) \|\dotso \bigr]
+\\&+
+\sum_{i',i''}^{i'> i''} \pf\bigl[
+\tland_{j=1}^{\yJh} (c_{i'\,j} \eq 0)\;
+\tland_{j=1}^{\yJh} (c_{i''\,j} \eq 0)
+\|\dotso \bigr]
+\\&- \dotsb\text{ \small[terms with three and more $i$]}.
+    \end{aligned}
+\end{multline}
+Where we have indicated the conditional with $\dotso$ for brevity. For the
+first equality we have used the rule for probability of the negation of a
+statement. For the second equality we have used the sum rule of probability
+for \emph{non}-mutually exclusive statements. In fact, the expression
+$\tland_{j=1}^{\yJh} (c_{ij} \eq 0)$ says that the $i$th row is empty, but
+this doesn't exclude that other rows be empty as well.
+
+Each summand in the last expression is calculated using
+formula~\eqref{eq:hyperg_Nj}. Consider the generic term with $r$ different $i$s:
+\begin{multline}
+  \label{eq:generic_term_disjunction_p}
+(-1)^{r}  \pf\bigl[
+\underbracket{\tland_{j=1}^{\yJh} (c_{\dotso\,j} \eq 0)\;\dotsm\;
+  \tland_{j=1}^{\yJh} (c_{\dotso\,j} \eq 0)}_{\text{$r$ of these}}
+\|\dotso \bigr] \equiv{}\\
+(-1)^{r} \prod_{j=1}^{\yJh}
+  \pf\bigl[
+\underbracket{(c_{\dotso\,j} \eq 0),\dotso, (c_{\dotso\,j} \eq 0)}_{\text{$r$ of them}}
+\|N_{j},\dotso \bigr] ={}\\
+(-1)^{r} \prod_{j=1}^{\yJh}\Biggl[
+\binom{N_{j}}{0} \binom{\yIh-N_{j}}{r} \bigg/ \binom{\yIh}{r}
+\Biggr]
+\equiv{}\\
+(-1)^{r} \prod_{j=1}^{\yJh}\Biggl[
+\binom{\yIh-r}{N_{j}}  \bigg/ \binom{\yIh}{N_{j}}
+\Biggr].
+\end{multline}
+The first equivalence is just a regrouping of the terms with the same $j$s
+together. The second equality is just the application of the pre-data
+distribution~\eqref{eq:hyperg_Nj} to this case, with $n_{0}=r$ and
+$n_{1}=0$. Note that we have $\yIh$ instead of $I$ because we are limited
+to the first $\yIh$ row, the rest being blank as indicated by $\kb$ in the
+conditional. The third equivalence is just a combinatorial rearrangement.
+\mynote{explain why the result makes sense}
+
+Looking again at formula~\eqref{eq:p_ka_boole}, we see that the generic
+term for $r$ rows above appears for all possible combinations of $r$
+different rows out of $\yIh$. There are $\binom{\yIh}{r}$ such terms, all
+equal. Also, we note that the generic
+term~\eqref{eq:generic_term_disjunction_p} for $r=0$ equals $1$. We can
+therefore rewrite the probability~\eqref{eq:p_ka_boole} for $\ka$ as
+\begin{equation}
+  \label{eq:final_p_ka_boole}
+  \pf( \ka \|\kb, \tu{N_{j}}, \yF, \yS, \yI)
+=
+\sum_{r=0}^{\yIh}(-1)^{r}\binom{\yIh}{r}
+\prod_{j=1}^{\yJh}\Biggl[
+\binom{\yIh-r}{N_{j}}  \bigg/ \binom{\yIh}{N_{j}}
+\Biggr].
+\end{equation}
+
+Finally, combining this with the probability~\eqref{eq:kb_given_stats} for
+$\kb$, simplifying the combinatorial terms, and considering all observed
+mice $m$ we obtain
+\begin{equation}
+  \label{eq:prob_data_given_stats}
+  \pf( \text{\small data} \|\tu{\yNm_{j}},  \yF, \yS, \yI) =
+  \prod_{m}
+  \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
+\prod_{j=1}^{\yJhm}\Biggl[
+\binom{\yIhm-r}{\yNm_{j}}  \bigg/ \binom{\yIm}{\yNm_{j}}
+\Biggr].
+\end{equation}
 
 
 
