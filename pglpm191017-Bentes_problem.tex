@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T17:58:55+0100
+%% Last-Updated: 2020-01-21T18:27:37+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1569,16 +1569,51 @@ therefore rewrite the probability~\eqref{eq:p_ka_boole} for $\ka$ as
 Finally, combining this with the probability~\eqref{eq:kb_given_stats} for
 $\kb$, simplifying the combinatorial terms, and considering all observed
 mice $m$ we obtain
-\begin{equation}
+\begin{multline}
   \label{eq:prob_data_given_stats}
-  \pf( \text{\small data} \|\tu{\yNm_{t}},  \tu{\yFm}, \yS, \yI) =
+  \pf( \text{\small data} \|\tu{\yNm_{t}},  \tu{\yFm}, \yS, \yI) ={}\\
   \prod_{m}
   \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
 \prod_{t=1}^{\yJhm}\Biggl[
 \binom{\yIhm-r}{\yNm_{t}}  \bigg/ \binom{\yIm}{\yNm_{t}}
 \Biggr].
-\end{equation}
+\end{multline}
 
+
+\medskip
+
+The probability above is conditional on $\yS$, $\tu{\yFm}$,
+$\tu{\yNm_{t}}$; but the latter don't really interest us. We can eliminate
+them from the conditional using the marginalization rule
+\begin{multline}
+  \label{eq:marginalize_N_general}
+    \pf( \text{\small data} \| \tu{\yFm}, \yS, \yI) ={}\\
+ \mathop{\sum\dotsi\sum}_{\underbracket{\yNm_{t}=0}_{\mathclap{\text{for all $m$ and $t$}}}}^{\yIm}   \pf( \text{\small data} \|\tu{\yNm_{t}},  \tu{\yFm}, \yS, \yI) \times
+    \pf( \tu{\yNm_{t}} \|  \tu{\yFm}, \yS, \yI).
+\end{multline}
+The first factor in the sum is the
+probability~\eqref{eq:prob_data_given_stats}; the second is the pre-data
+probability~\eqref{eq:definetti_Nj_finite}. Substituting these and
+rearranging the terms having the same $m$ we find
+\begin{multline}
+  \label{eq:marginalize_N}
+  \pf( \text{\small data} \| \tu{\yFm}, \yS, \yI) ={}\\
+  \prod_{m}
+  \sum_{\yNm_{1}} \dotsi  \sum_{\yNm_{\yJm}}
+\prod_{t=1}^{\yJm}
+  \biggl[\yFFm_{\yNm_{t}}\biggr]\;
+  \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
+\prod_{t=1}^{\yJhm}\Biggl[
+\binom{\yIhm-r}{\yNm_{t}}  \bigg/ \binom{\yIm}{\yNm_{t}}
+\Biggr] ={}\\
+  \prod_{m}\;
+  \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}\;
+  \left[
+  \sum_{n=1}^{\yIhm-r}
+  \yFFm_{n}\;
+\binom{\yIhm-r}{n}  \bigg/ \binom{\yIm}{n}
+\right]^{\yJm}
+\end{multline}
 
 
 \clearpage
