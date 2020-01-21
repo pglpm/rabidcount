@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T11:23:07+0100
+%% Last-Updated: 2020-01-21T13:59:08+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1414,15 +1414,40 @@ probability of the desired answers given our data.
 \label{sec:step4_answer_from_data}
 
 Our final goal is to guess the projection statistics $\yFm$ for the
-experimentally observed mice, and the super-statistics $\yS$ for the whole
-mouse population under study, given our experimental data and pre-data
-information:
+experimentally observed mice $\tu{\ymh}$, and the super-statistics $\yS$
+for the whole mouse population under study, given our experimental data and
+pre-data information:
 \begin{equation}
   \label{eq:guess_given_data}
-  \pf(\underbracket{\tu{\yFm}}_{\mathclap{\text{observed mice}}}, \yS
+  \pf(\underbracket{\tu{\yFm[\ymh]}}_{\mathclap{\text{observed mice}}}, \yS
   \| \text{\small data}, \yI).
 \end{equation}
+This conditional probability can be calculated in different ways. The most
+convenient for our problem is Bayes's theorem, because it relates this
+conditional probability to one with data and statistics inverted:
+\begin{equation}
+  \label{eq:bayes_data_answers}
+  \pf(\tu{\yFm[\ymh]}, \yS
+  \| \text{\small data}, \yI)
+  \propto
+  \pf( \text{\small data} \|
+  \tu{\yFm[\ymh]}, \yS, \yI)
+  \times \pf( \tu{\yFm[\ymh]}, \yS \| \yI)
+\end{equation}
+The probability distribution on the right is useful because it has the
+unknown statistics in the conditional, allowing us to use the pre-data
+probabilities of \sect~\ref{sec:step_joint_prob}. The product on the right
+can be found, apart from a normalizing constant, by sampling methods such
+as Monte Carlo.
 
+
+\medskip
+
+We now find the probability of the data, assuming for the moment that all
+statistics $\yS$, $\tu{\yFm}$, $\tu{\yNm_{j}}$ are known.
+
+The data consist in the two main statements $\ka$ and $\kb$ discussed in
+\sect~\ref{sec:atomic_data}. We calculate it as follows:
 
 
 
