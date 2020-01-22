@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-22T10:40:12+0100
+%% Last-Updated: 2020-01-22T10:54:32+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -81,8 +81,8 @@ british%
 \addtolength{\jot}{\jot} % increase spacing in multiline formulae
 \setlength{\multlinegap}{0pt}
 
-%\usepackage{empheq}% automatically calls amsmath and mathtools
-%\newcommand*{\widefbox}[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
+\usepackage{empheq}% automatically calls amsmath and mathtools
+\newcommand*{\widefbox}[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
 
 %%%% empheq above seems more versatile than these:
 %\usepackage{fancybox}
@@ -1619,7 +1619,7 @@ We can finally use Bayes's theorem~\eqref{eq:bayes_data_answers} together
 with our pre-data probabilities~\eqref{eq:distr_H_mice}
 and~\eqref{eq:distr_lambda} for the $\tu{\yFm}$ and $\yS$, to obtain the
 probabilities we're looking for:
-\begin{multline}
+\begin{empheq}[box=\widefbox]{multline}
   \label{eq:final_form_answers_data}
   \pf(\underbracket{\tu{\yFm}}_{\mathclap{\text{observed mice}}}, \yS
   \| \text{\small data}, \yI)
@@ -1632,7 +1632,7 @@ probabilities we're looking for:
 \binom{\yIhm-r}{N}  \bigg/ \binom{\yIm}{N}
 \right]^{\yJm}\\
 \text{with } \text{\small data}=\set{\yIhm,\yJhm,\yIm,\yJm}.
-\end{multline}
+\end{empheq}
 This probability will be found by Monte Carlo sampling.
 
 
@@ -1651,9 +1651,9 @@ Possibly we'll also consider treating these numbers as infinities.
 
 
 \section{On hierarchic modelling}
-\label{sec:hierarchic}
+\label{sec:hiderarchic}
 
-
+\mynote{to be written}
 
 
 
