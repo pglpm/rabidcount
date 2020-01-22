@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-01-21T18:51:51+0100
+%% Last-Updated: 2020-01-22T10:31:02+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1612,13 +1612,225 @@ rearranging the terms having the same $m$ we find
   \sum_{N=0}^{\yIhm-r}
   \yFFm_{N}\;
 \binom{\yIhm-r}{N}  \bigg/ \binom{\yIm}{N}
-\right]^{\yJm}
+\right]^{\yJm}.
 \end{multline}
 
+We can finally use Bayes's theorem~\eqref{eq:bayes_data_answers} together
+with our pre-data probabilities~\eqref{eq:distr_H_mice}
+and~\eqref{eq:distr_lambda} for the $\tu{\yFm}$ and $\yS$, to obtain the
+probabilities we're looking for:
+\begin{multline}
+  \label{eq:final_form_answers_data}
+  \pf(\underbracket{\tu{\yFm}}_{\mathclap{\text{observed mice}}}, \yS
+  \| \text{\small data}, \yI)
+  \propto{}\\
+  \prod_{m} \ySS_{\yFm}\;
+  \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}\;
+  \left[
+  \sum_{N=0}^{\yIhm-r}
+  \yFFm_{N}\;
+\binom{\yIhm-r}{N}  \bigg/ \binom{\yIm}{N}
+\right]^{\yJm}\\
+\text{with } \text{\small data}=\set{\yIhm,\yJhm,\yIm,\yJm}.
+\end{multline}
+This probability will be found by Monte Carlo sampling.
 
+
+\section{Tying up loose ends}
+\label{sec:tying}
+
+In the probability~\eqref{eq:final_form_answers_data} we have defined our
+data to be the number of marked input and target neurons in each mouse, but
+also the \emph{total} number of neurons in the input area and of the specified
+target class (and target region). We actually don't have the latter
+numbers. In principle it would be possible to guess them too, but the
+calculations would become much heavier. Instead we rely on the fact that
+the marked neurons are far fewer than the total, $\yIhm \ll \yIm$, $\yJhm
+\ll \yJm$, fixing the totals to a high plausible number (100\,000).
+Possibly we'll also consider treating these numbers as infinities. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textcolor{white}{If you find this you can claim a postcard from me.}
+
+
+
+%%%% examples use empheq
+%   \begin{empheq}[left={\mathllap{\begin{aligned}    \de\yF_{\yc}/\de\yp&=0\text{:} \\
+%         \de\yF_{\yc}/\de\ym&=0\text{:}\\ \de\yF_{\yc}/\de\yl&=0\text{:}\end{aligned}}\qquad}\empheqlbrace]{align}
+%     \label{eq:con_p}
+% %    \de\yF_{\yc}/\de\yp &\equiv
+%     -\ln\yp + \ln\yq + \yl\yM + \ym\yu &=0,\\
+%     \label{eq:con_u}
+% %    \de\yF_{\yc}/\de\ym &\equiv
+%     \yu\yp-1 &=0,\\
+%     \label{eq:con_l}
+%     %\de\yF_{\yc}/\de\yl &\equiv
+%     \yM\yp-\yc &=0.
+%   \end{empheq}
+%%%%
+% \begin{empheq}[box=\widefbox]{equation}
+%   \label{eq:maxent_question}
+%   \p\bigl[\yE{N+1}{k} \bigcond \tsum\yo\yf{N}\in\yA, \yM\bigr] = \mathord{?}
+% \end{empheq}
+
+
+
+% \[
+%   \begin{tikzcd}
+%       M_{n,n}(\CC) \arrow{r}{R'_{a}(\Hat{U})} & M_{n,n}(\CC)
+%     \\
+%     L(\mathcal{H}) \arrow{r}{\Hat{U}} \arrow[swap]{d}{R_*}\arrow[swap]{u}{R'_*} & L(\mathcal{H}) \arrow{d}{R_*}\arrow{u}{R'_*} \\
+%       M_{n,n}(\CC) \arrow{r}{R_{a}(\Hat{U})} & M_{n,n}(\CC)
+%   \end{tikzcd}
+% \]
+
+% \[
+%   \begin{tikzcd}
+%       \CC^n \arrow{r}{R'_*(A)} & \CC^n
+%     \\
+%     \mathcal{H} \arrow{r}{A} \arrow[swap]{d}{R}\arrow[swap]{u}{R'} & \mathcal{H} \arrow{d}{R}\arrow{u}{R'} \\
+%       \CC^n \arrow{r}{R_*(A)} & \CC^n
+%   \end{tikzcd}
+% \]
+
+
+% \[
+%   \begin{tikzcd}
+%     \mathcal{H} \arrow{r}{A} \arrow[swap]{d}{R} & \mathcal{H} \arrow{d}{R} \\
+%       \CC^n \arrow{r}{R_*(A)} & \CC^n
+%   \end{tikzcd}
+% \]
+
+%%\setlength{\intextsep}{0.5ex}% with wrapfigure
+%\begin{figure}[p!]%{r}{0.4\linewidth} % with wrapfigure
+%  \centering\includegraphics[trim={12ex 0 18ex 0},clip,width=\linewidth]{maxent_saddle.png}\\
+%\caption{caption}\label{fig:comparison_a5}
+%\end{figure}% exp_family_maxent.nb
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\iffalse
+\begin{acknowledgements}
+  \ldots to Mari \amp\ Miri for continuous encouragement and affection, and
+  to Buster Keaton and Saitama for filling life with awe and inspiration.
+  To the developers and maintainers of \LaTeX, Emacs, AUC\TeX, Open Science
+  Framework, R, Python, Inkscape, Sci-Hub for making a free and impartial
+  scientific exchange possible.
+%\rotatebox{15}{P}\rotatebox{5}{I}\rotatebox{-10}{P}\rotatebox{10}{\reflectbox{P}}\rotatebox{-5}{O}.
+%\sourceatright{\autanet}
+\mbox{}\hfill\autanet
+\end{acknowledgements}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \clearpage
+% %\renewcommand*{\appendixpagename}{Appendix}
+% %\renewcommand*{\appendixname}{Appendix}
+% %\appendixpage
+% \appendix
 
-\bigskip{\hrule\centering [from here on: old text]\hrule\par}\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\defbibnote{prenote}{{\footnotesize (\enquote{de $X$} is listed under D,
+    \enquote{van $X$} under V, and so on, regardless of national
+    conventions.)\par}}
+% \defbibnote{postnote}{\par\medskip\noindent{\footnotesize% Note:
+%     \arxivp \mparcp \philscip \biorxivp}}
+
+\printbibliography[prenote=prenote%,postnote=postnote
+]
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Cut text (won't be compiled)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+The first two steps are especially important: it's there that we decide on
+the level of simplification or realism of our formulation. Let's make a
+couple of remarks about this.
+
+
+The possible formulations of our inference problem differ in their degree
+of simplification or realism, in the kinds of questions they allow us to
+answer, and in their mathematical complexity. Their degree of realism is,
+in the present case, tightly connected with the \emph{hierarchic} depth at
+which we analyse our problem. What do we mean by \enquote{hierarchy}? Here
+are two examples.
+\begin{enumerate}[label=(\roman*)]
+\item \label{item:3-level}For each pair of input-target kinds, we could
+  study the similarities and dissimilarities (expressed as, say, means and
+  variances) of the connections from the input kind to \emph{one} target
+  neuron. Then study how these similarities and dissimilarities are
+  themselves similar and dissimilar across all target neurons of the same
+  kind in \emph{one} mouse. And finally study how these higher-order
+  similarities and dissimilarities are themselves similar and dissimilar
+  across all mice.
+\item \label{item:1-level}For each pair of input-target kinds, we could
+  study the similarities and dissimilarities of the connections to all
+  target neurons of the same kind in all mice at once, pooling across
+  target neurons and mice.
+\end{enumerate}
+The first example is more realistic because it acknowledges different
+levels of similarities and variations in our study. It also allows us to
+ask specific questions, such as \enquote{how does the connectivity vary
+  from mouse to mouse?}. It leads, however, to very complex maths
+(integrals over function spaces). The second example is drastically
+simplified and doesn't allow us to ask very specific questions. But it
+leads to much simpler mathematical expressions. Other approaches are also
+possible in between and outside of these two.
+
+The number of hierarchies goes hand in hand with the number of
+\emph{symmetries}. In the first example, our analysis treats in a similar
+-- symmetric -- way all input neurons to a specific target neuron, but not
+across target neurons; then it treats in a symmetric way the statistics of
+the connectivity of every target neuron in a mouse, but not across all
+mice; and so on. In the second example, our analysis treats all target
+neurons in all mice in a symmetric way. We'll shortly see how these symmetries
+have a mathematical counterpart and determine the formulae we use.
+
+Mathematically we represent these statements and the grids of
+\fig~\ref{fig:cmij} with the following quantities:
+\begin{equation}
+  \label{eq:quantity_connection}
+  \yc_{ijm} =
+  \begin{cases}
+    1&\text{if neuron $i$ projects to neuron $j$ in mouse $m$},\\
+    0&\text{if neuron $i$ doesn't project to neuron $j$ in mouse $m$}.
+  \end{cases}
+\end{equation}
+Let's call them \emph{connections}.
+
+
+For most of these statements we'll obviously never be able to ascertain
+whether they're true or false. But they serve us well as basic statements:
+we can precisely formulate our questions and data in terms of them.
+
+\bigskip
+
+The formulation just proposed is already based on some simplifications and
+the neglect of possible hierarchies: we could have distinguished the
+neurons in the two regions according to morphology or location, and the
+mice according to age, weight, and so on. But I take it as a good starting
+compromise between simplification and realism. We'll consider further
+simplifications in the next step.
+
 
 
 In other words, the specific index $j$
@@ -2455,186 +2667,6 @@ where $\ynu \defd (\nu_{m})$.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-\textcolor{white}{If you find this you can claim a postcard from me.}
-
-
-
-%%%% examples use empheq
-%   \begin{empheq}[left={\mathllap{\begin{aligned}    \de\yF_{\yc}/\de\yp&=0\text{:} \\
-%         \de\yF_{\yc}/\de\ym&=0\text{:}\\ \de\yF_{\yc}/\de\yl&=0\text{:}\end{aligned}}\qquad}\empheqlbrace]{align}
-%     \label{eq:con_p}
-% %    \de\yF_{\yc}/\de\yp &\equiv
-%     -\ln\yp + \ln\yq + \yl\yM + \ym\yu &=0,\\
-%     \label{eq:con_u}
-% %    \de\yF_{\yc}/\de\ym &\equiv
-%     \yu\yp-1 &=0,\\
-%     \label{eq:con_l}
-%     %\de\yF_{\yc}/\de\yl &\equiv
-%     \yM\yp-\yc &=0.
-%   \end{empheq}
-%%%%
-% \begin{empheq}[box=\widefbox]{equation}
-%   \label{eq:maxent_question}
-%   \p\bigl[\yE{N+1}{k} \bigcond \tsum\yo\yf{N}\in\yA, \yM\bigr] = \mathord{?}
-% \end{empheq}
-
-
-
-% \[
-%   \begin{tikzcd}
-%       M_{n,n}(\CC) \arrow{r}{R'_{a}(\Hat{U})} & M_{n,n}(\CC)
-%     \\
-%     L(\mathcal{H}) \arrow{r}{\Hat{U}} \arrow[swap]{d}{R_*}\arrow[swap]{u}{R'_*} & L(\mathcal{H}) \arrow{d}{R_*}\arrow{u}{R'_*} \\
-%       M_{n,n}(\CC) \arrow{r}{R_{a}(\Hat{U})} & M_{n,n}(\CC)
-%   \end{tikzcd}
-% \]
-
-% \[
-%   \begin{tikzcd}
-%       \CC^n \arrow{r}{R'_*(A)} & \CC^n
-%     \\
-%     \mathcal{H} \arrow{r}{A} \arrow[swap]{d}{R}\arrow[swap]{u}{R'} & \mathcal{H} \arrow{d}{R}\arrow{u}{R'} \\
-%       \CC^n \arrow{r}{R_*(A)} & \CC^n
-%   \end{tikzcd}
-% \]
-
-
-% \[
-%   \begin{tikzcd}
-%     \mathcal{H} \arrow{r}{A} \arrow[swap]{d}{R} & \mathcal{H} \arrow{d}{R} \\
-%       \CC^n \arrow{r}{R_*(A)} & \CC^n
-%   \end{tikzcd}
-% \]
-
-%%\setlength{\intextsep}{0.5ex}% with wrapfigure
-%\begin{figure}[p!]%{r}{0.4\linewidth} % with wrapfigure
-%  \centering\includegraphics[trim={12ex 0 18ex 0},clip,width=\linewidth]{maxent_saddle.png}\\
-%\caption{caption}\label{fig:comparison_a5}
-%\end{figure}% exp_family_maxent.nb
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Acknowledgements
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\iffalse
-\begin{acknowledgements}
-  \ldots to Mari \amp\ Miri for continuous encouragement and affection, and
-  to Buster Keaton and Saitama for filling life with awe and inspiration.
-  To the developers and maintainers of \LaTeX, Emacs, AUC\TeX, Open Science
-  Framework, R, Python, Inkscape, Sci-Hub for making a free and impartial
-  scientific exchange possible.
-%\rotatebox{15}{P}\rotatebox{5}{I}\rotatebox{-10}{P}\rotatebox{10}{\reflectbox{P}}\rotatebox{-5}{O}.
-%\sourceatright{\autanet}
-\mbox{}\hfill\autanet
-\end{acknowledgements}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Appendices
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\clearpage
-% %\renewcommand*{\appendixpagename}{Appendix}
-% %\renewcommand*{\appendixname}{Appendix}
-% %\appendixpage
-% \appendix
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Bibliography
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\defbibnote{prenote}{{\footnotesize (\enquote{de $X$} is listed under D,
-    \enquote{van $X$} under V, and so on, regardless of national
-    conventions.)\par}}
-% \defbibnote{postnote}{\par\medskip\noindent{\footnotesize% Note:
-%     \arxivp \mparcp \philscip \biorxivp}}
-
-\printbibliography[prenote=prenote%,postnote=postnote
-]
-
-\end{document}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Cut text (won't be compiled)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-The first two steps are especially important: it's there that we decide on
-the level of simplification or realism of our formulation. Let's make a
-couple of remarks about this.
-
-
-The possible formulations of our inference problem differ in their degree
-of simplification or realism, in the kinds of questions they allow us to
-answer, and in their mathematical complexity. Their degree of realism is,
-in the present case, tightly connected with the \emph{hierarchic} depth at
-which we analyse our problem. What do we mean by \enquote{hierarchy}? Here
-are two examples.
-\begin{enumerate}[label=(\roman*)]
-\item \label{item:3-level}For each pair of input-target kinds, we could
-  study the similarities and dissimilarities (expressed as, say, means and
-  variances) of the connections from the input kind to \emph{one} target
-  neuron. Then study how these similarities and dissimilarities are
-  themselves similar and dissimilar across all target neurons of the same
-  kind in \emph{one} mouse. And finally study how these higher-order
-  similarities and dissimilarities are themselves similar and dissimilar
-  across all mice.
-\item \label{item:1-level}For each pair of input-target kinds, we could
-  study the similarities and dissimilarities of the connections to all
-  target neurons of the same kind in all mice at once, pooling across
-  target neurons and mice.
-\end{enumerate}
-The first example is more realistic because it acknowledges different
-levels of similarities and variations in our study. It also allows us to
-ask specific questions, such as \enquote{how does the connectivity vary
-  from mouse to mouse?}. It leads, however, to very complex maths
-(integrals over function spaces). The second example is drastically
-simplified and doesn't allow us to ask very specific questions. But it
-leads to much simpler mathematical expressions. Other approaches are also
-possible in between and outside of these two.
-
-The number of hierarchies goes hand in hand with the number of
-\emph{symmetries}. In the first example, our analysis treats in a similar
--- symmetric -- way all input neurons to a specific target neuron, but not
-across target neurons; then it treats in a symmetric way the statistics of
-the connectivity of every target neuron in a mouse, but not across all
-mice; and so on. In the second example, our analysis treats all target
-neurons in all mice in a symmetric way. We'll shortly see how these symmetries
-have a mathematical counterpart and determine the formulae we use.
-
-Mathematically we represent these statements and the grids of
-\fig~\ref{fig:cmij} with the following quantities:
-\begin{equation}
-  \label{eq:quantity_connection}
-  \yc_{ijm} =
-  \begin{cases}
-    1&\text{if neuron $i$ projects to neuron $j$ in mouse $m$},\\
-    0&\text{if neuron $i$ doesn't project to neuron $j$ in mouse $m$}.
-  \end{cases}
-\end{equation}
-Let's call them \emph{connections}.
-
-
-For most of these statements we'll obviously never be able to ascertain
-whether they're true or false. But they serve us well as basic statements:
-we can precisely formulate our questions and data in terms of them.
-
-\bigskip
-
-The formulation just proposed is already based on some simplifications and
-the neglect of possible hierarchies: we could have distinguished the
-neurons in the two regions according to morphology or location, and the
-mice according to age, weight, and so on. But I take it as a good starting
-compromise between simplification and realism. We'll consider further
-simplifications in the next step.
 
 
 %%% Local Variables: 
