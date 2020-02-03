@@ -1,7 +1,5 @@
-% $Id: standardbringhurst.bbx,v 3.0 2015/11/26 19:09:07 lehman stable $
-
 \ProvidesFile{standardbringhurst.bbx}
-[\abx@bbxid $Id: standardbringhurst.bbx,v 3.0 2015/11/26 19:09:07 lehman stable $]
+[\abx@bbxid]
 
 \newtoggle{bbx:isbn}
 \newtoggle{bbx:url}
@@ -683,7 +681,7 @@
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{shorthands}{%
+\DeclareBibliographyDriver{shorthand}{%
   \usedriver
     {\DeclareNameAlias{sortname}{default}}
     {\thefield{entrytype}}%
@@ -790,6 +788,8 @@
 
 \newbibmacro*{event+venue+date}{%
   \printfield{eventtitle}%
+  \newunit
+  \printfield{eventtitleaddon}%
   \ifboolexpr{
     test {\iffieldundef{venue}}
     and

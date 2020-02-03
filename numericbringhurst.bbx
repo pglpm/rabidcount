@@ -1,14 +1,12 @@
-% $Id: numericbringhurst.bbx,v 2.0 2015/11/13 19:09:07 lehman stable $
-
 \ProvidesFile{numericbringhurst.bbx}
-[\abx@bbxid $Id: numericbringhurst.bbx,v 2.0 2015/11/13 19:09:07 lehman stable $]
+[\abx@bbxid]
 
 \RequireBibliographyStyle{standardbringhurst}
 \ExecuteBibliographyOptions{labelnumber}
 
 \providebool{bbx:subentry}
 
-\DeclareBibliographyOption{subentry}[true]{%
+\DeclareBibliographyOption[boolean]{subentry}[true]{%
   \setbool{bbx:subentry}{#1}}
 
 \DeclareNameAlias{author}{default}
@@ -34,7 +32,7 @@
   {\endlist}
   {\item}
 
-\defbibenvironment{shorthands}
+\defbibenvironment{shorthand}
   {\list
      {\printfield[shorthandwidth]{shorthand}}
      {\setlength{\labelwidth}{\shorthandwidth}%
@@ -51,7 +49,7 @@
   \entryset
     {\ifbool{bbx:subentry}
        {\printfield[bibentrysetcount]{entrysetcount}%
-	\setunit*{\addnbspace}}
+	\printunit*{\addnbspace}}
        {}}
     {}%
   \newunit\newblock
