@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-02-03T14:31:54+0100
+%% Last-Updated: 2020-02-06T11:26:19+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -1599,8 +1599,8 @@ rearranging the terms having the same $m$ we find
   \label{eq:marginalize_N}
   \pf( \text{\small data} \| \tu{\yFm}, \yS, \yI) ={}\\
   \prod_{m}
-  \sum_{\yNm_{1}} \dotsi  \sum_{\yNm_{\yJm}}
-\prod_{t=1}^{\yJm}
+  \sum_{\yNm_{1}} \dotsi  \sum_{\yNm_{\yJhm}}
+\prod_{t=1}^{\yJhm}
   \biggl[\yFFm_{\yNm_{t}}\biggr]\;
   \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
 \prod_{t=1}^{\yJhm}\Biggl[
@@ -1612,7 +1612,7 @@ rearranging the terms having the same $m$ we find
   \sum_{N=0}^{\yIhm-r}
   \yFFm_{N}\;
 \binom{\yIhm-r}{N}  \bigg/ \binom{\yIm}{N}
-\right]^{\yJm}.
+\right]^{\yJhm}.
 \end{multline}
 
 We can finally use Bayes's theorem~\eqref{eq:bayes_data_answers} together
@@ -1630,10 +1630,10 @@ probabilities we're looking for:
   \sum_{N=0}^{\yIhm-r}
   \yFFm_{N}\;
 \binom{\yIhm-r}{N}  \bigg/ \binom{\yIm}{N}
-\right]^{\yJm}\\
-\text{with } \text{\small data}=\set{\yIhm,\yJhm,\yIm,\yJm}.
+\right]^{\yJhm}\\
+\text{with } \text{\small data}=\set{\yIhm,\yJhm,\yIm}.
 \end{empheq}
-This probability will be found by Monte Carlo sampling.
+This probability will be calculated by Monte Carlo sampling.
 
 
 \section{Tying up loose ends}
