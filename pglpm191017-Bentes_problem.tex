@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-02-06T11:26:19+0100
+%% Last-Updated: 2020-03-13T14:45:32+0100
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -658,13 +658,15 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \newcommand*{\yc}{c}
 \newcommand*{\statm}[1]{\textsl{\textsf{#1}}}
 \newcommand*{\eq}{\mathrel{\!=\!}}
-\newcommand*{\yf}{f}
+\newcommand*{\yf}{\bm{f}}
 \newcommand*{\yq}{q}
 \newcommand*{\yth}{\theta}
 \newcommand*{\ynu}{\bm{\nu}}
 \newcommand*{\yN}{N}
 \newcommand*{\yNa}{\widebar{N}}
 \newcommand*{\yF}{\bm{F}}
+\newcommand*{\yFi}{\Hat{F}}
+\newcommand*{\yFr}{\widebar{F}}
 \newcommand*{\yFm}[1][m]{\yF^{(#1)}}
 \newcommand*{\yFFm}[1][m]{F^{(#1)}}
 \newcommand*{\yh}{\bm{h}}
@@ -1566,14 +1568,16 @@ therefore rewrite the probability~\eqref{eq:p_ka_boole} for $\ka$ as
 \Biggr].
 \end{equation}
 
-Finally, combining this with the probability~\eqref{eq:kb_given_stats} for
-$\kb$, simplifying the combinatorial terms, and considering all observed
+We can finally combine this with the probability~\eqref{eq:kb_given_stats}
+for $\kb$, simplifying the combinatorial terms. We must also consider that
+there are $\binom{\yIm}{\yIhm}$ ways in which the $\yIhm$ input cells could
+have been selected out of $\yIm$, for each mouse. Considering all observed
 mice $m$ we obtain
 \begin{multline}
   \label{eq:prob_data_given_stats}
   \pf( \text{\small data} \|\tu{\yNm_{t}},  \tu{\yFm}, \yS, \yI) ={}\\
   \prod_{m}
-  \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
+  \binom{\yIm}{\yIhm}\,\sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}
 \prod_{t=1}^{\yJhm}\Biggl[
 \binom{\yIhm-r}{\yNm_{t}}  \bigg/ \binom{\yIm}{\yNm_{t}}
 \Biggr].
@@ -1598,7 +1602,7 @@ rearranging the terms having the same $m$ we find
 \begin{multline}
   \label{eq:marginalize_N}
   \pf( \text{\small data} \| \tu{\yFm}, \yS, \yI) ={}\\
-  \prod_{m}
+  \prod_{m} \binom{\yIm}{\yIhm}\,
   \sum_{\yNm_{1}} \dotsi  \sum_{\yNm_{\yJhm}}
 \prod_{t=1}^{\yJhm}
   \biggl[\yFFm_{\yNm_{t}}\biggr]\;
@@ -1606,7 +1610,7 @@ rearranging the terms having the same $m$ we find
 \prod_{t=1}^{\yJhm}\Biggl[
 \binom{\yIhm-r}{\yNm_{t}}  \bigg/ \binom{\yIm}{\yNm_{t}}
 \Biggr] ={}\\
-  \prod_{m}\;
+  \prod_{m}\; \binom{\yIm}{\yIhm}\,
   \sum_{r=0}^{\yIhm}(-1)^{r}\binom{\yIhm}{r}\;
   \left[
   \sum_{N=0}^{\yIhm-r}
@@ -1633,7 +1637,65 @@ probabilities we're looking for:
 \right]^{\yJhm}\\
 \text{with } \text{\small data}=\set{\yIhm,\yJhm,\yIm}.
 \end{empheq}
-This probability will be calculated by Monte Carlo sampling.
+Note that the terms $\binom{\yIm}{\yIhm}$ can be included in the
+proportionality constant.
+
+\bigskip
+
+As an initial exploration we can focus on one mouse and one input region.
+The probability above simplifies to
+\newcommand*{\cF}{\textcolor{mypurpleblue}{F}}
+\newcommand*{\cI}{\textcolor{myred}{I}}
+\newcommand*{\cT}{\textcolor{myred}{T}}
+\newcommand*{\cS}{\textcolor{mygreen}{S}}
+\begin{empheq}[box=\widefbox]{equation}
+  \label{eq:final_form_answers_data_1mouse}
+  \pf(\textcolor{mypurpleblue}{\yF}  \| \textcolor{myred}{\text{\small data}}, \textcolor{mygreen}{\varIota})
+  \propto
+  \sum_{r=0}^{\cI}(-1)^{\cI-r}\; \binom{\cI}{r}\;
+  \left[
+  \sum_{n=0}^{\cI}
+\frac{\dbinom{r}{n}}{\dbinom{\cS}{n}}
+\;  \textcolor{mypurpleblue}{F_{n}}
+\right]^{\cT}
+\times
+\pf(\textcolor{mypurpleblue}{\yF}  \|  \textcolor{mygreen}{\varIota})
+\end{empheq}
+
+The first factor in the probability distribution above can be factorized.
+First divide the statistics $\yF$ into two groups: $(F_{0}, \dotsc, F_{I})$
+for inputs at most $I$, and $(F_{I+1}, \dotsc, F_{S})$ above $I$. The total
+frequency for each group is
+\begin{equation}
+  \label{eq:groups_F}
+  \yFi \defd F_{0} + \dotsb + F_{I}, \qquad
+  \yFr \defd F_{I+1} +  \dotsb + F_{S}.
+\end{equation}
+Then consider the \emph{conditional frequencies} of a target cell's having
+$0,\dotsc,I$ inputs, conditional on it having at most $I$ inputs:
+\begin{equation}
+  \label{eq:cond_freqs}
+  f_{n} \defd \frac{F_{n}}{\yFi},\qquad
+  \text{with } \sum_{n=0}^{I} f_{n} =1.
+\end{equation}
+
+From the distribution~\eqref{eq:final_form_answers_data_1mouse} we have
+\begin{multline}
+  \label{eq:factor_F_distr}
+    \pf(\yf, \yFi, \yFr  \| \text{\small data}, \varIota)
+  \propto{}\\
+  \sum_{r=0}^{I}(-1)^{I-r}\; \binom{I}{r}\;
+  \left[
+  \sum_{n=0}^{I}
+\frac{\dbinom{r}{n}}{\dbinom{S}{n}}
+\;  f_{n}
+\right]^{T}
+\times \yFi^{T}
+\times     \pf(\yf, \yFi, \yFr  \| \varIota) \;.
+\end{multline}
+Note that the probability for $\yFr$ does \emph{not} depend on the data.
+
+
 
 
 \section{Tying up loose ends}
