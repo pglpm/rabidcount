@@ -1,7 +1,7 @@
 \pdfoutput=1
 %% Author: PGL  Porta Mana
 %% Created: 2015-05-01T20:53:34+0200
-%% Last-Updated: 2020-03-13T14:45:32+0100
+%% Last-Updated: 2020-05-25T14:38:04+0200
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifarxiv
 \arxivfalse
@@ -19,12 +19,12 @@ british%
 \newcommand*{\firstdraft}{17 October 2019}
 \newcommand*{\firstpublished}{17 October 2019}
 \newcommand*{\updated}{\ifarxiv***\else\today\fi}
-\newcommand*{\propertitle}{Memos on inferring connectivity [draft]%\\{\large ***}%
+\newcommand*{\propertitle}{Bayesian methods\\for inferring neuronal connectivity [draft]%\\{\large ***}%
 }% title uses LARGE; set Large for smaller
-\newcommand*{\pdftitle}{\propertitle}
+\newcommand*{\pdftitle}{Bayesian methods for inferring neuronal connectivity [draft]}
 \newcommand*{\headtitle}{Inferring connectivity}
-\newcommand*{\pdfauthor}{P.G.L.  Porta Mana, B. Jacobsen}
-\newcommand*{\headauthor}{Porta Mana, Jacobsen}
+\newcommand*{\pdfauthor}{P.G.L.  Porta Mana, B. Jacobsen, M. Witter}
+\newcommand*{\headauthor}{Porta Mana, Jacobsen, Witter}
 \newcommand*{\reporthead}{\ifarxiv\else Open Science Framework \href{https://doi.org/10.31219/osf.io/***}{\textsc{doi}:10.31219/osf.io/***}\fi}% Report number
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -499,13 +499,17 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \author{%
 \hspace*{\stretch{1}}%
 %% uncomment if additional authors present
-\parbox{0.49\linewidth}%\makebox[0pt][c]%
+\parbox{0.33\linewidth}%\makebox[0pt][c]%
 {\protect\centering P.G.L.  Porta Mana\\%
-\footnotesize\epost{\email{piero.mana}{ntnu.no}}}%
+\footnotesize\epost{\email{pgl}{portamana.org}}}%
 \hspace*{\stretch{1}}%
-\parbox{0.49\linewidth}%\makebox[0pt][c]%
+\parbox{0.33\linewidth}%\makebox[0pt][c]%
 {\protect\centering B. Jacobsen\\%
 \footnotesize\epost{\email{bente.jacobsen}{ntnu.no}}}%
+\hspace*{\stretch{1}}%
+\parbox{0.33\linewidth}%\makebox[0pt][c]%
+{\protect\centering M. Witter\\%
+\footnotesize\epost{\email{menno.witter}{ntnu.no}}}%
 \hspace*{\stretch{1}}%
 %\quad\href{https://orcid.org/0000-0002-6070-0784}{\protect\includegraphics[scale=0.16]{orcid_32x32.png}\textsc{orcid}:0000-0002-6070-0784}%
 }
@@ -716,7 +720,7 @@ totalheight=\heightof{@}]{atblack.png}}\makeatother
 \setlength{\absrightindent}{0pt}
 \setlength{\abstitleskip}{-\absparindent}
 \begin{abstract}\labelsep 0pt%
-  \noindent Some memos on the problem of inferring connectivity by means of
+  \noindent The problem of inferring connectivity by means of
   the probability-calculus aka Bayesian theory.
 %\\\noindent\emph{\footnotesize Note: Dear Reader \amp\ Peer, this manuscript is being peer-reviewed by you. Thank you.}
 % \par%\\[\jot]
